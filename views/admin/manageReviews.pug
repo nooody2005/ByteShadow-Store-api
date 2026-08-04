@@ -1,0 +1,42 @@
+//- extends ../base
+
+
+//- block content
+
+//-   main.main
+
+//-     h2.heading-secondary.ma-bt-lg Manage Reviews
+
+
+//-     table.table
+
+//-       thead
+//-         tr
+//-           th User
+//-           th Tour
+//-           th Review
+//-           th Rating
+//-           th Action
+
+
+//-       tbody
+
+//-         each review in reviews
+
+//-           tr
+
+//-             td= review.user.name
+
+//-             td= review.tour.name
+
+//-             td= review.review
+
+//-             td= review.rating
+
+
+//-             td
+
+//-               button.btn.btn--small.btn--red(
+//-                 data-id=review._id
+//-               )
+//-                 | Delete

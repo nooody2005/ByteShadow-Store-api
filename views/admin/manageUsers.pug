@@ -1,0 +1,43 @@
+//- extends ../base
+
+
+//- block content
+
+//-   main.main
+
+//-     h2.heading-secondary.ma-bt-lg Manage Users
+
+
+//-     table.table
+
+//-       thead
+//-         tr
+//-           th Name
+//-           th Email
+//-           th Role
+//-           th Actions
+
+
+//-       tbody
+
+//-         each user in users
+
+//-           tr
+
+//-             td= user.name
+//-             td= user.email
+//-             td= user.role
+
+
+//-             td
+
+//-               a.btn.btn--small(
+//-                 href=`/edit-user/${user._id}`
+//-               )
+//-                 | Edit
+
+
+//-               button.btn.btn--small.btn--red(
+//-                 data-id=user._id
+//-               )
+//-                 | Delete

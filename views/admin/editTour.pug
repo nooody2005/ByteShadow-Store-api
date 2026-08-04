@@ -1,0 +1,118 @@
+//- extends ../base
+
+//- block content
+//-   main.main
+//-     .user-view
+//-       .user-view__content
+
+//-         h2.heading-secondary.ma-bt-lg Edit Tour
+
+//-         form#editTourForm(data-id=tour._id)
+
+//-           // ================= NAME =================
+//-           .form__group
+//-             label.form__label Name
+//-             input.form__input(
+//-               type="text"
+//-               name="name"
+//-               value=tour.name
+//-               required
+//-             )
+
+//-           // ================= PRICE =================
+//-           .form__group
+//-             label.form__label Price
+//-             input.form__input(
+//-               type="number"
+//-               name="price"
+//-               value=tour.price
+//-               required
+//-             )
+
+//-           // ================= DURATION =================
+//-           .form__group
+//-             label.form__label Duration
+//-             input.form__input(
+//-               type="number"
+//-               name="duration"
+//-               value=tour.duration
+//-               required
+//-             )
+
+//-           // ================= DIFFICULTY =================
+//-           .form__group
+//-             label.form__label Difficulty
+//-             select.form__input(name="difficulty")
+//-               option(value="easy" selected=tour.difficulty==='easy') Easy
+//-               option(value="medium" selected=tour.difficulty==='medium') Medium
+//-               option(value="difficult" selected=tour.difficulty==='difficult') Difficult
+
+//-           // ================= SUMMARY =================
+//-           .form__group
+//-             label.form__label Summary
+//-             textarea.form__input(name="summary", rows="5")= tour.summary
+
+//-           // ================= MAX GROUP =================
+//-           .form__group
+//-             label.form__label Max Group Size
+//-             input.form__input(
+//-               type="number"
+//-               name="maxGroupSize"
+//-               value=tour.maxGroupSize
+//-             )
+
+//-           // ================= START LOCATION =================
+//-           .form__group
+//-             label.form__label Start Location
+//-             input.form__input(
+//-               type="text"
+//-               name="startLocation"
+//-               value=tour.startLocation ? tour.startLocation.description : ''
+//-             )
+
+//-           // ================= COVER IMAGE =================
+//-           .form__group
+//-             label.form__label Cover Image
+
+//-             img.form__user-photo(
+//-               src=`/img/tours/${tour.imageCover}`
+//-               alt=tour.name
+//-             )
+
+//-             input.form__input(
+//-               type="file"
+//-               name="imageCover"
+//-               accept="image/*"
+//-             )
+
+//-           // ================= CURRENT IMAGES =================
+//-           .form__group
+//-             label.form__label Current Images
+
+//-             .images-grid
+//-               each img in tour.images
+//-                 .image-box
+//-                   img.form__user-photo(
+//-                     src=`/img/tours/${img}`
+//-                     alt=tour.name
+//-                   )
+
+//-                   button.delete-image-btn(
+//-                     type="button"
+//-                     data-img=img
+//-                   ) ×
+
+//-           // ================= ADD NEW IMAGES =================
+//-           .form__group
+//-             label.form__label Add New Images
+
+//-             input.form__input(
+//-               type="file"
+//-               name="images"
+//-               accept="image/*"
+//-               multiple
+//-             )
+
+//-           // ================= SUBMIT =================
+//-           .form__group
+//-             button.btn.btn--green.btn--large Save Changes

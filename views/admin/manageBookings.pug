@@ -1,0 +1,44 @@
+//- extends ../base
+
+
+//- block content
+
+//-   main.main
+
+//-     h2.heading-secondary.ma-bt-lg Manage Bookings
+
+
+//-     table.table
+
+//-       thead
+//-         tr
+//-           th User
+//-           th Tour
+//-           th Price
+//-           th Date
+//-           th Action
+
+
+//-       tbody
+
+
+//-         each booking in bookings
+
+
+//-           tr
+
+//-             td= booking.user.name
+
+//-             td= booking.tour.name
+
+//-             td= booking.price
+
+//-             td= booking.createdAt.toDateString()
+
+
+//-             td
+
+//-               button.btn.btn--small.btn--red(
+//-                 data-id=booking._id
+//-               )
+//-                 | Delete
