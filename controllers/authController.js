@@ -10,6 +10,8 @@ const { findById } = require('../models/paintingModel');
 const { send } = require('process');
 const { cookie, status } = require('express/lib/response');
 
+
+
 const signToken = id => {
   //jwt.sign({payload},secret);
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -80,8 +82,18 @@ exports.login = catchAsync(async (req, res, next) => {
     }
 
     // 3) check everything is okay then send token
+
+      // get last login
+        user.lastLogin = new Date();
+    
+        await user.save({
+          validateBeforeSave: false,
+        });
+
     createSendToken(user, 200 , res);
+    
     // const token = signToken(user._id);
+
 
     // res.status(200).json({
     //     status: 'success',
