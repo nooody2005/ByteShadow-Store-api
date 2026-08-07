@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Byte Shadow Admin",
+    "email": "admin@byteshadow.com",
+    "password": "test1234",
+    "passwordConfirm": "test1234",
+    "role": "admin",
+    "photo": "default.jpg",
+    "active": true,
+    "status": "active"
+  },
+  {
+    "name": "Nada",
+    "email": "nada@byteshadow.com",
+    "password": "test1234",
+    "passwordConfirm": "test1234",
+    "role": "user",
+    "photo": "default.jpg",
+    "active": true,
+    "status": "active"
+  },
+  {
+    "name": "Painting User",
+    "email": "user@byteshadow.com",
+    "password": "test1234",
+    "passwordConfirm": "test1234",
+    "role": "user",
+    "photo": "default.jpg",
+    "active": true,
+    "status": "active"
+  }
+]
+

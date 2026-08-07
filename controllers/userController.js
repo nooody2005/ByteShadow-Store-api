@@ -17,7 +17,7 @@ const handleFactory = require('./../controllers/handleFactory');
 //   }
 // });
 
-const token = signToken(user._id);
+// const token = signToken(user._id);
 
 const multerStorage = multer.memoryStorage(); //image will store as buffer to make edits on it like resizing it before saving it in db 
 const multerFile = (req, file , cb) => {
