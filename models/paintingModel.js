@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
-// const validator = require('validator');
-// const User = require('./usermodel');
+const validator = require('validator');
+const User = require('./usermodel');
 
 
 //make collection (table)

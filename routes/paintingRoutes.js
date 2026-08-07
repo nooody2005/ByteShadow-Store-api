@@ -3,9 +3,66 @@ const router = express.Router();
 const paintingController = require('./../controllers/paintingController');
 const authController = require('./../controllers/authController');
 // const reviewController = require('./../controllers/reviewController');
-const reviewRouter = require('./../routes/reviewRoutes');
+// const reviewRouter = require('./../routes/reviewRoutes');
 
-router.use('/:paintingId/reviews', reviewRouter);
+// router.use('/:paintingId/reviews', reviewRouter);
+
+
+// router
+// .route("/")
+// .get(paintingController.getAllPaintings)
+// .post(
+//     authController.protect,
+//     authController.restrictTo("admin", "lead-guide"),
+//     paintingController.createPainting
+// );
+
+router.route("/").get(paintingController.getAllPaintings).post(
+  authController.protect,
+  authController.restrictTo("admin", "lead-guide"),
+
+  paintingController.uploadPaintingImages,
+  paintingController.generatePaintingId,
+  paintingController.resizePaintingImages,
+  paintingController.createPainting,
+);
+
+router
+.route('/:id')
+.get(paintingController.getPainting)
+.patch(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    paintingController.uploadPaintingImages,
+    paintingController.resizePaintingImages,
+    paintingController.updatePainting
+)
+.delete(
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    paintingController.deletePainting
+);
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   .post(paintingController.checkBody, paintingController.createPainting);
 
 // router
 //   .route('/:paintingId/reviews')
@@ -20,33 +77,3 @@ router.use('/:paintingId/reviews', reviewRouter);
 // router
 //   .route('/top-5-cheap')
 //   .get(paintingController.aliasTopPainting, paintingController.getAllPaintings);
-
-
-router
-  .route("/")
-  .get(paintingController.getAllPaintings)
-  .post(
-    authController.protect,
-    authController.restrictTo("admin", "lead-guide"),
-    paintingController.createPainting
-  );
-
-//   .post(paintingController.checkBody, paintingController.createPainting);
-
-router
-  .route('/:id')
-  .get(paintingController.getPainting)
-  .patch(
-    authController.protect,
-    authController.restrictTo('admin', 'lead-guide'),
-    paintingController.uploadPaintingImages,
-    paintingController.resizePaintingImages,
-    paintingController.updatePainting
-  )
-  .delete(
-    authController.protect,
-    authController.restrictTo('admin', 'lead-guide'),
-    paintingController.deletePainting
-  );
-
-module.exports = router;

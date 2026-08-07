@@ -16,8 +16,8 @@ const methodOverride = require('method-override');
 
 const paintingRouter = require('./routes/paintingRoutes');
 const userRouter = require('./routes/userRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const bookingRouter = require('./routes/bookingRoutes');
+// const reviewRouter = require('./routes/reviewRoutes');
+// const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRouter');
 const { title } = require('process');
 
@@ -114,11 +114,11 @@ app.use((req, res, next) => {
 //======================================================================
 
 
-app.use('/',viewRouter);
+// app.use('/',viewRouter);
 app.use('/api/v1/paintings', paintingRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/reviews',reviewRouter);
-app.use('/api/v1/booking', bookingRouter);
+// app.use('/api/v1/users', userRouter);
+// app.use('/api/v1/reviews',reviewRouter);
+// app.use('/api/v1/booking', bookingRouter);
 
 app.all('*', (req, res, next) => {
   //make object from class AppError in the file appError in utils folder  and send this error to it 
