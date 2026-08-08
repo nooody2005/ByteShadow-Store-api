@@ -2,10 +2,8 @@ doctype html
 
 html(lang="en")
     head
-        block head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-
 
         //- Normalize CSS
         link(rel="stylesheet", href="/css/normalize.css")
@@ -18,13 +16,14 @@ html(lang="en")
 
         //- Google Fonts
         link(rel="preconnect", href="https://fonts.googleapis.com")
-        link(rel="preconnect", href="https://fonts.gstatic.com")
         link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap")
 
         //- Favicon
         link(rel="shortcut icon", type="image/jpg", href="/images/1.jpg")
 
         title Byte Shadow | #{title}
+
+        block head
 
     body
 
@@ -38,6 +37,4 @@ html(lang="en")
         // FOOTER
         include _footer
 
-        //- JavaScript
         block scripts
-

@@ -1,0 +1,124 @@
+extends base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+
+block content
+
+
+//- Start Painting
+.painting
+    .container
+        .painting-content
+
+            .image
+                img(src="/images/1.jpg", alt="Painting")
+
+            .details
+                h1.painting-Name Painting Name
+
+                p.breif-overview
+                    | Lorem ipsum dolor sit amet consectetur hbvjnvkva habivihbiayb..
+
+                .sale-section
+
+                    .price
+                        h3 Current Highest Bid
+
+                        span.current-price
+                            span.number 120
+                            span.currency $
+
+                        .bid-box
+                            label(for="bid") Your Bid
+
+                            input.bid-input(
+                                id="bid"
+                                type="number"
+                                value="120"
+                                min="121"
+                                step="1"
+                            )
+
+                        button.bid-btn(type="button") Place Bid
+
+                    .info
+
+                        .size
+                            span.title
+                                i.fas.fa-ruler-combined
+                                | Size
+
+                            span.value 20 * 30 cm
+
+                        .date
+                            span.title
+                                i.far.fa-calendar-alt
+                                | Created
+
+                            span.value 15 Jul 2025
+
+                        .auction-info
+                            span.title
+                                i.fas.fa-gavel
+                                | Auction Ends
+
+                            span.value 30 Jul 2026
+
+//- End Painting
+
+
+//- Start Decoration
+.decoration
+    .container
+
+        .section-title
+            span
+            h2 Decoration Ideas
+            span
+
+        p
+            | Lorem ipsum dolor sit amet, consectetur repellendus dolore quis quas pariatur. Veniam ab unde delectus.
+
+        .images
+            img(src="/images/1.jpg", alt="Decoration")
+            img(src="/images/1.jpg", alt="Decoration")
+            img(src="/images/1.jpg", alt="Decoration")
+            img(src="/images/1.jpg", alt="Decoration")
+
+//- End Decoration
+
+
+//- Start Description
+.description-feel
+    .container
+
+        p
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde expedita velit quae aut similique, quisquam corrupti dolores? Qui facilis corporis perferendis odio quibusdam, eius quae rerum quas eveniet exercitationem eligendi.
+
+        p
+            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quam voluptatibus praesentium ab ex cum, sit exercitationem dolore repellat. Dicta atque a magni cumque? Odit veniam adipisci nostrum molestias optio.
+
+//- End Description
+
+
+//- Start Stages
+.stages
+    .container
+
+        .section-title
+            span
+            h2 Painting Process
+            span
+
+        p
+            | Follow the journey of this artwork from the first sketch to the final masterpiece.
+
+        .stage-images
+            img(src="/images/1.jpg", alt="Painting Process")
+            img(src="/images/1.jpg", alt="Painting Process")
+            img(src="/images/1.jpg", alt="Painting Process")
+            img(src="/images/1.jpg", alt="Painting Process")
+
+//- End Stages
+
