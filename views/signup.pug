@@ -1,0 +1,58 @@
+extends base
+
+block head
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+
+
+    //- Start Sign Up
+    section.auth-page
+        .container
+            .auth-box
+
+                h2 Create Account
+
+                p Join Byte Shadow and discover inspiring artwork.
+
+                form
+                    .input-box
+                        i.fas.fa-user
+                        input(
+                            type="text"
+                            placeholder="Full Name"
+                            required
+                        )
+
+                    .input-box
+                        i.fas.fa-envelope
+                        input(
+                            type="email"
+                            placeholder="Email Address"
+                            required
+                        )
+
+                    .input-box
+                        i.fas.fa-lock
+                        input(
+                            type="password"
+                            placeholder="Password"
+                            required
+                        )
+
+                    .input-box
+                        i.fas.fa-lock
+                        input(
+                            type="password"
+                            placeholder="Confirm Password"
+                            required
+                        )
+
+                    button.auth-btn(type="submit") Create Account
+
+                .auth-switch
+                    | Already have an account? 
+                    a(href="/login") Login
+
+    //- End Sign Up
+

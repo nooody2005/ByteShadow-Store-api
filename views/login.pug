@@ -1,0 +1,49 @@
+extends base
+
+block head
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+
+
+    //- Start Login
+    section.auth-page
+        .container
+            .auth-box
+
+                h2 Welcome Back
+
+                p Sign in to continue exploring unique artworks.
+
+                form
+                    .input-box
+                        i.fas.fa-envelope
+                        input(
+                            type="email"
+                            placeholder="Email Address"
+                            required
+                        )
+
+                    .input-box
+                        i.fas.fa-lock
+                        input(
+                            type="password"
+                            placeholder="Password"
+                            required
+                        )
+
+                    .login-options
+                        label.remember
+                            input(type="checkbox")
+                            | Remember me
+
+                        a(href="#") Forgot Password?
+
+                    button.auth-btn(type="submit") Login
+
+                .auth-switch
+                    | Don't have an account? 
+                    a(href="/signup") Create Account
+
+    //- End Login
+
