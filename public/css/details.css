@@ -1,0 +1,531 @@
+:root {
+    /* Background */
+    --dark-bg: rgba(0, 0, 0, .65);
+    /* Glass */
+    --glass-bg: rgba(255, 255, 255, .05);
+    /* Borders */
+    --soft-border: rgba(255, 255, 255, .12);
+    /* Text */
+    --light-text: rgba(255, 255, 255, .85);
+    --medium-text: rgba(255, 255, 255, .8);
+    --muted-text: rgba(255, 255, 255, .65);
+    /* Lines */
+    --line-color: rgba(255, 255, 255, .25);
+    --line-soft: rgba(255, 255, 255, .35);
+    /* Shadows */
+    --shadow-soft: rgba(0, 0, 0, .35);
+    --shadow-medium: rgba(0, 0, 0, .45);
+    --shadow-dark: rgba(0, 0, 0, .5);
+}
+
+/* ===========================
+        Painting Details
+=========================== */
+
+.painting {
+    position: relative;
+    background: var(--dark-bg);
+    padding: 150px 0 100px;
+    min-height: 100vh;
+    border-bottom: 1px solid rgba(79, 77, 77, 0.021);
+    box-shadow:
+        inset 0 -30px 60px var(--shadow-soft),
+        0 40px 70px rgba(0, 0, 0, .25);
+}
+
+.painting .painting-content {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+/* ===========================
+            Image
+=========================== */
+
+.painting .image {
+    flex: 0 0 420px;
+}
+
+.painting .image img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 40px 60px var(--shadow-medium);
+    transition: .4s;
+}
+
+.painting .image img:hover {
+    transform: scale(1.13);
+}
+
+/* ===========================
+          Details
+=========================== */
+
+.painting .datails {
+    flex: 1;
+}
+
+.painting .painting-Name {
+    color: var(--main-color);
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.painting .breif-overview {
+    color: var(--main-color);
+    line-height: 1.8;
+    font-size: 18px;
+    margin-bottom: 45px;
+    max-width: 700px;
+}
+
+/* ===========================
+        Sale Section
+=========================== */
+
+.sale-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 70px;
+}
+
+/* ===========================
+        Price Card
+=========================== */
+
+.price {
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 12px;
+    padding: 30px;
+    min-width: 330px;
+    backdrop-filter: blur(10px);
+}
+
+.price h3 {
+    color: var(--medium-text);
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.current-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.current-price .number {
+    color: var(--main-color);
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.current-price .currency {
+    color: var(--strong-color);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ===========================
+        Bid Input
+=========================== */
+
+.bid-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.bid-box label {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.bid-input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .08);
+    color: white;
+    font-size: 18px;
+    outline: none;
+    transition: .3s;
+}
+
+.bid-input:focus {
+    border-color: var(--strong-color);
+    box-shadow: 0 0 15px rgba(255, 255, 255, .15);
+}
+
+.bid-input {
+    -moz-appearance: textfield;
+}
+
+/* ===========================
+        Bid Button
+=========================== */
+
+.bid-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--strong-color);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.bid-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .3);
+}
+
+/* ===========================
+      Size & Information
+=========================== */
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-width: 250px;
+}
+
+.info>div {
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 12px;
+    padding: 22px 25px;
+    backdrop-filter: blur(10px);
+    transition: .35s ease;
+}
+
+.info>div:hover {
+    transform: translateY(-5px);
+    border-color: var(--strong-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
+}
+
+.info .title {
+    display: block;
+    color: var(--muted-text);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.info .value {
+    display: block;
+    color: var(--main-color);
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.info .auction-info .value {
+    color: var(--main-color);
+}
+/* ===========================
+        Responsive
+=========================== */
+
+@media (max-width:991px) {
+    .sale-section {
+        flex-direction: column;
+    }
+
+    .price,
+    .info {
+        width: 100%;
+    }
+
+    .info>div {
+        width: 100%;
+    }
+}
+
+/* ===========================
+        Decoration
+=========================== */
+
+.decoration {
+    background: var(--dark-bg);
+    padding: 50px 0 90px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 10px 0 55px;
+}
+
+.section-title span {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--strong-color), transparent);
+}
+
+.section-title h2 {
+    color: var(--main-color);
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Paragraph */
+
+.decoration p {
+    max-width: 850px;
+    margin: 0 auto 60px;
+    text-align: center;
+    color: var(--light-text);
+    font-size: 18px;
+    line-height: 2.1;
+    letter-spacing: .4px;
+}
+
+.decoration p::after {
+    content: "";
+    display: block;
+    width: 130px;
+    height: 2px;
+    margin: 35px auto 0;
+    background: linear-gradient(to right, transparent, var(--line-soft), transparent);
+}
+
+/* ===========================
+            Images
+=========================== */
+
+.decoration .images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 0;
+}
+
+.decoration .images img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 6px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 20px 40px var(--shadow-soft);
+    margin-left: -22px;
+    transition: transform .45s, box-shadow .45s;
+}
+
+/* الميل */
+
+.decoration .images img:nth-child(1) {
+    transform: rotate(-8deg);
+}
+
+.decoration .images img:nth-child(2) {
+    transform: rotate(5deg);
+}
+
+.decoration .images img:nth-child(3) {
+    transform: rotate(-5deg);
+}
+
+.decoration .images img:nth-child(4) {
+    transform: rotate(8deg);
+}
+
+/* Hover */
+
+.decoration .images img:hover {
+    transform: rotate(0) scale(1.28);
+    z-index: 20;
+    box-shadow: 0 30px 60px var(--shadow-dark);
+}
+
+@media (max-width:991px) {
+    .painting .painting-content {
+        flex-direction: column;
+    }
+
+    .painting .image {
+        width: 100%;
+        max-width: 420px;
+        margin: auto;
+    }
+
+    .sale-section {
+        flex-direction: column;
+    }
+
+    .price,
+    .info {
+        width: 100%;
+    }
+
+    .decoration .images {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .decoration .images img {
+        margin-left: 0;
+        transform: none !important;
+    }
+}
+
+/* ===========================
+        Description Feel
+=========================== */
+
+.description-feel {
+    background: var(--dark-bg);
+    padding: 80px 0;
+    position: relative;
+}
+
+.description-feel,
+.stages {
+    position: relative;
+}
+
+.description-feel::before,
+.stages::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line-color), transparent);
+}
+
+.description-feel p {
+    color: var(--light-text);
+    font-size: 20px;
+    line-height: 2;
+    text-align: center;
+    max-width: 950px;
+    margin: 0 auto 25px;
+    letter-spacing: .5px;
+    font-style: italic;
+    position: relative;
+}
+
+.description-feel::after {
+    content: "BYTE SHADOW";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    font-weight: bold;
+    letter-spacing: 15px;
+    color: rgba(255, 255, 255, .04);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.description-feel .container {
+    position: relative;
+    z-index: 1;
+}
+/* ===========================
+        Painting Process
+=========================== */
+
+.stages {
+    background: var(--dark-bg);
+    padding: 80px 0;
+    overflow: hidden;
+    padding-bottom: calc(var(--section-padding) + 100px);
+}
+
+.stages p {
+    color: var(--light-text);
+    font-size: 18px;
+    line-height: 2;
+    max-width: 850px;
+    margin: 0 auto 45px;
+    text-align: center;
+}
+.section-title {
+    margin: 10px 0 35px;
+}
+.stage-images {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 140px;
+    padding: 35px 80px 25px;
+    scroll-behavior: smooth;
+}
+
+.stage-images::-webkit-scrollbar {
+    height: 8px;
+}
+
+.stage-images::-webkit-scrollbar-thumb {
+    background: var(--line-color);
+    border-radius: 20px;
+}
+
+.stage-images img {
+    flex: 0 0 auto;
+    width: 240px;
+    height: 330px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 4px solid var(--soft-border);
+    box-shadow: 0 18px 35px var(--shadow-medium);
+    transition: .45s;
+}
+
+/* .stage-images img:nth-child(odd) {
+    transform: rotate(-5deg);
+}
+
+.stage-images img:nth-child(even) {
+    transform: rotate(5deg);
+} */
+
+.stage-images img:hover {
+    transform: rotate(0deg) scale(1.12);
+    z-index: 5;
+}
+
+.stage-images {
+    position: relative;
+}
+
+.stage-images::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--line-color), transparent);
+    z-index: 0;
+}
+
+.stage-images img {
+    position: relative;
+    z-index: 1;
+}
