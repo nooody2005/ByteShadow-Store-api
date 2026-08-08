@@ -1,0 +1,235 @@
+extends base
+
+block content
+
+
+//- Start Landing
+.landing#home
+    .overlay
+        .text
+            .content
+                h2
+                    | Hello World!
+                    br
+                    | I'm Nada I make art.
+
+                p
+                    | Welcome to Colorful Creations Store! We offer a vibrant collection of paintings that add color and life to any space. Each piece is crafted with passion and creativity, bringing unique art to your place.
+
+    a.go-down(href="#gallery")
+        i.fas.fa-angle-double-down.fa-2x
+//- End Landing
+
+
+//- Start Gallery
+.gallery#gallery
+    .container
+
+        .main-heading
+            .container
+                .text
+                    h2 Gallery
+
+        //- Shuffle
+        ul.shuffle
+            li.active All
+            li Expressive
+            li Romantic
+            li Nature
+
+        //- Gallery Content
+        .gallery-content
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3.painting-Name Painting Name
+                        p.breif-overview a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3 Painting Name
+                        p a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3 Painting Name
+                        p a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3 Painting Name
+                        p a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3 Painting Name
+                        p a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+            .box
+                .image
+                    img(src="/images/1.jpg", alt="Painting")
+                    .text
+                        h3 Painting Name
+                        p a little description for painting..
+                        span 40 * 60 cm
+
+                        .price
+                            span.current-price
+                                span.number 120
+                                span.currency $
+
+                        .info
+                            a(href="#") Details
+                            i.fas.fa-long-arrow-alt-right
+
+        a.more(href="#") More
+//- End Gallery
+
+
+//- Start Decoration
+.decore#decoration
+    .container
+
+        .main-heading
+            .container
+                .text
+                    h2 Decoration
+
+        .decore-content
+
+            .decore-text
+                p
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Id consequatur quibusdam laborum perferendis commodi aut, vitae deserunt dolorem, saepe ipsam minima tempore dolore tempora in laboriosam, hic voluptates obcaecati excepturi?
+
+            .images
+                img(src="/images/1.jpg", alt="Decoration")
+                img(src="/images/1.jpg", alt="Decoration")
+                img(src="/images/1.jpg", alt="Decoration")
+                img(src="/images/1.jpg", alt="Decoration")
+                img(src="/images/1.jpg", alt="Decoration")
+//- End Decoration
+
+
+//- Start Video
+.video
+    video(autoplay, muted)
+        source(src="/images/awesome-video.mp4", type="video/mp4")
+
+    .text
+        h2 Behind Every Painting
+        p Every brushstroke tells a story.
+        button Explore Gallery
+//- End Video
+
+
+//- Start Contact Us
+.contact#contact
+    .container
+
+        .main-heading
+            .container
+                .text
+                    h2 Contact Us
+
+        .content
+
+            form(action="")
+                input.main-input(
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                )
+
+                input.main-input(
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                )
+
+                textarea.main-input(
+                    name="message"
+                    placeholder="Your Message"
+                )
+
+                input(
+                    type="submit"
+                    value="send message"
+                )
+
+            .info
+                h4 Get In Touch
+                span.phone +001551037389
+                span.phone +001551037389
+
+                h4 Where We Are
+
+                address
+                    | Awesome Address 17
+                    br
+                    | New York, NYC
+                    br
+                    | 01551037389
+                    br
+                    | USA
+//- End Contact Us
+
