@@ -7,6 +7,9 @@ const authController = require('./../controllers/authController');
 
 // router.use('/:paintingId/reviews', reviewRouter);
 
+const bidRouter = require('./../routes/bidRoutes');
+router.use('/:paintingId/bids', bidRouter);
+
 
 // router
 // .route("/")

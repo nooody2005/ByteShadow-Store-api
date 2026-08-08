@@ -10,6 +10,7 @@ dotenv.config({ path: './../../config.env' });
 
 const Painting = require('./../../models/paintingModel');
 const User = require('./../../models/userModel');
+const Bid = require('./../../models/bidModel');
 // const Review = require('./../../models/reviewModel');
 
 // const DB = 'mongodb://127.0.0.1:27017/paintings';
@@ -25,14 +26,16 @@ mongoose
 //Read file
 const paintings =JSON.parse(fs.readFileSync(`${__dirname}/paintings.json`, 'utf-8'));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+const bids = JSON.parse(fs.readFileSync(`${__dirname}/bids.json`, 'utf-8'));
 // const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'));
 
 
 const importData = async() => {
   
   try{
-    await Painting.create(paintings);
-    await User.create(users, { validateBeforeSave: false });
+    // await Painting.create(paintings);
+    // await User.create(users, { validateBeforeSave: false });
+    await Bid.create(bids)
     // await Review.create(reviews);
     
     console.log('created successfully :)');
@@ -48,6 +51,7 @@ const deleteData = async() => {
   try{
     await Painting.deleteMany();
     await User.deleteMany();
+    await Bid.deleteMany();
     // await Review.deleteMany();
     console.log('deleted successfully :)');
   }catch(err) {
