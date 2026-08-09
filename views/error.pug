@@ -1,0 +1,24 @@
+extends base
+
+block head
+    link(rel="stylesheet", href="/css/error.css")
+
+block content
+
+    //- Start Error Page
+    section.error-page
+        .container
+            .error-box
+
+                .error-number 404
+
+                h2 Oops! Page Not Found
+
+                p
+                    | Sorry, the page you're looking for doesn't exist
+                    | or may have been moved.
+
+                //- Back to Home
+                //- a.error-btn(href="/") Back to Home
+
+    //- End Error Page

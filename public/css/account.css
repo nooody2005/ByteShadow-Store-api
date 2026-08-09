@@ -1,0 +1,545 @@
+
+/* ========================================
+Account Page
+======================================== */
+
+.account-page {
+    min-height: 100vh;
+    padding: 120px 0;
+
+     background:
+        linear-gradient(var(--dark-bg),
+            var(--dark-bg));
+
+    color: var(--light-text);
+    
+}
+
+/* ========================================
+Main Layout
+======================================== */
+
+.account-view {
+    display: flex;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+/* ========================================
+Sidebar
+======================================== */
+
+.account-menu {
+    width: 260px;
+    flex-shrink: 0;
+
+     background: var(--glass-bg);
+
+    border: 1px solid var(--soft-border);
+
+    box-shadow:
+        0 10px 30px var(--shadow-soft);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+}
+
+.side-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-nav li {
+    border-bottom: 1px solid var(--soft-border);
+}
+
+.side-nav li:last-child {
+    border-bottom: none;
+}
+
+.side-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+     padding: 18px 20px;
+
+    color: var(--medium-text);
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: .3s;
+    
+}
+
+.side-nav li a i {
+    width: 20px;
+
+     text-align: center;
+
+    color: var(--main-color);
+
+    font-size: 16px;
+
+    transition: .3s;
+    
+}
+
+.side-nav li a:hover {
+    color: var(--main-color);
+
+     background: rgba(255, 255, 255, .06);
+
+    padding-left: 26px;
+    
+}
+
+/* ========================================
+Active Sidebar Item
+======================================== */
+
+.side-nav li.side-nav--active a {
+    color: var(--main-color);
+
+     background: rgba(229, 191, 209, 0.08);
+
+    border-left: 3px solid var(--main-color);
+    
+}
+
+.side-nav li.side-nav--active a i {
+    color: var(--main-color);
+}
+
+/* ========================================
+Account Content
+======================================== */
+
+.account-content {
+    flex: 1;
+
+     padding: 40px;
+
+    background: var(--glass-bg);
+
+    border: 1px solid var(--soft-border);
+
+    box-shadow:
+        0 10px 35px var(--shadow-medium);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+}
+
+/* ========================================
+Sections
+======================================== */
+
+.account-section {
+    margin-bottom: 70px;
+}
+
+.account-section:last-child {
+    margin-bottom: 0;
+}
+
+.account-section h2 {
+    margin: 0 0 10px;
+
+     color: var(--main-color);
+
+    font-size: 28px;
+    font-weight: 600;
+    
+}
+
+.section-description {
+    margin: 0 0 30px;
+
+     /* color: var(--muted-text); */
+
+    font-size: 15px;
+    
+}
+
+/* ========================================
+Forms
+======================================== */
+
+.account-form {
+    max-width: 650px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+
+     margin-bottom: 10px;
+
+    color: var(--light-text);
+
+    font-size: 14px;
+    font-weight: 600;
+    
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+
+     padding: 14px 16px;
+
+    background: rgba(255, 255, 255, .04);
+
+    border: 1px solid var(--soft-border);
+
+    color: var(--light-text);
+
+    border-radius: 3px;
+
+    outline: none;
+
+    font-family: "Work Sans", sans-serif;
+    font-size: 15px;
+
+    transition: .3s;
+    
+}
+
+.form-group input::placeholder {
+    color: var(--muted-text);
+}
+
+.form-group input:focus {
+    border-color: var(--main-color);
+
+     box-shadow:
+        0 0 12px rgba(25, 200, 250, .12);
+    
+}
+
+/* ========================================
+Profile Photo
+======================================== */
+
+.profile-photo {
+    display: flex;
+    align-items: center;
+
+     gap: 25px;
+
+    margin: 30px 0;
+    
+}
+
+.profile-photo img {
+    width: 90px;
+    height: 90px;
+
+     border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid var(--main-color);
+
+    box-shadow:
+        0 0 15px rgba(25, 200, 250, .15);
+    
+}
+
+.profile-photo label {
+    display: block;
+
+     margin-bottom: 10px;
+
+    color: var(--light-text);
+
+    font-weight: 600;
+    
+}
+
+.profile-photo input {
+    color: var(--muted-text);
+
+     font-family: "Work Sans", sans-serif;
+    
+}
+
+/* ========================================
+Buttons
+======================================== */
+
+.account-btn {
+    border: 1px solid var(--main-color);
+
+     background: transparent;
+
+    color: var(--main-color);
+
+    padding: 13px 28px;
+
+    border-radius: 3px;
+
+    cursor: pointer;
+
+    font-family: "Work Sans", sans-serif;
+
+    font-size: 14px;
+
+    transition: .3s;
+    
+}
+
+.account-btn:hover {
+    background: var(--main-color);
+
+     color: #000;
+
+    box-shadow:
+        0 0 20px rgba(83, 59, 73, 0.25);
+    
+}
+
+/* ========================================
+Account Cards
+======================================== */
+
+.account-card {
+    display: flex;
+    align-items: center;
+
+     gap: 25px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    background: rgba(86, 64, 72, 0.035);
+
+    border: 1px solid var(--soft-border);
+
+    transition: .3s;
+    
+}
+
+.account-card:hover {
+    border-color: rgba(248, 165, 202, 0.145);
+
+     box-shadow:
+        0 10px 30px var(--shadow-soft);
+    
+}
+
+.account-card>img {
+    width: 130px;
+    height: 100px;
+
+     object-fit: cover;
+
+    border: 1px solid var(--soft-border);
+    
+}
+
+/* ========================================
+Card Information
+======================================== */
+
+.card-info {
+    flex: 1;
+}
+
+.card-info h3 {
+    margin: 0 0 10px;
+
+     color: var(--main-color);
+
+    font-size: 19px;
+    
+}
+
+.card-info p {
+    margin: 6px 0;
+
+     color: var(--muted-text);
+
+    font-size: 14px;
+    
+}
+
+.card-info strong {
+    color: var(--light-text);
+}
+
+/* ========================================
+Status
+======================================== */
+
+.status {
+    display: inline-block;
+
+     margin-top: 10px;
+
+    padding: 5px 10px;
+
+    border: 1px solid var(--soft-border);
+
+    color: var(--main-color);
+
+    background: rgba(25, 200, 250, .06);
+
+    border-radius: 3px;
+
+    font-size: 12px;
+    
+}
+
+.status.purchased {
+    color: var(--main-color);
+
+     border-color: var(--main-color);
+
+    background: rgba(25, 200, 250, .08);
+    
+}
+
+/* ========================================
+Card Button
+======================================== */
+
+.card-btn {
+    display: inline-block;
+
+     padding: 10px 16px;
+
+    border: 1px solid var(--main-color);
+
+    color: var(--main-color);
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: .3s;
+    
+}
+
+.card-btn:hover {
+    background: var(--main-color);
+
+     color: #000;
+
+    box-shadow:
+        0 0 15px rgba(25, 200, 250, .2);
+    
+}
+
+/* ========================================
+Sections Separator
+======================================== */
+
+.account-section+.account-section {
+    padding-top: 50px;
+
+     border-top: 1px solid var(--soft-border);
+    
+}
+
+/* ========================================
+Responsive
+======================================== */
+
+@media (max-width: 991px) {
+
+     .account-view {
+        flex-direction: column;
+    }
+
+    .account-menu {
+        width: 100%;
+    }
+
+    .side-nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .side-nav li {
+        flex: 1;
+        border-bottom: none;
+    }
+
+    .side-nav li a {
+        justify-content: center;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        text-align: center;
+
+        padding: 15px 10px;
+    }
+
+    .side-nav li a:hover {
+        padding-left: 10px;
+    }
+
+    .account-content {
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+    
+}
+
+@media (max-width: 600px) {
+
+     .account-page {
+        padding: 40px 0;
+    }
+
+    .account-content {
+        padding: 25px 20px;
+    }
+
+    .account-section h2 {
+        font-size: 23px;
+    }
+
+    .account-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .account-card>img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .card-btn {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        text-align: center;
+    }
+
+    .profile-photo {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    
+}
