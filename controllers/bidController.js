@@ -9,7 +9,10 @@ const handleFactory = require('./../controllers/handleFactory');
 // ============================================================
 
 exports.createBid = catchAsync(async (req, res, next) => {
-  const { amount } = req.body;
+  // const { amount } = req.body;
+  const { amount, user } = req.body;
+
+  
 
   // 1) Check amount
   if (!amount) {
@@ -56,16 +59,23 @@ exports.createBid = catchAsync(async (req, res, next) => {
   }
 
   // 6) Create bid
+  // const bid = await Bid.create({
+  //   painting: painting._id,
+  //   user: req.user._id,
+  //   amount,
+  // });
+
   const bid = await Bid.create({
     painting: painting._id,
-    user: req.user._id,
-    amount,
+    user: user,
+    amount
   });
 
   // 7) Update painting
   painting.currentPrice = amount;
   painting.totalBids += 1;
-  painting.highestBidder = req.user._id;
+  // painting.highestBidder = req.user._id;
+  painting.highestBidder = user;
 
   await painting.save({
     validateBeforeSave: false,
@@ -127,7 +137,7 @@ exports.getPaintingBids = catchAsync(async (req, res, next) => {
 
 exports.getBid = handleFactory.getOne(Bid);
 
-
+exports.updateBid = handleFactory.updateOne(Bid);
 // ============================================================
 // DELETE BID
 // ============================================================

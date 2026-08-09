@@ -7,9 +7,21 @@ const authController = require('./../controllers/authController');
 
 // router.use('/:paintingId/reviews', reviewRouter);
 
-const bidRouter = require('./../routes/bidRoutes');
-router.use('/:paintingId/bids', bidRouter);
+// const bidRouter = require('./../routes/bidRouter');
+// router.use('/:paintingId/bids', bidRouter);
 
+
+const bidController = require('./../controllers/bidController');
+router
+  .route('/:paintingId/bids')
+  .post(
+    // authController.protect,
+    // authController.restrictTo('user'),
+    bidController.createBid
+  )
+  .get(bidController.getPaintingBids);
+
+  
 
 // router
 // .route("/")
@@ -21,8 +33,8 @@ router.use('/:paintingId/bids', bidRouter);
 // );
 
 router.route("/").get(paintingController.getAllPaintings).post(
-  authController.protect,
-  authController.restrictTo("admin", "lead-guide"),
+//   authController.protect,
+//   authController.restrictTo("admin", "lead-guide"),
 
   paintingController.uploadPaintingImages,
   paintingController.generatePaintingId,
@@ -34,15 +46,15 @@ router
 .route('/:id')
 .get(paintingController.getPainting)
 .patch(
-    authController.protect,
-    authController.restrictTo('admin', 'lead-guide'),
+    // authController.protect,
+    // authController.restrictTo('admin', 'lead-guide'),
     paintingController.uploadPaintingImages,
     paintingController.resizePaintingImages,
     paintingController.updatePainting
 )
 .delete(
-    authController.protect,
-    authController.restrictTo('admin', 'lead-guide'),
+    // authController.protect,
+    // authController.restrictTo('admin', 'lead-guide'),
     paintingController.deletePainting
 );
 

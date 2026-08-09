@@ -1,25 +1,44 @@
-// const express = require('express');
-// const viewsController = require('../controllers/viewsController');
-// const authController = require('../controllers/authController');
+const express = require('express');
 // const bookingController = require('../controllers/bookingController');
+const viewsController = require('../controllers/viewsController');
+const authController = require('../controllers/authController');
 
-// const router = express.Router();
-// // router.use(authController.isLoggedIn);
+const router = express.Router();
 
-// router.get('/',bookingController.createBookingCheckout,authController.isLoggedIn,viewsController.getOverview);
-// // router.get('/', authController.isLoggedIn, viewsController.getOverview);
-// router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
-// router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
-// router.get('/me',authController.protect,viewsController.getAccount);
+// ========================= PUBLIC ROUTES =========================
 
-// router.get('/my-tours',authController.protect, viewsController.getMyTours);
+// Overview
+router.get('/', viewsController.getOverview);
+
+// Login page
+router.get('/login', viewsController.getLoginForm);
+
+// Signup page
+router.get('/signup', viewsController.getSignupForm);
+
+// ========================= PAINTING ROUTES =========================
+
+// Painting details
+router.get('/painting/:slug', viewsController.getPainting);
+
+// ========================= PROTECTED ROUTES =========================
+
+// Account page
+router.get('/account', authController.protect, viewsController.getAccount);
+
+// Update account data
+router.post(
+  '/submit-user-data',
+  authController.protect,
+  viewsController.updateUserData
+);
+
+module.exports = router;
 
 
-// router.post('/submit-user-data',authController.protect, viewsController.updateUserData);
 
-// router.get('/signup', viewsController.getSignupForm);
 
-// // =============================================================================== ADMIN ===================================================================
+// =============================================================================== ADMIN ===================================================================
 // router.get(
 //   '/manage-tours',
 //   authController.protect,
@@ -55,53 +74,6 @@
 //   authController.restrictTo('admin'),
 //   viewsController.getEditTour
 // );
-
-
-// module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //====================================================================
 // router.get('/', (req ,res ) => {

@@ -106,7 +106,7 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
 
 // //================================================================================
 exports.getAllPaintings = handleFactory.getAll(Painting);
-exports.getPainting = handleFactory.getOne(Painting, { path: 'reviews' });
+exports.getPainting = handleFactory.getOne(Painting, { path: 'bids' });
 exports.createPainting = handleFactory.createOne(Painting);
 exports.updatePainting = handleFactory.updateOne(Painting);
 exports.deletePainting = handleFactory.deleteOne(Painting);
