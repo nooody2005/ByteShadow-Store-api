@@ -61,6 +61,7 @@ const express = require('express');
 const bidController = require('./../controllers/bidController');
 const authController = require('./../controllers/authController');
 
+
 const router = express.Router();
 
 
@@ -78,7 +79,9 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(bidController.getAllBids);
+  .get( authController.protect,
+      authController.restrictTo('admin', 'lead-guide'),  
+  bidController.getAllBids);
 
 
 // ============================================================

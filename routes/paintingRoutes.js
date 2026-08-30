@@ -32,9 +32,12 @@ router
 //     paintingController.createPainting
 // );
 
+
+
 router.route("/").get(paintingController.getAllPaintings).post(
-//   authController.protect,
-//   authController.restrictTo("admin", "lead-guide"),
+  // Create Paintings ---> for admins
+  authController.protect,
+  authController.restrictTo("admin", "lead-guide"),
 
   paintingController.uploadPaintingImages,
   paintingController.generatePaintingId,
@@ -46,15 +49,19 @@ router
 .route('/:id')
 .get(paintingController.getPainting)
 .patch(
-    // authController.protect,
-    // authController.restrictTo('admin', 'lead-guide'),
+  // Edit Paintings ---> for admins 
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+    
     paintingController.uploadPaintingImages,
     paintingController.resizePaintingImages,
     paintingController.updatePainting
 )
 .delete(
-    // authController.protect,
-    // authController.restrictTo('admin', 'lead-guide'),
+  // Delete Paintings ---> for admins
+    authController.protect,
+    authController.restrictTo('admin', 'lead-guide'),
+
     paintingController.deletePainting
 );
 

@@ -16,7 +16,17 @@ exports.generatePaintingId = (req, res, next) => {
 
 const multerStorage = multer.memoryStorage(); //image will store as buffer to make edits on it like resizing it before saving it in db
 const multerFile = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
+
+  //  console.log('====================');
+  //  console.log('originalname:', file.originalname);
+  //  console.log('mimetype:', file.mimetype);
+  //  console.log('fieldname:', file.fieldname);
+  //  console.log('====================');
+   
+  if (
+    file.mimetype.startsWith('image') ||
+    file.mimetype === 'application/octet-stream'
+  ) {
     cb(null, true);
   } else {
     cb(new AppError('Not an image! please upload only images:)', 400), false);
