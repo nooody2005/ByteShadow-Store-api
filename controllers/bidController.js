@@ -142,5 +142,59 @@ exports.updateBid = handleFactory.updateOne(Bid);
 // DELETE BID
 // ============================================================
 
-exports.deleteBid = handleFactory.deleteOne(Bid);
+// exports.deleteBid = handleFactory.deleteOne(Bid);
+
+exports.deleteBid = catchAsync(async (req, res, next) => {
+  // 1) Find the bid
+  const bid = await Bid.findById(req.params.id);
+
+  if (!bid) {
+    return next(new AppError('No bid found with that ID', 404));
+  }
+
+  // 2) Get the painting ID before deleting the bid
+  const paintingId = bid.painting;
+
+  // 3) Delete the bid
+  await Bid.findByIdAndDelete(req.params.id);
+
+  // 4) Find all remaining bids for this painting
+  const remainingBids = await Bid.find({
+    painting: paintingId
+  }).sort({ amount: -1 });
+
+  // 5) Find the painting
+  const painting = await Painting.findById(paintingId);
+
+  if (!painting) {
+    return next(new AppError('No painting found with that ID', 404));
+  }
+
+  // 6) If there are remaining bids
+  if (remainingBids.length > 0) {
+    const highestBid = remainingBids[0];
+
+    painting.currentPrice = highestBid.amount;
+    painting.highestBidder = highestBid.user;
+    painting.totalBids = remainingBids.length;
+  }
+
+  // 7) If there are NO bids remaining
+  else {
+    painting.currentPrice = painting.startingPrice;
+    painting.highestBidder = null;
+    painting.totalBids = 0;
+  }
+
+  // 8) Save painting
+  await painting.save({
+    validateBeforeSave: false
+  });
+
+  // 9) Response
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});
 
