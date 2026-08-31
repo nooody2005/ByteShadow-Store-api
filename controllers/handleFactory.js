@@ -3,12 +3,12 @@ const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const APIFeatures = require('./../utils/apiFeatures');
 
-//get all tours
+//get all paintings
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
 
-      let filter = {}; //to get all reviews on a tour ..nested route (small hack ^_^ )
-      if (req.params.tourId) filter = { tour: req.params.tourId };
+      let filter = {}; //to get all reviews on a painting ..nested route (small hack ^_^ )
+      if (req.params.paintingId) filter = { painting: req.params.paintingId };
 
     //EXCUTE QUERY
     const features = new APIFeatures(Model.find(filter), req.query)
@@ -28,19 +28,47 @@ exports.getAll = Model =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
-  catchAsync(async (req, res, next) => {
+// exports.getOne = (Model, popOptions) =>
+//   catchAsync(async (req, res, next) => {
 
-    let query = Model.findById(req.params.id);
-    if (popOptions)     query = query.populate(popOptions);
+//     let query = Model.findById(req.params.id);
+//     if (popOptions)     query = query.populate(popOptions);
+
+//     const doc = await query;
+
+//     if (!doc) {
+//       return next(new AppError('No document found with that Id :)', 404));
+//     }
+
+//     //find ---> get it
+//     res.status(200).json({
+//       status: 'success',
+//       data: {
+//         doc
+//       }
+//     });
+//   });
+
+exports.getOne = (Model, popOptions, slug = false) =>
+  catchAsync(async (req, res, next) => {
+    let query;
+
+    if (slug) {
+      query = Model.findOne({ slug: req.params.slug });
+    } else {
+      query = Model.findById(req.params.id);
+    }
+
+    if (popOptions) {
+      query = query.populate(popOptions);
+    }
 
     const doc = await query;
 
     if (!doc) {
-      return next(new AppError('No document found with that Id :)', 404));
+      return next(new AppError('No document found', 404));
     }
 
-    //find ---> get it
     res.status(200).json({
       status: 'success',
       data: {

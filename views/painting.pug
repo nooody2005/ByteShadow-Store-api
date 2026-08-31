@@ -6,119 +6,126 @@ block head
 block content
 
 
-//- Start Painting
-.painting
-    .container
-        .painting-content
+    //- Start Painting
+    .painting
+        .container
+            .painting-content
 
-            .image
-                img(src="/images/1.jpg", alt="Painting")
+                .image
+                    img(src=`/img/paintings/${painting.image}`, alt=painting.image)
 
-            .details
-                h1.painting-Name Painting Name
+                .details
+                    h1.painting-Name= painting.name 
 
-                p.breif-overview
-                    | Lorem ipsum dolor sit amet consectetur hbvjnvkva habivihbiayb..
+                    p.breif-overview= painting.briefPara
+                        //- | Lorem ipsum dolor sit amet consectetur hbvjnvkva habivihbiayb..
 
-                .sale-section
+                    .sale-section
 
-                    .price
-                        h3 Current Highest Bid
+                        .price
+                            h3 Current Highest Bid
 
-                        span.current-price
-                            span.number 120
-                            span.currency $
+                            span.current-price
+                                span.number= painting.currentPrice
+                                span.currency $
 
-                        .bid-box
-                            label(for="bid") Your Bid
+                            .bid-box
+                                label(for="bid") Your Bid
 
-                            input.bid-input(
-                                id="bid"
-                                type="number"
-                                value="120"
-                                min="121"
-                                step="1"
-                            )
+                                input.bid-input(
+                                    id="bid"
+                                    type="number"
+                                    value=`${painting.currentPrice}`
+                                    min=`${painting.currentPrice}`
+                                    step="10"
+                                )
 
-                        button.bid-btn(type="button") Place Bid
+                            button.bid-btn(type="button") Place Bid
 
-                    .info
+                        .info
 
-                        .size
-                            span.title
-                                i.fas.fa-ruler-combined
-                                | Size
+                            .size
+                                span.title
+                                    i.fas.fa-ruler-combined
+                                    | Size
 
-                            span.value 20 * 30 cm
+                                span.value= painting.size 
 
-                        .date
-                            span.title
-                                i.far.fa-calendar-alt
-                                | Created
+                            .date
+                                span.title
+                                    i.far.fa-calendar-alt
+                                    | Auction Start
 
-                            span.value 15 Jul 2025
+                                span.value= painting.auctionStart.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 
-                        .auction-info
-                            span.title
-                                i.fas.fa-gavel
-                                | Auction Ends
+                            .auction-info
+                                span.title
+                                    i.fas.fa-gavel
+                                    | Auction End
 
-                            span.value 30 Jul 2026
+                                span.value= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 
-//- End Painting
-
-
-//- Start Decoration
-.decoration
-    .container
-
-        .section-title
-            span
-            h2 Decoration Ideas
-            span
-
-        p
-            | Lorem ipsum dolor sit amet, consectetur repellendus dolore quis quas pariatur. Veniam ab unde delectus.
-
-        .images
-            img(src="/images/1.jpg", alt="Decoration")
-            img(src="/images/1.jpg", alt="Decoration")
-            img(src="/images/1.jpg", alt="Decoration")
-            img(src="/images/1.jpg", alt="Decoration")
-
-//- End Decoration
+    //- End Painting
 
 
-//- Start Description
-.description-feel
-    .container
+    //- Start Decoration
+    .decoration
+        .container
 
-        p
-            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde expedita velit quae aut similique, quisquam corrupti dolores? Qui facilis corporis perferendis odio quibusdam, eius quae rerum quas eveniet exercitationem eligendi.
+            .section-title
+                span
+                h2 Decoration Ideas
+                span
 
-        p
-            | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quam voluptatibus praesentium ab ex cum, sit exercitationem dolore repellat. Dicta atque a magni cumque? Odit veniam adipisci nostrum molestias optio.
+            p
+                | Lorem ipsum dolor sit amet, consectetur repellendus dolore quis quas pariatur. Veniam ab unde delectus.
 
-//- End Description
+            .images
+                each image in painting.decoImages
+                    img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/deco-${image}`, alt="Decoration")
+                    //- img(src=`/img/paintings/${painting.name}/deco-${image}`, alt="Decoration")
+
+                    //- img(src=`/img/paintings/${image}`, alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+
+    //- End Decoration
 
 
-//- Start Stages
-.stages
-    .container
+    //- Start Description
+    .description-feel
+        .container
 
-        .section-title
-            span
-            h2 Painting Process
-            span
+            p
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde expedita velit quae aut similique, quisquam corrupti dolores? Qui facilis corporis perferendis odio quibusdam, eius quae rerum quas eveniet exercitationem eligendi.
 
-        p
-            | Follow the journey of this artwork from the first sketch to the final masterpiece.
+            p
+                | Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quam voluptatibus praesentium ab ex cum, sit exercitationem dolore repellat. Dicta atque a magni cumque? Odit veniam adipisci nostrum molestias optio.
 
-        .stage-images
-            img(src="/images/1.jpg", alt="Painting Process")
-            img(src="/images/1.jpg", alt="Painting Process")
-            img(src="/images/1.jpg", alt="Painting Process")
-            img(src="/images/1.jpg", alt="Painting Process")
+    //- End Description
 
-//- End Stages
+
+    //- Start Stages
+    .stages
+        .container
+
+            .section-title
+                span
+                h2 Painting Process
+                span
+
+            p
+                | Follow the journey of this artwork from the first sketch to the final masterpiece.
+
+            .stage-images
+                each image in painting.stageImages
+                    img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/stage-${image}`, alt="stages")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+
+    //- End Stages
 
