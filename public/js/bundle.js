@@ -7928,7 +7928,7 @@ const login = async (email, password) => {
   try {
     const res = await (0, _axios.default)({
       method: 'POST',
-      url: 'http://127.0.0.1:8000/api/v1/users/login',
+      url: '/api/v1/users/login',
       data: {
         email,
         password
@@ -7951,7 +7951,7 @@ const logout = async () => {
   try {
     const res = await (0, _axios.default)({
       method: 'GET',
-      url: 'http://127.0.0.1:8000/api/v1/users/logout'
+      url: '/api/v1/users/logout'
     });
     if (res.data.status === 'success') location.reload(true);
   } catch (err) {
@@ -8059,6 +8059,7 @@ var _alerts = require("./alerts");
 var _signup = require("./signup");
 // import { bookTour } from './stripe';
 
+console.log('INDEX JS LOADED ✅');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
@@ -8169,7 +8170,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52136" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56994" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

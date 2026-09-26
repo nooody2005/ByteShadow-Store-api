@@ -6,6 +6,9 @@ import { showAlert } from './alerts';
 import { signup } from './signup';
 
 
+
+console.log('INDEX JS LOADED ✅');
+
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');

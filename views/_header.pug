@@ -16,7 +16,10 @@
                         )
                         span= user.name
 
-                    a(href="/logout") Logout
+                    //- a(href="/logout") Logout
+                    a.nav__el--logout(href="#")
+                        i.fas.fa-sign-out-alt
+                        span Logout
 
                 else
                     a(href="/login") Login

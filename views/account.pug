@@ -60,7 +60,7 @@ block content
                         p.section-description
                             | Manage your personal information and profile.
 
-                        form.account-form
+                        form.account-form.form-user-data
 
                             .form-group
                                 label(for="name") Full Name
@@ -209,39 +209,39 @@ block content
                         p.section-description
                             | Keep your account secure by updating your password.
 
-                        form.account-form
+                        form.account-form.form-user-password
 
                             .form-group
-                                label(for="current-password")
+                                label(for="password-current")
                                     | Current Password
 
-                                input#current-password(
+                                input#password-current(
                                     type="password"
                                     placeholder="••••••••"
                                     required
                                 )
 
                             .form-group
-                                label(for="new-password")
+                                label(for="password")
                                     | New Password
 
-                                input#new-password(
+                                input#password(
                                     type="password"
                                     placeholder="••••••••"
                                     required
                                 )
 
                             .form-group
-                                label(for="confirm-password")
+                                label(for="password-confirm")
                                     | Confirm New Password
 
-                                input#confirm-password(
+                                input#password-confirm(
                                     type="password"
                                     placeholder="••••••••"
                                     required
                                 )
 
-                            button.account-btn(type="submit")
+                            button.account-btn.btn--save-password(type="submit")
                                 | Change Password
 
                 //- End Account Content
