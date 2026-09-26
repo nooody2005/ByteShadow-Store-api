@@ -8021,7 +8021,7 @@ const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await (0, _axios.default)({
       method: 'POST',
-      url: 'http://127.0.0.1:8000/api/v1/users/signup',
+      url: '/api/v1/users/signup',
       data: {
         name,
         email,
@@ -8170,7 +8170,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56994" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63081" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
