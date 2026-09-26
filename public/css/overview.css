@@ -452,6 +452,7 @@ ul{
     overflow: hidden;
     transition: transform var(--main-duration), box-shadow var(--main-duration);
     box-shadow: 10px 20px 30px var(--strong-color) !important;
+    background-color: black;
 }
 
 .gallery .box:hover {

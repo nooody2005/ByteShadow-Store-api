@@ -2,6 +2,8 @@ extends base
 
 block head
     link(rel="stylesheet", href="/css/auth.css")
+    link(rel="stylesheet", href="/css/overview.css")
+    link(rel="stylesheet", href="/css/details.css")
 
 block content
 
@@ -15,10 +17,11 @@ block content
 
                 p Join Byte Shadow and discover inspiring artwork.
 
-                form
+                form.form--signup
                     .input-box
                         i.fas.fa-user
                         input(
+                            id="name"
                             type="text"
                             placeholder="Full Name"
                             required
@@ -27,6 +30,7 @@ block content
                     .input-box
                         i.fas.fa-envelope
                         input(
+                            id="email"
                             type="email"
                             placeholder="Email Address"
                             required
@@ -35,6 +39,7 @@ block content
                     .input-box
                         i.fas.fa-lock
                         input(
+                            id="password"
                             type="password"
                             placeholder="Password"
                             required
@@ -43,6 +48,7 @@ block content
                     .input-box
                         i.fas.fa-lock
                         input(
+                            id="passwordConfirm"
                             type="password"
                             placeholder="Confirm Password"
                             required

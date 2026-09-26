@@ -2,6 +2,8 @@ extends base
 
 block head
     link(rel="stylesheet", href="/css/auth.css")
+    link(rel="stylesheet", href="/css/overview.css")
+    link(rel="stylesheet", href="/css/details.css")
 
 block content
 
@@ -15,10 +17,11 @@ block content
 
                 p Sign in to continue exploring unique artworks.
 
-                form
+                form.form--login
                     .input-box
                         i.fas.fa-envelope
                         input(
+                            id="email"
                             type="email"
                             placeholder="Email Address"
                             required
@@ -27,6 +30,7 @@ block content
                     .input-box
                         i.fas.fa-lock
                         input(
+                            id="password"
                             type="password"
                             placeholder="Password"
                             required

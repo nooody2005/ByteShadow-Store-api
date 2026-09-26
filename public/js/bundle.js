@@ -7935,6 +7935,8 @@ const login = async (email, password) => {
       }
     });
     if (res.data.status === 'success') {
+      console.log('LOGIN SUCCESS ✅');
+      console.log(res.data);
       (0, _alerts.showAlert)('success', 'Logged in successfully');
       window.setTimeout(() => {
         location.assign('/');
@@ -8167,7 +8169,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56665" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52136" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
