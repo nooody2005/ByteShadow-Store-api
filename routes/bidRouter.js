@@ -90,6 +90,10 @@ router
 // DELETE /api/v1/bids/:id
 // ============================================================
 
+router.get('/my-bids', authController.protect, bidController.getMyBids);
+
+
+
 router
   .route('/:id')
   .get(bidController.getBid)
