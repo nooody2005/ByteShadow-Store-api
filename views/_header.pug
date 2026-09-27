@@ -9,21 +9,31 @@
         .links
             .auth
                 if user
-                    a.user-profile(href="/profile")
-                        img(
-                            src=`/img/users/${user.photo}`
-                            alt=user.name
-                        )
-                        span= user.name
-
-                    //- a(href="/logout") Logout
-                    a.nav__el--logout(href="#")
-                        i.fas.fa-sign-out-alt
-                        span Logout
-
+                    a.nav__el--logout Log out
+                    a.nav__el(href='/me')
+                        img.nav__user-img(src=`/img/users/${user.photo}` alt=`${user.name}`) 
+                        //- span= user.name.split(' ')[0]
                 else
-                    a(href="/login") Login
-                    a(href="/signup") Sign Up
+                    a(href='/login') Log in
+                    a(href='/signup') Sign up
+
+
+                //- if user
+                //-     a.user-profile(href="/profile")
+                //-         img(
+                //-             src=`/img/users/${user.photo}`
+                //-             alt=user.name
+                //-         )
+                //-         span= user.name
+
+                //-     //- a(href="/logout") Logout
+                //-     a.nav__el--logout(href="#")
+                //-         i.fas.fa-sign-out-alt
+                //-         span Logout
+
+                //- else
+                //-     a(href="/login") Login
+                //-     a(href="/signup") Sign Up
             //- .auth
             //-     a(href="/login") Login
             //-     a(href="/signup") Sign Up

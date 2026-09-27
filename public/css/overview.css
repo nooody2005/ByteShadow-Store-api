@@ -301,7 +301,33 @@ ul{
     border-bottom: 1px solid var(--transparent-color);
 }
 
+/* Editing profile photo */
+
+/* User profile link */
+.header .container .links .auth a.nav__el {
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.header .container .links .auth a.nav__el:hover {
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.nav__user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
 /* End Header */
+
+
 /* Start Landing  */
 .landing {
     min-height: calc(100vh + 120px);
