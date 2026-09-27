@@ -55,7 +55,22 @@ if(userPasswordForm)
 
         const passwordCurrent = document.getElementById('password-current').value;
         const password = document.getElementById('password').value;
+
+        console.log('PASSWORD INPUT:', document.getElementById('password'));
+        console.log('PASSWORD VALUE:', password);
+
         const passwordConfirm = document.getElementById('password-confirm').value;
+
+
+        console.log('CURRENT:', passwordCurrent);
+        console.log('NEW:', password);
+        console.log('CONFIRM:', passwordConfirm);
+        console.log('OBJECT:', {
+          passwordCurrent: passwordCurrent,
+          password: password,
+          passwordConfirm: passwordConfirm
+        });
+
         await updateSettings(
             {
                 passwordCurrent, password , passwordConfirm        // pass data in function 

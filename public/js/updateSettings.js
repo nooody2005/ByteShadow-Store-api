@@ -22,13 +22,21 @@ import { showAlert } from './alerts';
 
 // }
 
+
+
 // update type is either password or data 
 export const updateSettings = async (data , type) => {
+
+    console.log('DATA:', data);
+    console.log('password:', data.password);
+    console.log('passwordConfirm:', data.passwordConfirm);
+  
+
   try {
     const url =
       type === 'password'
-        ? 'http://127.0.0.1:8000/api/v1/users/updateMyPassword' 
-        : 'http://127.0.0.1:8000/api/v1/users/updateMe';
+        ? '/api/v1/users/updateMyPassword' 
+        : '/api/v1/users/updateMe';
 
     const res = await axios({
       method: 'PATCH',
@@ -43,6 +51,7 @@ export const updateSettings = async (data , type) => {
     showAlert('error', err.response.data.message);
   }
 };
+
 
 
 

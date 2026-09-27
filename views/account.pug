@@ -184,6 +184,7 @@ block content
 
 
                     //- Change Password
+                    //- Change Password
                     section.account-section#password
                         h2 Change Password
                         p.section-description
@@ -199,6 +200,7 @@ block content
                                     type="password"
                                     placeholder="••••••••"
                                     required
+                                    minlength="8"
                                 )
 
                             .form-group
@@ -209,6 +211,7 @@ block content
                                     type="password"
                                     placeholder="••••••••"
                                     required
+                                    minlength="8"
                                 )
 
                             .form-group
@@ -219,10 +222,50 @@ block content
                                     type="password"
                                     placeholder="••••••••"
                                     required
+                                    minlength="8"
                                 )
 
                             button.account-btn.btn--save-password(type="submit")
                                 | Change Password
+                    //- section.account-section#password
+                    //-     h2 Change Password
+                    //-     p.section-description
+                    //-         | Keep your account secure by updating your password.
+
+                    //-     form.account-form.form-user-password
+
+                    //-         .form-group
+                    //-             label(for="password-current")
+                    //-                 | Current Password
+
+                    //-             input#password-current(
+                    //-                 type="password"
+                    //-                 placeholder="••••••••"
+                    //-                 required
+                    //-             )
+
+                    //-         .form-group
+                    //-             label(for="password")
+                    //-                 | New Password
+
+                    //-             input#password(
+                    //-                 type="password"
+                    //-                 placeholder="••••••••"
+                    //-                 required
+                    //-             )
+
+                    //-         .form-group
+                    //-             label(for="password-confirm")
+                    //-                 | Confirm New Password
+
+                    //-             input#password-confirm(
+                    //-                 type="password"
+                    //-                 placeholder="••••••••"
+                    //-                 required
+                    //-             )
+
+                    //-         button.account-btn.btn--save-password(type="submit")
+                    //-             | Change Password
 
                 //- End Account Content
 

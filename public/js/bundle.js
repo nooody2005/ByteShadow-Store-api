@@ -7992,8 +7992,11 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 
 // update type is either password or data 
 const updateSettings = async (data, type) => {
+  console.log('DATA:', data);
+  console.log('password:', data.password);
+  console.log('passwordConfirm:', data.passwordConfirm);
   try {
-    const url = type === 'password' ? 'http://127.0.0.1:8000/api/v1/users/updateMyPassword' : 'http://127.0.0.1:8000/api/v1/users/updateMe';
+    const url = type === 'password' ? '/api/v1/users/updateMyPassword' : '/api/v1/users/updateMe';
     const res = await (0, _axios.default)({
       method: 'PATCH',
       url,
@@ -8094,7 +8097,17 @@ if (userPasswordForm) userPasswordForm.addEventListener('submit', async e => {
   document.querySelector('.btn--save-password').textContent = 'Updating..';
   const passwordCurrent = document.getElementById('password-current').value;
   const password = document.getElementById('password').value;
+  console.log('PASSWORD INPUT:', document.getElementById('password'));
+  console.log('PASSWORD VALUE:', password);
   const passwordConfirm = document.getElementById('password-confirm').value;
+  console.log('CURRENT:', passwordCurrent);
+  console.log('NEW:', password);
+  console.log('CONFIRM:', passwordConfirm);
+  console.log('OBJECT:', {
+    passwordCurrent: passwordCurrent,
+    password: password,
+    passwordConfirm: passwordConfirm
+  });
   await (0, _updateSettings.updateSettings)({
     passwordCurrent,
     password,
@@ -8170,7 +8183,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55898" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60970" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
