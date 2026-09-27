@@ -2,232 +2,229 @@ extends base
 
 block head
 
-link(rel="stylesheet", href="/css/account.css")
-link(rel="stylesheet", href="/css/overview.css")
-link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/account.css")
+    link(rel="stylesheet", href="/css/overview.css")
+    link(rel="stylesheet", href="/css/details.css")
 
 block content
 
-//- Start Account Page
-main.account-page(data-user-id=user._id)
-    .container
-        .account-view
+    //- Start Account Page
+    main.account-page(data-user-id=user._id)
+        .container
+            .account-view
 
-            //- Start Sidebar
-            nav.account-menu
-                ul.side-nav
-                    li.side-nav--active
-                        a(href="#settings")
-                            i.fas.fa-user-cog
-                            span Account Settings
+                //- Start Sidebar
+                nav.account-menu
+                    ul.side-nav
+                        li.side-nav--active
+                            a(href="#settings")
+                                i.fas.fa-user-cog
+                                span Account Settings
 
-                    li
-                        a(href="#bids")
-                            i.fas.fa-gavel
-                            span My Bids
+                        li
+                            a(href="#bids")
+                                i.fas.fa-gavel
+                                span My Bids
 
-                    li
-                        a(href="#favorites")
-                            i.fas.fa-heart
-                            span Favorites
+                        li
+                            a(href="#favorites")
+                                i.fas.fa-heart
+                                span Favorites
 
-                    li
-                        a(href="#purchases")
-                            i.fas.fa-palette
-                            span My Purchases
+                        li
+                            a(href="#purchases")
+                                i.fas.fa-palette
+                                span My Purchases
 
-                    li
-                        a(href="#password")
-                            i.fas.fa-lock
-                            span Change Password
+                        li
+                            a(href="#password")
+                                i.fas.fa-lock
+                                span Change Password
 
-                    //- li
-                    //-     a.nav__el--logout(href="#")
-                    //-         i.fas.fa-sign-out-alt
-                    //-         span Logout
+                        //- li
+                        //-     a.nav__el--logout(href="#")
+                        //-         i.fas.fa-sign-out-alt
+                        //-         span Logout
 
-            //- End Sidebar
+                //- End Sidebar
 
 
-            //- Start Account Content
-            .account-content
+                //- Start Account Content
+                .account-content
 
-                //- Account Settings
-                section.account-section#settings
-                    h2 Account Settings
-                    p.section-description
-                        | Manage your personal information and profile.
+                    //- Account Settings
+                    section.account-section#settings
+                        h2 Account Settings
+                        p.section-description
+                            | Manage your personal information and profile.
 
-                    form.account-form.form-user-data
-                        .form-group
-                            label(for="name") Full Name
-                            input#name(
-                                type="text"
-                                value=user.name
-                                name="name"
-                                required
-                            )
-
-                        .form-group
-                            label(for="email") Email Address
-                            input#email(
-                                type="email"
-                                value=user.email
-                                name="email"
-                                required
-                            )
-
-                        .form-group
-                            label(for="phone") Phone Number
-                            input#phone(
-                                type="tel"
-                                placeholder="Enter your phone number"
-                                name="phone"
-                            )
-
-                        .profile-photo
-                            img(
-                                src=`/img/users/${user.photo}`
-                                alt=user.name
-                            )
-
-                            div
-                                label(for="photo") Profile Photo
-                                input#photo(
-                                    type="file"
-                                    accept="image/*"
-                                    name="photo"
+                        form.account-form.form-user-data
+                            .form-group
+                                label(for="name") Full Name
+                                input#name(
+                                    type="text"
+                                    value=user.name
+                                    name="name"
+                                    required
                                 )
 
-                        button.account-btn(type="submit")
-                            | Save Changes
+                            .form-group
+                                label(for="email") Email Address
+                                input#email(
+                                    type="email"
+                                    value=user.email
+                                    name="email"
+                                    required
+                                )
 
+                            .form-group
+                                label(for="phone") Phone Number
+                                input#phone(
+                                    type="tel"
+                                    placeholder="Enter your phone number"
+                                    name="phone"
+                                )
 
-                //- My Bids
-                section.account-section#bids
-                    h2 My Bids
-                    p.section-description
-                        | Track the paintings you are currently bidding on.
-
-                    if bids.length
-                        each bid in bids
-                            .account-card
+                            .profile-photo
                                 img(
-                                    src=`/img/paintings/${bid.painting.image}`
-                                    alt=bid.painting.name
+                                    src=`/img/users/${user.photo}`
+                                    alt=user.name
                                 )
 
-                                .card-info
-                                    h3= bid.painting.name
+                                div
+                                    label(for="photo") Profile Photo
+                                    input#photo(
+                                        type="file"
+                                        accept="image/*"
+                                        name="photo"
+                                    )
 
-                                    p
-                                        | Your current bid:
-                                        strong $#{bid.amount}
-
-                                    p
-                                        | Current highest bid:
-                                        strong $#{bid.painting.currentPrice}
-
-                                    span.status
-                                        = bid.painting.status === 'active'
-                                            ? 'Auction Active'
-                                            : bid.painting.status
-
-                                a.card-btn(href=`/painting/${bid.painting._id}`)
-                                    | View Painting
-
-                    else
-                        p You have not placed any bids yet.
+                            button.account-btn(type="submit")
+                                | Save Changes
 
 
-                //- Favorites
-                section.account-section#favorites
-                    h2 Favorites
-                    p.section-description
-                        | Paintings you saved to your favorites.
+                    //- My Bids
+                    section.account-section#bids
+                        h2 My Bids
+                        p.section-description
+                            | Track the paintings you are currently bidding on.
 
-                    .account-card
-                        img(
-                            src="/images/1.jpg"
-                            alt="Favorite Painting"
-                        )
+                        if bids.length
+                            each bid in bids
+                                .account-card
+                                    img(
+                                        src=`/img/paintings/${bid.painting.image}`
+                                        alt=bid.painting.name
+                                    )
 
-                        .card-info
-                            h3 Beautiful Nature
-                            p
-                                | A beautiful artwork added to your favorites.
-                            strong $120
+                                    .card-info
+                                        h3= bid.painting.name
 
-                        a.card-btn(href="#")
-                            | View Painting
+                                        p
+                                            | Your current bid:
+                                            strong $#{bid.amount}
 
+                                        p
+                                            | Current highest bid:
+                                            strong $#{bid.painting.currentPrice}
 
-                //- My Purchases
-                section.account-section#purchases
-                    h2 My Purchases
-                    p.section-description
-                        | View the artworks you have purchased.
+                                        span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
 
-                    .account-card
-                        img(
-                            src="/images/1.jpg"
-                            alt="Purchased Painting"
-                        )
+                                    a.card-btn(href=`/painting/${bid.painting._id}`)
+                                        | View Painting
 
-                        .card-info
-                            h3 My Painting
-                            p
-                                | Purchased on:
-                                strong 15 Jul 2026
-
-                            span.status.purchased Purchased
-
-                        a.card-btn(href="#")
-                            | View Details
+                        else
+                            p You have not placed any bids yet.
 
 
-                //- Change Password
-                section.account-section#password
-                    h2 Change Password
-                    p.section-description
-                        | Keep your account secure by updating your password.
+                    //- Favorites
+                    section.account-section#favorites
+                        h2 Favorites
+                        p.section-description
+                            | Paintings you saved to your favorites.
 
-                    form.account-form.form-user-password
-
-                        .form-group
-                            label(for="password-current")
-                                | Current Password
-
-                            input#password-current(
-                                type="password"
-                                placeholder="••••••••"
-                                required
+                        .account-card
+                            img(
+                                src="/images/1.jpg"
+                                alt="Favorite Painting"
                             )
 
-                        .form-group
-                            label(for="password")
-                                | New Password
+                            .card-info
+                                h3 Beautiful Nature
+                                p
+                                    | A beautiful artwork added to your favorites.
+                                strong $120
 
-                            input#password(
-                                type="password"
-                                placeholder="••••••••"
-                                required
+                            a.card-btn(href="#")
+                                | View Painting
+
+
+                    //- My Purchases
+                    section.account-section#purchases
+                        h2 My Purchases
+                        p.section-description
+                            | View the artworks you have purchased.
+
+                        .account-card
+                            img(
+                                src="/images/1.jpg"
+                                alt="Purchased Painting"
                             )
 
-                        .form-group
-                            label(for="password-confirm")
-                                | Confirm New Password
+                            .card-info
+                                h3 My Painting
+                                p
+                                    | Purchased on:
+                                    strong 15 Jul 2026
 
-                            input#password-confirm(
-                                type="password"
-                                placeholder="••••••••"
-                                required
-                            )
+                                span.status.purchased Purchased
 
-                        button.account-btn.btn--save-password(type="submit")
-                            | Change Password
+                            a.card-btn(href="#")
+                                | View Details
 
-            //- End Account Content
 
-//- End Account Page
+                    //- Change Password
+                    section.account-section#password
+                        h2 Change Password
+                        p.section-description
+                            | Keep your account secure by updating your password.
+
+                        form.account-form.form-user-password
+
+                            .form-group
+                                label(for="password-current")
+                                    | Current Password
+
+                                input#password-current(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                )
+
+                            .form-group
+                                label(for="password")
+                                    | New Password
+
+                                input#password(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                )
+
+                            .form-group
+                                label(for="password-confirm")
+                                    | Confirm New Password
+
+                                input#password-confirm(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                )
+
+                            button.account-btn.btn--save-password(type="submit")
+                                | Change Password
+
+                //- End Account Content
+
+    //- End Account Page
 
