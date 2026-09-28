@@ -7953,7 +7953,9 @@ const logout = async () => {
       method: 'GET',
       url: '/api/v1/users/logout'
     });
-    if (res.data.status === 'success') location.reload(true);
+    // if(res.data.status === 'success')    location.reload(true);
+    // To reload the index page
+    if (res.data.status === 'success') window.location.href = '/';
   } catch (err) {
     (0, _alerts.showAlert)('error', 'Error logging out :) Try again ..');
   }
@@ -8044,6 +8046,49 @@ const signup = async (name, email, password, passwordConfirm) => {
   }
 };
 exports.signup = signup;
+},{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"painting.js":[function(require,module,exports) {
+"use strict";
+
+var _axios = _interopRequireDefault(require("axios"));
+var _alerts = require("./alerts");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const painting = document.querySelector('.painting');
+const placeBidBtn = document.getElementById('place-bid');
+if (placeBidBtn) {
+  console.log('PAINTING:', painting);
+  console.log('PAINTING ID:', painting.dataset.paintingId);
+  placeBidBtn.addEventListener('click', async () => {
+    const userId = painting.dataset.userId;
+
+    // Not logged in
+    if (!userId) {
+      window.location.href = '/login';
+      return;
+    }
+    const amount = document.getElementById('bid').value;
+    const paintingId = painting.dataset.paintingId;
+    try {
+      const res = await (0, _axios.default)({
+        method: 'POST',
+        url: "/api/v1/paintings/".concat(paintingId, "/bids"),
+        data: {
+          amount,
+          user: userId
+        }
+        // data: {
+        //   amount
+        // }
+      });
+      if (res.data.status === 'success') {
+        (0, _alerts.showAlert)('success', 'Your bid was placed successfully ^_^');
+        document.querySelector('.current-price .number').textContent = amount;
+      }
+    } catch (err) {
+      var _err$response;
+      (0, _alerts.showAlert)('error', ((_err$response = err.response) === null || _err$response === void 0 || (_err$response = _err$response.data) === null || _err$response === void 0 ? void 0 : _err$response.message) || 'Something went wrong. Try again :)');
+    }
+  });
+}
 },{"axios":"../../node_modules/axios/index.js","./alerts":"alerts.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -8060,6 +8105,7 @@ var _login = require("./login");
 var _updateSettings = require("./updateSettings");
 var _alerts = require("./alerts");
 var _signup = require("./signup");
+require("./painting");
 // import { bookTour } from './stripe';
 
 console.log('INDEX JS LOADED ✅');
@@ -8168,7 +8214,7 @@ if (signupForm) {
 //   const data = await res.json();
 //   console.log(data);
 // });
-},{"core-js/modules/es7.array.flat-map.js":"../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.sort.js":"../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es7.promise.finally.js":"../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es7.symbol.async-iterator.js":"../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es7.string.trim-left.js":"../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right.js":"../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/web.timers.js":"../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate.js":"../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable.js":"../../node_modules/core-js/modules/web.dom.iterable.js","./login":"login.js","./updateSettings":"updateSettings.js","./alerts":"alerts.js","./signup":"signup.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/modules/es7.array.flat-map.js":"../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.sort.js":"../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es7.promise.finally.js":"../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es7.symbol.async-iterator.js":"../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es7.string.trim-left.js":"../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right.js":"../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/web.timers.js":"../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate.js":"../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable.js":"../../node_modules/core-js/modules/web.dom.iterable.js","./login":"login.js","./updateSettings":"updateSettings.js","./alerts":"alerts.js","./signup":"signup.js","./painting":"painting.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8193,7 +8239,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50504" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60489" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

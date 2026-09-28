@@ -202,12 +202,7 @@ exports.getMyBids = catchAsync(async (req, res, next) => {
   const bids = await Bid.find({ user: req.user._id })
     .populate('painting', 'name image currentPrice status auctionEnd')
     .sort('-createdAt');
-
-  res.status(200).json({
-    status: 'success',
-    results: bids.length,
-    data: {
-      bids
-    }
-  });
+  res
+    .status(200)
+    .json({ status: 'success', results: bids.length, data: { bids } });
 });

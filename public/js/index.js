@@ -4,7 +4,7 @@ import { updateSettings} from './updateSettings';
 // import { bookTour } from './stripe';
 import { showAlert } from './alerts';
 import { signup } from './signup';
-
+import './painting';
 
 
 console.log('INDEX JS LOADED ✅');
@@ -124,6 +124,8 @@ if (signupForm) {
     signup(name, email, password, passwordConfirm);
   });
 }
+
+
 
 
 

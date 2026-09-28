@@ -7,7 +7,12 @@ block content
 
 
     //- Start Painting
-    .painting
+    //- .painting
+    //- .painting(data-user-id=user ? user._id : '')
+    .painting(
+    data-user-id=user ? user._id : ''
+    data-painting-id=painting._id
+    )
         .container
             .painting-content
 
@@ -40,7 +45,8 @@ block content
                                     step="10"
                                 )
 
-                            button.bid-btn(type="button") Place Bid
+                            //- button.bid-btn(type="button") Place Bid
+                            button.bid-btn(type="button" id="place-bid") Place Bid
 
                         .info
 
