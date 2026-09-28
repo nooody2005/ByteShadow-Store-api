@@ -7910,7 +7910,7 @@ const showAlert = (type, msg) => {
   hideAlert(); //to hide all alerts before show new alert
   const markup = "<div class=\"alert alert--".concat(type, "\">").concat(msg, "</div>");
   document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-  window.setTimeout(hideAlert, 5000); //hide the new alert after 5 sec
+  window.setTimeout(hideAlert, 6000); //hide the new alert after 5 sec
 };
 exports.showAlert = showAlert;
 },{}],"login.js":[function(require,module,exports) {
@@ -8308,7 +8308,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54692" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56230" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

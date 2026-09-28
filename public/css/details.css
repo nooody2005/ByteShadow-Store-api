@@ -191,7 +191,7 @@
 
 
 /* ِAfter Enter "Place bid" button & aleady logged in */
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -263,7 +263,172 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
+} */
+
+
+/* ===========================
+   User Information Modal
+=========================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    backdrop-filter: blur(8px);
+
+    align-items: center;
+    justify-content: center;
 }
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 480px;
+
+    padding: 35px;
+
+    background: rgba(20, 20, 20, .92);
+    border: 1px solid var(--soft-border);
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, .55),
+        inset 0 0 30px rgba(255, 255, 255, .02);
+
+    backdrop-filter: blur(15px);
+}
+
+/* ---------- Title ---------- */
+
+.modal-content h2 {
+    margin: 0 0 10px;
+    color: var(--main-color);
+    font-size: 26px;
+}
+
+/* ---------- Description ---------- */
+
+.modal-content p {
+    margin-bottom: 28px;
+    color: var(--muted-text);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ---------- Close Button ---------- */
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--muted-text);
+    font-size: 26px;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.modal-close:hover {
+    color: var(--main-color);
+    transform: scale(1.1);
+}
+
+/* ---------- Form ---------- */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ---------- Inputs ---------- */
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, .08);
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+    transition: .3s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted-text);
+}
+
+/* ---------- Focus ---------- */
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--strong-color);
+
+    background: rgba(255, 255, 255, .1);
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, .12);
+}
+
+/* ---------- Address ---------- */
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ---------- Save Button ---------- */
+
+#user-info-form button[type="submit"] {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--strong-color);
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: .35s;
+}
+
+#user-info-form button[type="submit"]:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, .35);
+}
+
+
 
 
 /* ===========================
