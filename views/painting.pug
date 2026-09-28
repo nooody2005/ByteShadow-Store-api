@@ -9,8 +9,14 @@ block content
     //- Start Painting
     //- .painting
     //- .painting(data-user-id=user ? user._id : '')
+    //- .painting(
+    //- data-user-id=user ? user._id : ''
+    //- data-painting-id=painting._id
+    //- )
     .painting(
     data-user-id=user ? user._id : ''
+    data-user-phone=user ? user.phone : ''
+    data-user-address=user ? user.address : ''
     data-painting-id=painting._id
     )
         .container
@@ -47,6 +53,33 @@ block content
 
                             //- button.bid-btn(type="button") Place Bid
                             button.bid-btn(type="button" id="place-bid") Place Bid
+
+
+                            // Ater Enter the place bid button
+                            .modal#user-info-modal
+                                .modal-content
+                                    button.modal-close(type="button") ×
+
+                                    h2 Complete Your Information
+                                    p Please add your contact information before placing your bid.
+
+                                    form#user-info-form
+                                        .form-group
+                                            label(for="phone") Phone Number
+                                            input#phone(
+                                                type="tel"
+                                                placeholder="Enter your phone number"
+                                                required
+                                            )
+
+                                        .form-group
+                                            label(for="address") Address
+                                            textarea#address(
+                                                placeholder="Enter your address"
+                                                required
+                                            )
+
+                                        button(type="submit") Save And Continue
 
                         .info
 

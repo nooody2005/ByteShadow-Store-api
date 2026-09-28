@@ -77,13 +77,28 @@ block content
                                     required
                                 )
 
+                            //- .form-group
+                            //-     label(for="phone") Phone Number
+                            //-     input#phone(
+                            //-         type="tel"
+                            //-         placeholder="Enter your phone number"
+                            //-         name="phone"
+                            //-     )
                             .form-group
                                 label(for="phone") Phone Number
                                 input#phone(
                                     type="tel"
                                     placeholder="Enter your phone number"
+                                    value=user.phone || ''
                                     name="phone"
                                 )
+
+                            .form-group
+                                label(for="address") Address
+                                textarea#address(
+                                    placeholder="Enter your address"
+                                    name="address"
+                                )= user.address || ''
 
                             .profile-photo
                                 img(

@@ -81,7 +81,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   // 2) filtered out unwanted fields that are not allowed to be updated    ...cuz for examble can't update your role if you are just user and wanna be an admin :)
 
-  const filterdBody = filterObj(req.body, 'name', 'email');
+  // const filterdBody = filterObj(req.body, 'name', 'email');
+  const filterdBody = filterObj( req.body,'name','email','phone','address');
+
   if(req.file)  filterdBody.photo = req.file.filename;
 
   // 3) Update user document

@@ -4,12 +4,20 @@ import { showAlert } from './alerts';
 const painting = document.querySelector('.painting');
 const placeBidBtn = document.getElementById('place-bid');
 
+const userInfoModal = document.getElementById('user-info-modal');
+const userInfoForm = document.getElementById('user-info-form');
+const modalClose = document.querySelector('.modal-close');
+
+
 if (placeBidBtn) {
 
     console.log('PAINTING:', painting);
     console.log('PAINTING ID:', painting.dataset.paintingId);
-  placeBidBtn.addEventListener('click', async () => {
+    placeBidBtn.addEventListener('click', async () => {
     const userId = painting.dataset.userId;
+
+    const userPhone = painting.dataset.userPhone;
+    const userAddress = painting.dataset.userAddress;
 
     // Not logged in
     // if (!userId) {
@@ -22,6 +30,12 @@ if (placeBidBtn) {
       window.location.href = '/login';
       return;
     }
+
+    if (!userPhone || !userAddress) {
+      userInfoModal.style.display = 'flex';
+      return;
+    }
+
 
     const amount = document.getElementById('bid').value;
     const paintingId = painting.dataset.paintingId;
@@ -51,4 +65,55 @@ if (placeBidBtn) {
       );
     }
   });
+
+
+
+  // What happened if U're already logged in and entered the place bid button 
+  if (userInfoForm) {
+    userInfoForm.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+
+      try {
+        // Update user information
+        await axios({
+          method: 'PATCH',
+          url: '/api/v1/users/updateMe',
+          data: {
+            phone,
+            address
+          }
+        });
+
+        // Close modal
+        userInfoModal.style.display = 'none';
+
+        showAlert(
+          'success',
+          'Your information has been saved successfully ^_^'
+        );
+
+        // Update the data stored in the page
+        painting.dataset.userPhone = phone;
+        painting.dataset.userAddress = address;
+
+        // Place the bid automatically
+        placeBidBtn.click();
+      } catch (err) {
+        showAlert(
+          'error',
+          err.response?.data?.message ||
+            'Could not save your information. Try again :)'
+        );
+      }
+    });
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener('click', () => {
+      userInfoModal.style.display = 'none';
+    });
+  }
 }
