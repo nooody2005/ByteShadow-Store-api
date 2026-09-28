@@ -53,23 +53,36 @@ if(userPasswordForm)
         document.querySelector('.btn--save-password').textContent =
           'Updating..';
 
-        const passwordCurrent = document.getElementById('password-current').value;
-        const password = document.getElementById('password').value;
+        // const passwordCurrent = document.getElementById('password-current').value;
+        // const password = document.getElementById('password').value;
+        // const passwordConfirm = document.getElementById('password-confirm').value;
 
-        console.log('PASSWORD INPUT:', document.getElementById('password'));
-        console.log('PASSWORD VALUE:', password);
+        const passwordCurrent = document.querySelector(
+          '.form-user-password #password-current'
+        ).value;
 
-        const passwordConfirm = document.getElementById('password-confirm').value;
+        const password = document.querySelector('.form-user-password #password')
+          .value;
 
+        const passwordConfirm = document.querySelector(
+          '.form-user-password #password-confirm'
+        ).value;
 
-        console.log('CURRENT:', passwordCurrent);
-        console.log('NEW:', password);
-        console.log('CONFIRM:', passwordConfirm);
-        console.log('OBJECT:', {
-          passwordCurrent: passwordCurrent,
-          password: password,
-          passwordConfirm: passwordConfirm
+        console.log('PASSWORD DATA:', {
+          passwordCurrent,
+          password,
+          passwordConfirm
         });
+
+
+        // console.log('CURRENT:', passwordCurrent);
+        // console.log('NEW:', password);
+        // console.log('CONFIRM:', passwordConfirm);
+        // console.log('OBJECT:', {
+        //   passwordCurrent: passwordCurrent,
+        //   password: password,
+        //   passwordConfirm: passwordConfirm
+        // });
 
         await updateSettings(
             {
@@ -111,6 +124,7 @@ if (signupForm) {
     signup(name, email, password, passwordConfirm);
   });
 }
+
 
 
 
