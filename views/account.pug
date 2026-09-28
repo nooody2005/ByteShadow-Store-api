@@ -163,24 +163,50 @@ block content
                     section.account-section#purchases
                         h2 My Purchases
                         p.section-description
-                            | View the artworks you have purchased.
+                            | View the artworks you have won ^_^
 
-                        .account-card
-                            img(
-                                src="/images/1.jpg"
-                                alt="Purchased Painting"
-                            )
+                        if purchases.length
+                            each painting in purchases
+                                .account-card
+                                    img(
+                                        src=`/img/paintings/${painting.image}`
+                                        alt=painting.name
+                                    )
 
-                            .card-info
-                                h3 My Painting
-                                p
-                                    | Purchased on:
-                                    strong 15 Jul 2026
+                                    .card-info
+                                        h3= painting.name
 
-                                span.status.purchased Purchased
+                                        p
+                                            | Purchased on:
+                                            strong= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 
-                            a.card-btn(href="#")
-                                | View Details
+                                        span.status.purchased Purchased
+
+                                    a.card-btn(href=`/painting/${painting.slug}`)
+                                        | View Details
+                        else
+                            p No purchases yet.
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have purchased.
+
+                    //-     .account-card
+                    //-         img(
+                    //-             src="/images/1.jpg"
+                    //-             alt="Purchased Painting"
+                    //-         )
+
+                    //-         .card-info
+                    //-             h3 My Painting
+                    //-             p
+                    //-                 | Purchased on:
+                    //-                 strong 15 Jul 2026
+
+                    //-             span.status.purchased Purchased
+
+                    //-         a.card-btn(href="#")
+                    //-             | View Details
 
 
                     //- Change Password
@@ -228,46 +254,6 @@ block content
                             button.account-btn.btn--save-password(type="submit")
                                 | Change Password
 
-                                
-                    //- section.account-section#password
-                    //-     h2 Change Password
-                    //-     p.section-description
-                    //-         | Keep your account secure by updating your password.
-
-                    //-     form.account-form.form-user-password
-
-                    //-         .form-group
-                    //-             label(for="password-current")
-                    //-                 | Current Password
-
-                    //-             input#password-current(
-                    //-                 type="password"
-                    //-                 placeholder="••••••••"
-                    //-                 required
-                    //-             )
-
-                    //-         .form-group
-                    //-             label(for="password")
-                    //-                 | New Password
-
-                    //-             input#password(
-                    //-                 type="password"
-                    //-                 placeholder="••••••••"
-                    //-                 required
-                    //-             )
-
-                    //-         .form-group
-                    //-             label(for="password-confirm")
-                    //-                 | Confirm New Password
-
-                    //-             input#password-confirm(
-                    //-                 type="password"
-                    //-                 placeholder="••••••••"
-                    //-                 required
-                    //-             )
-
-                    //-         button.account-btn.btn--save-password(type="submit")
-                    //-             | Change Password
 
                 //- End Account Content
 

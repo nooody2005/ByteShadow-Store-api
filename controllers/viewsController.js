@@ -7,6 +7,8 @@ const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Bid = require('../models/bidModel');
 
+
+
 //==================================== OVERVIEW PAGE =============================
 
 exports.getOverview = catchAsync(async (req, res, next) => {
@@ -69,10 +71,18 @@ exports.getAccount = catchAsync(async (req, res, next) => {
     user: req.user._id
   }).populate('painting', 'name image currentPrice status auctionEnd');
 
+  const purchases = await Painting.find({
+    winner: req.user._id
+  });
+
+
   res.status(200).render('account', {
     title: 'Your Account',
-    bids
+    bids,
+    purchases
   });
+
+
 });
 
 //==================================== UPDATE USER DATA =============================
