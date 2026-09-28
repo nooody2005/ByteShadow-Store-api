@@ -1,6 +1,7 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const Painting = require('./../models/paintingModel');
+const Order = require('./../models/orderModel');
 const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
@@ -168,13 +169,31 @@ exports.finishAuctions = async () => {
   });
 
   for (const painting of paintings) {
+  
     if (painting.highestBidder) {
       painting.winner = painting.highestBidder;
       painting.finalPrice = painting.currentPrice;
       painting.status = 'sold';
+
+      await Order.create({
+        user: painting.highestBidder,
+        painting: painting._id,
+        amount: painting.currentPrice
+      });
+
     } else {
       painting.status = 'ended';
     }
+
+
+    // if (painting.highestBidder) {
+    //   painting.winner = painting.highestBidder;
+    //   painting.finalPrice = painting.currentPrice;
+    //   painting.status = 'sold';
+    // } else {
+    //   painting.status = 'ended';
+    // }
+    
 
     await painting.save({
       validateBeforeSave: false
