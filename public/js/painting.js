@@ -12,7 +12,13 @@ if (placeBidBtn) {
     const userId = painting.dataset.userId;
 
     // Not logged in
+    // if (!userId) {
+    //   window.location.href = '/login';
+    //   return;
+    // }
+
     if (!userId) {
+      sessionStorage.setItem('redirectAfterLogin', window.location.pathname);
       window.location.href = '/login';
       return;
     }

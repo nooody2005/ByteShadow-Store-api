@@ -7923,6 +7923,8 @@ exports.logout = exports.login = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+// import { isLoggedIn } from '../../controllers/authController';
+
 const login = async (email, password) => {
   console.log(email, password);
   try {
@@ -7938,8 +7940,21 @@ const login = async (email, password) => {
       console.log('LOGIN SUCCESS ✅');
       console.log(res.data);
       (0, _alerts.showAlert)('success', 'Logged in successfully');
+
+      // window.setTimeout(() => {
+      //     location.assign('/');
+      // }, 1500);
+
+      // Redirect to the page before logging in 
+
       window.setTimeout(() => {
-        location.assign('/');
+        const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+        if (redirectUrl) {
+          sessionStorage.removeItem('redirectAfterLogin');
+          location.assign(redirectUrl);
+        } else {
+          location.assign('/');
+        }
       }, 1500);
     }
   } catch (err) {
@@ -8061,7 +8076,13 @@ if (placeBidBtn) {
     const userId = painting.dataset.userId;
 
     // Not logged in
+    // if (!userId) {
+    //   window.location.href = '/login';
+    //   return;
+    // }
+
     if (!userId) {
+      sessionStorage.setItem('redirectAfterLogin', window.location.pathname);
       window.location.href = '/login';
       return;
     }
@@ -8239,7 +8260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60489" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54534" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

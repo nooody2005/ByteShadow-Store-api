@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
+// import { isLoggedIn } from '../../controllers/authController';
 
 export const login = async (email , password) => {
     console.log(email,password);
@@ -18,8 +19,22 @@ export const login = async (email , password) => {
              console.log('LOGIN SUCCESS ✅');
              console.log(res.data);
             showAlert('success','Logged in successfully');
+
+            // window.setTimeout(() => {
+            //     location.assign('/');
+            // }, 1500);
+
+            // Redirect to the page before logging in 
+
             window.setTimeout(() => {
+              const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+
+              if (redirectUrl) {
+                sessionStorage.removeItem('redirectAfterLogin');
+                location.assign(redirectUrl);
+              } else {
                 location.assign('/');
+              }
             }, 1500);
         }
     }
