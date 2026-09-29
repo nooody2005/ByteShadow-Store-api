@@ -19,6 +19,11 @@ const orderSchema = new mongoose.Schema(
       required: [true, 'Order must have an amount']
     },
 
+    paymobOrderId: {
+      type: Number,
+      default: null
+    },
+
     status: {
       type: String,
       enum: ['pending', 'paid', 'cancelled'],
