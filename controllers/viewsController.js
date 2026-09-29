@@ -6,7 +6,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Bid = require('../models/bidModel');
-
+const Order = require('../models/orderModel');
 
 
 //==================================== OVERVIEW PAGE =============================
@@ -75,11 +75,16 @@ exports.getAccount = catchAsync(async (req, res, next) => {
     winner: req.user._id
   });
 
+  const orders = await Order.find({
+    user: req.user._id
+  }).populate('painting', 'name image slug auctionEnd');
+
 
   res.status(200).render('account', {
     title: 'Your Account',
     bids,
-    purchases
+    purchases,
+    orders
   });
 
 

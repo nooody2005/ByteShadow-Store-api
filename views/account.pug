@@ -174,33 +174,86 @@ block content
                                 | View Painting
 
 
+
+
+                                        
                     //- My Purchases
                     section.account-section#purchases
                         h2 My Purchases
                         p.section-description
                             | View the artworks you have won ^_^
 
-                        if purchases.length
-                            each painting in purchases
+                        if orders.length
+                            each order in orders
                                 .account-card
                                     img(
-                                        src=`/img/paintings/${painting.image}`
-                                        alt=painting.name
+                                        src=`/img/paintings/${order.painting.image}`
+                                        alt=order.painting.name
                                     )
 
                                     .card-info
-                                        h3= painting.name
+                                        h3= order.painting.name
 
                                         p
-                                            | Purchased on:
-                                            strong= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+                                            | Won on:
+                                            strong= order.painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
 
-                                        span.status.purchased Purchased
+                                        p
+                                            | Final Price:
+                                            strong $#{order.amount}
 
-                                    a.card-btn(href=`/painting/${painting.slug}`)
-                                        | View Details
+                                        if order.paymentStatus === 'paid'
+                                            span.status.purchased Paid
+                                        else
+                                            span.status.pending Payment Pending
+
+                                    if order.paymentStatus === 'paid'
+                                        a.card-btn(
+                                            href=`/painting/${order.painting.slug}`
+                                        )
+                                            | View Details
+                                    else
+                                        button.card-btn.pay-btn(
+                                            type="button"
+                                            data-order-id=order._id
+                                        )
+                                            | Pay Now
                         else
                             p No purchases yet.
+
+
+
+                    //- My Purchases
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have won ^_^
+
+                    //-     if purchases.length
+                    //-         each painting in purchases
+                    //-             .account-card
+                    //-                 img(
+                    //-                     src=`/img/paintings/${painting.image}`
+                    //-                     alt=painting.name
+                    //-                 )
+
+                    //-                 .card-info
+                    //-                     h3= painting.name
+
+                    //-                     p
+                    //-                         | Purchased on:
+                    //-                         strong= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                    //-                     span.status.purchased Purchased
+
+                    //-                 a.card-btn(href=`/painting/${painting.slug}`)
+                    //-                     | View Details
+                    //-     else
+                    //-         p No purchases yet.
+
+
+
+
                     //- section.account-section#purchases
                     //-     h2 My Purchases
                     //-     p.section-description

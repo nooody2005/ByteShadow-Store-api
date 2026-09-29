@@ -1,3 +1,16 @@
+
+// const Stripe = require('stripe');
+
+// const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+// module.exports = stripe;
+
+
+
+
+
+
+
 // import axios from 'axios';
 // import {showAlert} from './alerts';
 
@@ -12,7 +25,7 @@
 //         const session = await axios(
 //           `http://127.0.0.1:8000/api/v1/booking/checkout-session/${tourId}`
 //         );
-      
+
 //         console.log(session);
 
 //         // 2) Create checkout from + charge credit card
