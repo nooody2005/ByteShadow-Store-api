@@ -20,6 +20,9 @@ const userRouter = require('./routes/userRoutes');
 // const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRouter');
 const bidRouter = require('./routes/bidRouter');
+
+const orderRouter = require('./routes/orderRoutes');
+
 const { title } = require('process');
 
 const app = express();
@@ -119,6 +122,7 @@ app.use('/',viewRouter);
 app.use('/api/v1/paintings', paintingRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/bids', bidRouter);
+app.use('/api/v1/orders', orderRouter);
 
 // app.use('/api/v1/reviews',reviewRouter);
 // app.use('/api/v1/booking', bookingRouter);

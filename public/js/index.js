@@ -5,7 +5,7 @@ import { updateSettings} from './updateSettings';
 import { showAlert } from './alerts';
 import { signup } from './signup';
 import './painting';
-
+import './account';
 
 console.log('INDEX JS LOADED ✅');
 
