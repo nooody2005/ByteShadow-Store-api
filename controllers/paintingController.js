@@ -169,21 +169,41 @@ exports.finishAuctions = async () => {
   });
 
   for (const painting of paintings) {
-  
+
     if (painting.highestBidder) {
       painting.winner = painting.highestBidder;
       painting.finalPrice = painting.currentPrice;
       painting.status = 'sold';
 
-      await Order.create({
-        user: painting.highestBidder,
-        painting: painting._id,
-        amount: painting.currentPrice
+      const existingOrder = await Order.findOne({
+        painting: painting._id
       });
 
+      if (!existingOrder) {
+        await Order.create({
+          user: painting.highestBidder,
+          painting: painting._id,
+          amount: painting.currentPrice
+        });
+      }
     } else {
       painting.status = 'ended';
     }
+  
+    // if (painting.highestBidder) {
+    //   painting.winner = painting.highestBidder;
+    //   painting.finalPrice = painting.currentPrice;
+    //   painting.status = 'sold';
+
+    //   await Order.create({
+    //     user: painting.highestBidder,
+    //     painting: painting._id,
+    //     amount: painting.currentPrice
+    //   });
+
+    // } else {
+    //   painting.status = 'ended';
+    // }
 
 
     // if (painting.highestBidder) {
