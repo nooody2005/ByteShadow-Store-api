@@ -51,10 +51,18 @@ block content
 
                                 span= painting.size
 
+                                //- .price
+                                //-     span.current-price
+                                //-         span.number= painting.currentPrice
+                                //-         span.currency $
+
                                 .price
-                                    span.current-price
-                                        span.number= painting.currentPrice
-                                        span.currency $
+                                    if painting.status === 'sold'
+                                        span.sold SOLD
+                                    else
+                                        span.current-price
+                                            span.number= painting.currentPrice
+                                            span.currency $
 
                                 .info
                                     a(href=`/painting/${painting.slug}`)
@@ -62,91 +70,6 @@ block content
                                         i.fas.fa-long-arrow-alt-right
 
 
-
-                //- .box
-                //-     .image
-                //-         img(src="/img/1.jpg", alt="Painting")
-                //-         .text
-                //-             h3 Painting Name
-                //-             p a little description for painting..
-                //-             span 40 * 60 cm
-
-                //-             .price
-                //-                 span.current-price
-                //-                     span.number 120
-                //-                     span.currency $
-
-                //-             .info
-                //-                 a(href="#") Details
-                //-                 i.fas.fa-long-arrow-alt-right
-
-                //- .box
-                //-     .image
-                //-         img(src="/img/1.jpg", alt="Painting")
-                //-         .text
-                //-             h3 Painting Name
-                //-             p a little description for painting..
-                //-             span 40 * 60 cm
-
-                //-             .price
-                //-                 span.current-price
-                //-                     span.number 120
-                //-                     span.currency $
-
-                //-             .info
-                //-                 a(href="#") Details
-                //-                 i.fas.fa-long-arrow-alt-right
-
-                //- .box
-                //-     .image
-                //-         img(src="/img/1.jpg", alt="Painting")
-                //-         .text
-                //-             h3 Painting Name
-                //-             p a little description for painting..
-                //-             span 40 * 60 cm
-
-                //-             .price
-                //-                 span.current-price
-                //-                     span.number 120
-                //-                     span.currency $
-
-                //-             .info
-                //-                 a(href="#") Details
-                //-                 i.fas.fa-long-arrow-alt-right
-
-                //- .box
-                //-     .image
-                //-         img(src="/img/1.jpg", alt="Painting")
-                //-         .text
-                //-             h3 Painting Name
-                //-             p a little description for painting..
-                //-             span 40 * 60 cm
-
-                //-             .price
-                //-                 span.current-price
-                //-                     span.number 120
-                //-                     span.currency $
-
-                //-             .info
-                //-                 a(href="#") Details
-                //-                 i.fas.fa-long-arrow-alt-right
-
-                //- .box
-                //-     .image
-                //-         img(src="/img/1.jpg", alt="Painting")
-                //-         .text
-                //-             h3 Painting Name
-                //-             p a little description for painting..
-                //-             span 40 * 60 cm
-
-                //-             .price
-                //-                 span.current-price
-                //-                     span.number 120
-                //-                     span.currency $
-
-                //-             .info
-                //-                 a(href="#") Details
-                //-                 i.fas.fa-long-arrow-alt-right
 
             a.more(href="#") More
     //- End Gallery
@@ -238,3 +161,98 @@ block content
                         br
                         | USA
     //- End Contact Us
+
+
+
+
+
+
+
+
+
+
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right

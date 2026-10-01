@@ -40,19 +40,40 @@ block content
                                 span.number= painting.currentPrice
                                 span.currency $
 
-                            .bid-box
-                                label(for="bid") Your Bid
+                            //- .bid-box
+                            //-     label(for="bid") Your Bid
 
-                                input.bid-input(
-                                    id="bid"
-                                    type="number"
-                                    value=`${painting.currentPrice}`
-                                    min=`${painting.currentPrice}`
-                                    step="10"
-                                )
+                            //-     input.bid-input(
+                            //-         id="bid"
+                            //-         type="number"
+                            //-         value=`${painting.currentPrice}`
+                            //-         min=`${painting.currentPrice}`
+                            //-         step="10"
+                            //-     )
 
-                            //- button.bid-btn(type="button") Place Bid
-                            button.bid-btn(type="button" id="place-bid") Place Bid
+                            //- //- button.bid-btn(type="button") Place Bid
+                            //- button.bid-btn(type="button" id="place-bid") Place Bid
+
+                            if painting.status === 'active'
+                                .bid-box
+                                    label(for="bid") Your Bid
+
+                                    input.bid-input(
+                                        id="bid"
+                                        type="number"
+                                        value=`${painting.currentPrice}`
+                                        min=`${painting.currentPrice}`
+                                        step="10"
+                                    )
+
+                                button.bid-btn(type="button" id="place-bid") Place Bid
+
+                            else if painting.status === 'sold'
+                                button.bid-btn.sold-btn(type="button" disabled) Sold
+
+                            //- else if painting.status === 'sold'
+                            //-     .sold-message
+                            //-         | Sold
 
 
                             // Ater Enter the place bid button

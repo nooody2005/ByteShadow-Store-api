@@ -190,6 +190,11 @@
 }
 
 
+.sold-btn {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
 /* ِAfter Enter "Place bid" button & aleady logged in */
 /* .modal {
     display: none;
