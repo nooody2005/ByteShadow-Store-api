@@ -76,12 +76,18 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
     });
   }
 
-  if (!obj.success) {
-    return res.status(200).json({
-      status: 'success',
-      message: 'Payment was not successful'
-    });
-  }
+//   if (!obj.success) {
+//     return res.status(200).json({
+//       status: 'success',
+//       message: 'Payment was not successful'
+//     });
+//   }
+
+//   const paymobOrderId = obj.order?.id;
+
+//   const order = await Order.findOne({
+//     paymobOrderId
+//   });
 
   const paymobOrderId = obj.order?.id;
 
@@ -95,6 +101,26 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
       message: 'Order not found'
     });
   }
+
+  if (!obj.success) {
+    order.paymentStatus = 'failed';
+
+    await order.save();
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Payment failed'
+    });
+  }
+
+
+
+//   if (!order) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Order not found'
+//     });
+//   }
 
   if (obj.amount_cents !== Math.round(order.amount * 100)) {
     return res.status(400).json({
@@ -121,5 +147,26 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
 
 //   res.status(200).json({
 //     status: 'success'
+//   });
+// });
+
+
+// exports.testFailedPayment = catchAsync(async (req, res, next) => {
+//   const order = await Order.findById(req.params.orderId);
+
+//   if (!order) {
+//     return next(new AppError('Order not found', 404));
+//   }
+
+//   order.paymentStatus = 'failed';
+
+//   await order.save();
+
+//   res.status(200).json({
+//     status: 'success',
+//     message: 'Test failed payment applied',
+//     data: {
+//       order
+//     }
 //   });
 // });

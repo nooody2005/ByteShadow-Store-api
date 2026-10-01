@@ -204,8 +204,18 @@ block content
 
                                         if order.paymentStatus === 'paid'
                                             span.status.purchased Paid
+                                        else if order.paymentStatus === 'failed'
+                                            span.status.failed Payment Failed
                                         else
                                             span.status.pending Payment Pending
+
+
+                                        //- if order.paymentStatus === 'paid'
+                                        //-     span.status.purchased Paid
+                                        //- else
+                                        //-     span.status.pending Payment Pending
+
+                                        
 
                                     if order.paymentStatus === 'paid'
                                         a.card-btn(
