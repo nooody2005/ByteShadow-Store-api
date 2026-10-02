@@ -7910,7 +7910,7 @@ const showAlert = (type, msg) => {
   hideAlert(); //to hide all alerts before show new alert
   const markup = "<div class=\"alert alert--".concat(type, "\">").concat(msg, "</div>");
   document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-  window.setTimeout(hideAlert, 6000); //hide the new alert after 5 sec
+  window.setTimeout(hideAlert, 10000); //hide the new alert after 5 sec
 };
 exports.showAlert = showAlert;
 },{}],"login.js":[function(require,module,exports) {
@@ -8109,9 +8109,25 @@ if (placeBidBtn) {
         //   amount
         // }
       });
+
+      //   if (res.data.status === 'success') {
+      //     showAlert('success', 'Your bid was placed successfully ^_^');
+
+      //     document.querySelector('.current-price .number').textContent = amount;
+      //   }
       if (res.data.status === 'success') {
-        (0, _alerts.showAlert)('success', 'Your bid was placed successfully ^_^');
         document.querySelector('.current-price .number').textContent = amount;
+        if (res.data.data.isNewAuction) {
+          const auctionEnd = new Date(res.data.data.auctionEnd);
+          const formattedDate = auctionEnd.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          });
+          (0, _alerts.showAlert)('success', "\uD83C\uDFA8 New auction started! Your bid has started a new 14-day auction. Ends on ".concat(formattedDate, "."));
+        } else {
+          (0, _alerts.showAlert)('success', 'Your bid was placed successfully ^_^');
+        }
       }
     } catch (err) {
       var _err$response;
@@ -8339,7 +8355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63392" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54403" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

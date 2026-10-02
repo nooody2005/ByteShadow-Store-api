@@ -54,7 +54,8 @@ block content
                             //- //- button.bid-btn(type="button") Place Bid
                             //- button.bid-btn(type="button" id="place-bid") Place Bid
 
-                            if painting.status === 'active'
+                            //- if painting.status === 'active'
+                            if painting.status === 'active' || (painting.status === 'ended' && painting.totalBids === 0)
                                 .bid-box
                                     label(for="bid") Your Bid
 
@@ -69,7 +70,7 @@ block content
                                 button.bid-btn(type="button" id="place-bid") Place Bid
 
 
-                            // if auction ended and no winner (no one tried to buy it) or no one shared in its auction
+                            //- if auction ended and no winner (no one tried to buy it) or no one shared in its auction
                             else if painting.status === 'ended'
                                 button.bid-btn.sold-btn(type="button" disabled) Auction Ended
 

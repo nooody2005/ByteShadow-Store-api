@@ -53,11 +53,31 @@ if (placeBidBtn) {
         // }
       });
 
-      if (res.data.status === 'success') {
-        showAlert('success', 'Your bid was placed successfully ^_^');
+    //   if (res.data.status === 'success') {
+    //     showAlert('success', 'Your bid was placed successfully ^_^');
 
-        document.querySelector('.current-price .number').textContent = amount;
+    //     document.querySelector('.current-price .number').textContent = amount;
+    //   }
+    if (res.data.status === 'success') {
+      document.querySelector('.current-price .number').textContent = amount;
+
+      if (res.data.data.isNewAuction) {
+        const auctionEnd = new Date(res.data.data.auctionEnd);
+
+        const formattedDate = auctionEnd.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+
+        showAlert(
+          'success',
+          `🎨 New auction started! Your bid has started a new 14-day auction. Ends on ${formattedDate}.`
+        );
+      } else {
+        showAlert('success', 'Your bid was placed successfully ^_^');
       }
+    }
     } catch (err) {
       showAlert(
         'error',

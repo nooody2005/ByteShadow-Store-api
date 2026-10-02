@@ -27,25 +27,44 @@ exports.createBid = catchAsync(async (req, res, next) => {
   }
 
   // 3) Check auction status
-  if (painting.status !== 'active') {
-    return next(
-      new AppError('You can only bid on an active auction', 400)
-    );
+  // if (painting.status !== 'active') {
+  //   return next(
+  //     new AppError('You can only bid on an active auction', 400)
+  //   );
+  // }
+
+  const isRestartingAuction =
+    painting.status === 'ended' && painting.totalBids === 0;
+
+  if (painting.status !== 'active' && !isRestartingAuction) {
+    return next(new AppError('You can only bid on an active auction', 400));
   }
 
   // 4) Check auction dates
+  // const now = new Date();
+
+  // if (now < painting.auctionStart) {
+  //   return next(
+  //     new AppError('This auction has not started yet', 400)
+  //   );
+  // }
+
+  // if (now > painting.auctionEnd) {
+  //   return next(
+  //     new AppError('This auction has already ended', 400)
+  //   );
+  // }
+
   const now = new Date();
 
-  if (now < painting.auctionStart) {
-    return next(
-      new AppError('This auction has not started yet', 400)
-    );
-  }
+  if (!isRestartingAuction) {
+    if (now < painting.auctionStart) {
+      return next(new AppError('This auction has not started yet', 400));
+    }
 
-  if (now > painting.auctionEnd) {
-    return next(
-      new AppError('This auction has already ended', 400)
-    );
+    if (now > painting.auctionEnd) {
+      return next(new AppError('This auction has already ended', 400));
+    }
   }
 
   // 5) Bid must be higher than current price
@@ -65,6 +84,14 @@ exports.createBid = catchAsync(async (req, res, next) => {
   //   amount,
   // });
 
+
+  if (isRestartingAuction) {
+    painting.auctionStart = now;
+    painting.auctionEnd = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+    painting.status = 'active';
+  }
+
+
   const bid = await Bid.create({
     painting: painting._id,
     user: user,
@@ -82,11 +109,19 @@ exports.createBid = catchAsync(async (req, res, next) => {
   });
 
   // 8) Send response
+  // res.status(201).json({
+  //   status: 'success',
+  //   data: {
+  //     bid,
+  //   },
+  // });
   res.status(201).json({
     status: 'success',
     data: {
       bid,
-    },
+      isNewAuction: isRestartingAuction,
+      auctionEnd: painting.auctionEnd
+    }
   });
 });
 

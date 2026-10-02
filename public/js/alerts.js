@@ -10,5 +10,5 @@ export const showAlert = (type, msg) => {
     hideAlert();    //to hide all alerts before show new alert
     const markup = `<div class="alert alert--${type}">${msg}</div>`;
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
-    window.setTimeout(hideAlert, 6000); //hide the new alert after 5 sec
+    window.setTimeout(hideAlert, 10000); //hide the new alert after 5 sec
 };
