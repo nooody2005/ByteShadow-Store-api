@@ -493,18 +493,31 @@ ul{
     width: 1000%;
     max-width: 100%;
 }
-.gallery .box .text {
+/* .gallery .box .text {
     position: absolute;
     left: 0;
     bottom: -100%;
     width: 100%;
-    /* height: 50%; */
     height: 60%;
     background: rgba(0, 0, 0, .7);
     color:var(--main-color);
     padding: 25px;
     transition: .5s;
+} */
+
+.gallery .box .text {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    width: 100%;
+    height: 65%;
+    background: rgba(0, 0, 0, .7);
+    color: var(--main-color);
+    padding: 20px 25px;
+    transition: .5s;
+    box-sizing: border-box;
 }
+
 .gallery .box:hover .text {
     bottom: 0;
 }
@@ -514,24 +527,69 @@ ul{
     /* padding-bottom:40px;
 } */
 
-.gallery .box .text h3 {
+/* .gallery .box .text h3 {
     padding-bottom: 20px;
-    font-size: 15px;
+    font-size: 20px;
+} */
+
+.gallery .box .text h3 {
+    padding-bottom: 12px;
+    font-size: 18px;
 }
+
+/* .gallery .box .text p {
+    color: var(--main-color);
+    line-height: 1.5;
+    font-size:15px;
+    margin-bottom: 20px;
+} */
 
 .gallery .box .text p {
     color: var(--main-color);
-    line-height: 1.5;
-    font-size:13px;
-    margin-bottom: 20px;
+    line-height: 1.4;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
+
+
 .gallery .box .text > span{
-   font-size: 12px;
+   font-size: 15px;
 }
-.gallery .box .text .price {
+/* .gallery .box .text .price {
     display: inline-block;
     margin-left: 80px;
+} */
+/* 
+.gallery .box .text .price {
+    display: block;
+    margin-left: 0;
+    text-align: right;
+} */
+
+/* .gallery .box .text .price {
+    display: inline-block;
+    margin-left: 40px;
+    text-align: right;
 }
+
+.gallery .box .text .price .price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.gallery .box .text .price .price-info .sold {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+.gallery .box .text .price .price-info .current-price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .gallery .box .text .price .current-price{
     font-weight: bold;     
 }   
@@ -541,7 +599,41 @@ ul{
 .gallery .box .text .price .current-price > span{
     color:rgb(142, 97, 116);
     font-size: 20px;
+} */
+
+.gallery .box .text .price {
+    display: block;
+    text-align: right;
+    margin-left: 0;
 }
+
+.gallery .box .text .price .price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.gallery .box .text .price .price-info .sold {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+.gallery .box .text .price .price-info .current-price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.gallery .box .text .price .price-info .current-price .number {
+    color: var(--main-color);
+}
+
+.gallery .box .text .price .price-info .current-price .currency {
+    color: rgb(142, 97, 116);
+    font-size: 20px;
+}
+
 .gallery .box .info {
     position: relative;
     padding-top: 20px;
@@ -551,6 +643,7 @@ ul{
     color: var(--main-color);
     font-weight: bold;
     text-decoration: none;
+    font-size: 20px;
 }
 
 /* .gallery .box .info i {

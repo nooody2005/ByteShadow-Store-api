@@ -173,7 +173,8 @@ exports.finishAuctions = async () => {
     if (painting.highestBidder) {
       painting.winner = painting.highestBidder;
       painting.finalPrice = painting.currentPrice;
-      painting.status = 'sold';
+      // painting.status = 'sold';
+      painting.status = 'reserved';
 
       const existingOrder = await Order.findOne({
         painting: painting._id

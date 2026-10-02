@@ -34,9 +34,13 @@ const orderSchema = new mongoose.Schema(
       type: String,
       enum: ['unpaid', 'paid', 'failed'],
       default: 'unpaid'
+    },
+    shippingStatus: {
+      type: String,
+      enum: ['processing', 'shipped', 'delivered'],
+      default: 'processing'
     }
   },
-  
   {
     timestamps: true
   }

@@ -125,7 +125,7 @@ const paintingSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["draft", "active", "ended", "sold", "cancelled"],
+      enum: ["draft", "active", "ended","reserved", "sold", "cancelled"],
       default: "draft",
     },
   },

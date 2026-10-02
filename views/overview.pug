@@ -58,11 +58,35 @@ block content
 
                                 .price
                                     if painting.status === 'sold'
-                                        span.sold SOLD
+                                        .price-info
+                                            span.sold SOLD
+
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency $
+                                        //- span.sold SOLD
+
+
+                                    else if painting.status === 'reserved'
+                                        .price-info
+                                            span.sold RESERVED
+
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency $
+
+
+                                    //- else if painting.status === 'reserved'
+                                    //-     span.sold REVERSED
+
+                                    //-     span.current-price
+                                    //-         span.number= painting.currentPrice
+                                    //-         span.currency $
                                     else
-                                        span.current-price
-                                            span.number= painting.currentPrice
-                                            span.currency $
+                                        .price-info
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency $
 
                                 .info
                                     a(href=`/painting/${painting.slug}`)

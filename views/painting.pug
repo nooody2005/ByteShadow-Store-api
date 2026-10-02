@@ -68,6 +68,14 @@ block content
 
                                 button.bid-btn(type="button" id="place-bid") Place Bid
 
+
+                            // if auction ended and no winner (no one tried to buy it) or no one shared in its auction
+                            else if painting.status === 'ended'
+                                button.bid-btn.sold-btn(type="button" disabled) Auction Ended
+
+                            else if painting.status === 'reserved'
+                                button.bid-btn.sold-btn(type="button" disabled) Reserved    
+
                             else if painting.status === 'sold'
                                 button.bid-btn.sold-btn(type="button" disabled) Sold
 

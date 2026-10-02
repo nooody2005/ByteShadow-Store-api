@@ -1,6 +1,7 @@
 const Order = require('../models/orderModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const Painting = require('../models/paintingModel');
 // const { createPaymentIntention } = require('../utils/paymob');
 const { createPaymentIntention, verifyPaymobHmac } = require('../utils/paymob');
 
@@ -132,7 +133,22 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
   order.paymentStatus = 'paid';
   order.status = 'paid';
 
+
+  const painting = await Painting.findById(order.painting);
+
+  if (!painting) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Painting not found'
+    });
+  }
+
+  painting.status = 'sold';
+  await painting.save();
+
   await order.save();
+
+//   await order.save();
 
   res.status(200).json({
     status: 'success'
