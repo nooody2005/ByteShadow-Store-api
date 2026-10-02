@@ -66,10 +66,38 @@ exports.getSignupForm = (req, res) => {
 // });
 
 
+// exports.getAccount = catchAsync(async (req, res, next) => {
+//   const bids = await Bid.find({
+//     user: req.user._id
+//   }).populate('painting', 'name image currentPrice status auctionEnd');
+
+//   const purchases = await Painting.find({
+//     winner: req.user._id
+//   });
+
+//   const orders = await Order.find({
+//     user: req.user._id
+//   }).populate('painting', 'name image slug auctionEnd');
+
+
+//   res.status(200).render('account', {
+//     title: 'Your Account',
+//     bids,
+//     purchases,
+//     orders
+//   });
+
+
+// });
+
+
 exports.getAccount = catchAsync(async (req, res, next) => {
   const bids = await Bid.find({
     user: req.user._id
-  }).populate('painting', 'name image currentPrice status auctionEnd');
+  }).populate(
+    'painting',
+    'name image currentPrice status auctionEnd slug decoImages stageImages'
+  );
 
   const purchases = await Painting.find({
     winner: req.user._id
@@ -79,15 +107,12 @@ exports.getAccount = catchAsync(async (req, res, next) => {
     user: req.user._id
   }).populate('painting', 'name image slug auctionEnd');
 
-
   res.status(200).render('account', {
     title: 'Your Account',
     bids,
     purchases,
     orders
   });
-
-
 });
 
 //==================================== UPDATE USER DATA =============================

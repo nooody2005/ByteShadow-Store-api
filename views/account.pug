@@ -124,32 +124,61 @@ block content
                         p.section-description
                             | Track the paintings you are currently bidding on.
 
+
                         if bids.length
                             each bid in bids
-                                .account-card
-                                    img(
-                                        src=`/img/paintings/${bid.painting.image}`
-                                        alt=bid.painting.name
-                                    )
+                                if bid.painting
+                                    .account-card
+                                        img(
+                                            src=`/img/paintings/${bid.painting.image}`
+                                            alt=bid.painting.name
+                                        )
 
-                                    .card-info
-                                        h3= bid.painting.name
+                                        .card-info
+                                            h3= bid.painting.name
 
-                                        p
-                                            | Your current bid:
-                                            strong $#{bid.amount}
+                                            p
+                                                | Your current bid:
+                                                strong $#{bid.amount}
 
-                                        p
-                                            | Current highest bid:
-                                            strong $#{bid.painting.currentPrice}
+                                            p
+                                                | Current highest bid:
+                                                strong $#{bid.painting.currentPrice}
 
-                                        span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
+                                            span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
 
-                                    a.card-btn(href=`/painting/${bid.painting._id}`)
-                                        | View Painting
+                                        a.card-btn(href=`/painting/${bid.painting.slug}`)
+                                            | View Painting
 
                         else
                             p You have not placed any bids yet.
+
+                        //- if bids.length
+                        //-     each bid in bids
+                        //-         .account-card
+                        //-             img(
+                        //-                 src=`/img/paintings/${bid.painting.image}`
+                        //-                 alt=bid.painting.name
+                        //-             )
+
+                        //-             .card-info
+                        //-                 h3= bid.painting.name
+
+                        //-                 p
+                        //-                     | Your current bid:
+                        //-                     strong $#{bid.amount}
+
+                        //-                 p
+                        //-                     | Current highest bid:
+                        //-                     strong $#{bid.painting.currentPrice}
+
+                        //-                 span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
+
+                        //-             a.card-btn(href=`/painting/${bid.painting._id}`)
+                        //-                 | View Painting
+
+                        //- else
+                        //-     p You have not placed any bids yet.
 
 
                     //- Favorites
@@ -175,8 +204,6 @@ block content
 
 
 
-
-                                        
                     //- My Purchases
                     section.account-section#purchases
                         h2 My Purchases
@@ -203,19 +230,17 @@ block content
                                             strong $#{order.amount}
 
                                         if order.paymentStatus === 'paid'
+                                            p.shipping-status
+                                                | Shipping:
+                                                strong= order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)
+
                                             span.status.purchased Paid
+
                                         else if order.paymentStatus === 'failed'
                                             span.status.failed Payment Failed
+
                                         else
                                             span.status.pending Payment Pending
-
-
-                                        //- if order.paymentStatus === 'paid'
-                                        //-     span.status.purchased Paid
-                                        //- else
-                                        //-     span.status.pending Payment Pending
-
-                                        
 
                                     if order.paymentStatus === 'paid'
                                         a.card-btn(
@@ -228,8 +253,82 @@ block content
                                             data-order-id=order._id
                                         )
                                             | Pay Now
+
                         else
                             p No purchases yet.
+
+                                        
+                    //- My Purchases
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have won ^_^
+
+
+                    //-     //- ============== 
+                    //-     if orders.length
+
+                    //-         //- each order in orders
+                    //-         //-     .account-card
+                    //-         //-         img( src=`/img/paintings/${order.painting.image}` alt=order.painting.name )
+                                   
+                    //-         each bid in bids
+                    //-             if bid.painting
+                    //-                 .account-card
+                    //-                     img(
+                    //-                         src=`/img/paintings/${bid.painting.image}`
+                    //-                         alt=bid.painting.name
+                    //-                     )
+
+                                      
+
+                    //-                 .card-info
+                    //-                     h3= order.painting.name
+
+                    //-                     p
+                    //-                         | Won on:
+                    //-                         strong= order.painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                    //-                     p
+                    //-                         | Final Price:
+                    //-                         strong $#{order.amount}
+
+                                        
+                    //-                     if order.paymentStatus === 'paid'
+                    //-                         p.shipping-status
+                    //-                             | Shipping:
+                    //-                             strong= order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)   
+
+                                                
+                    //-                     if order.paymentStatus === 'paid'
+                    //-                         span.status.purchased Paid
+                    //-                     else if order.paymentStatus === 'failed'
+                    //-                         span.status.failed Payment Failed
+                    //-                     else
+                    //-                         span.status.pending Payment Pending
+
+
+
+                    //-                     //- if order.paymentStatus === 'paid'
+                    //-                     //-     span.status.purchased Paid
+                    //-                     //- else
+                    //-                     //-     span.status.pending Payment Pending
+
+                                        
+
+                    //-                 if order.paymentStatus === 'paid'
+                    //-                     a.card-btn(
+                    //-                         href=`/painting/${order.painting.slug}`
+                    //-                     )
+                    //-                         | View Details
+                    //-                 else
+                    //-                     button.card-btn.pay-btn(
+                    //-                         type="button"
+                    //-                         data-order-id=order._id
+                    //-                     )
+                    //-                         | Pay Now
+                    //-     else
+                    //-         p No purchases yet.
 
 
 
