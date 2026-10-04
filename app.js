@@ -13,7 +13,7 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const methodOverride = require('method-override');
 
-
+const adminRouter = require('./routes/adminRoutes');
 const paintingRouter = require('./routes/paintingRoutes');
 const userRouter = require('./routes/userRoutes');
 // const reviewRouter = require('./routes/reviewRoutes');
@@ -119,6 +119,7 @@ app.use((req, res, next) => {
 
 
 app.use('/',viewRouter);
+app.use('/admin', adminRouter);
 app.use('/api/v1/paintings', paintingRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/bids', bidRouter);
