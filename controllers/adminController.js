@@ -130,3 +130,55 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
     deliveredOrders
   });
 });
+
+
+
+exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
+  const [
+    totalPaintings,
+    soldPaintings,
+    reservedPaintings,
+    activePaintings,
+    endedPaintings,
+    paintings
+  ] = await Promise.all([
+    Painting.countDocuments(),
+
+    Painting.countDocuments({
+      status: 'sold'
+    }),
+
+    Painting.countDocuments({
+      status: 'reserved'
+    }),
+
+    Painting.countDocuments({
+      status: 'active'
+    }),
+
+    Painting.countDocuments({
+      status: 'ended'
+    }),
+
+    Painting.find().sort('-createdAt')
+  ]);
+
+  res.status(200).render('admin/paintings/paintingsDashboard', {
+    title: 'Paintings Dashboard',
+
+    totalPaintings,
+    soldPaintings,
+    reservedPaintings,
+    activePaintings,
+    endedPaintings,
+
+    paintings
+  });
+});
+
+// add paintings
+exports.getAddPainting = catchAsync(async (req, res, next) => {
+  res.status(200).render('admin/paintings/addPainting', {
+    title: 'Add New Painting'
+  });
+});

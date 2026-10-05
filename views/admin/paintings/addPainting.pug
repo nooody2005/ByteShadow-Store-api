@@ -1,0 +1,155 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/add-edit.css")
+
+block content
+
+    section.dashboard
+
+        .container
+
+            .dashboard-box
+
+                h2 Add New Painting
+
+                form(
+                    action="/api/v1/paintings"
+                    method="POST"
+                    enctype="multipart/form-data"
+                )
+
+                    .form-group
+                        label(for="name") Painting Name
+                        input(
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                        )
+
+                    .form-row
+
+                        .form-group
+                            label(for="type") Type
+
+                            select(
+                                id="type"
+                                name="type"
+                                required
+                            )
+                                option(value="Expressive") Expressive
+                                option(value="Nature") Nature
+                                option(value="Romantic") Romantic
+                                option(value="Portrait") Portrait
+
+                        .form-group
+                            label(for="size") Size
+                            input(
+                                type="text"
+                                id="size"
+                                name="size"
+                                required
+                            )
+
+                    .form-group
+                        label(for="briefPara") Brief Overview
+                        textarea(
+                            id="briefPara"
+                            name="briefPara"
+                            rows="3"
+                            required
+                        )
+
+                    .form-group
+                        label(for="description1") Description 1
+                        textarea(
+                            id="description1"
+                            name="description1"
+                            rows="4"
+                            required
+                        )
+
+                    .form-group
+                        label(for="description2") Description 2
+                        textarea(
+                            id="description2"
+                            name="description2"
+                            rows="4"
+                            required
+                        )
+
+                    .form-row
+
+                        .form-group
+                            label(for="startingPrice") Starting Price
+                            input(
+                                type="number"
+                                id="startingPrice"
+                                name="startingPrice"
+                                min="0"
+                                required
+                            )
+
+                        .form-group
+                            label(for="status") Status
+
+                            select(
+                                id="status"
+                                name="status"
+                            )
+                                option(value="draft") Draft
+                                option(value="active") Active
+                                option(value="cancelled") Cancelled
+
+                    .form-row
+
+                        .form-group
+                            label(for="auctionStart") Auction Start
+                            input(
+                                type="datetime-local"
+                                id="auctionStart"
+                                name="auctionStart"
+                            )
+
+                        .form-group
+                            label(for="auctionEnd") Auction Ends
+                            input(
+                                type="datetime-local"
+                                id="auctionEnd"
+                                name="auctionEnd"
+                            )
+
+                    .form-group
+                        label(for="image") Main Image
+                        input(
+                            type="file"
+                            id="image"
+                            name="image"
+                            accept="image/*"
+                            required
+                        )
+
+                    .form-group
+                        label(for="decoImages") Decoration Images
+                        input(
+                            type="file"
+                            id="decoImages"
+                            name="decoImages"
+                            accept="image/*"
+                            multiple
+                        )
+
+                    .form-group
+                        label(for="stageImages") Stage Images
+                        input(
+                            type="file"
+                            id="stageImages"
+                            name="stageImages"
+                            accept="image/*"
+                            multiple
+                        )
+
+                    button.dashboard-btn(type="submit")
+                        | Publish Painting

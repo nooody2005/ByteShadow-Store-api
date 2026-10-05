@@ -1,0 +1,194 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+            //- =========================
+            //- Dashboard Header
+            //- =========================
+
+            .dashboard-header
+
+                h2 Paintings Dashboard
+
+                a.add-btn(href="/admin/paintings/add")
+                    i.fas.fa-plus
+                    | Add Painting
+
+
+            //- =========================
+            //- Paintings Statistics
+            //- =========================
+
+            .stats-paintings
+
+                .stat-card
+                    h3 Total Paintings
+                    span= totalPaintings
+
+                .stat-card
+                    h3 Sold
+                    span= soldPaintings
+
+                .stat-card
+                    h3 Reserved
+                    span= reservedPaintings
+
+                .stat-card
+                    h3 Active
+                    span= activePaintings
+
+                .stat-card
+                    h3 Ended
+                    span= endedPaintings
+
+
+            //- =========================
+            //- Search & Filter
+            //- =========================
+
+            .search-filter
+
+                .search-box
+                    input(
+                        type="text"
+                        placeholder="Search Painting..."
+                        id="painting-search"
+                    )
+
+                .status-filter
+
+                    button.filter-btn.active(
+                        type="button"
+                        data-status="all"
+                    ) All
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="sold"
+                    ) Sold
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="reserved"
+                    ) Reserved
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="active"
+                    ) Active
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="ended"
+                    ) Ended
+
+
+            //- =========================
+            //- Paintings
+            //- =========================
+
+            .paintings
+
+                if paintings.length
+
+                    each painting in paintings
+
+                        .painting-card(
+                            data-status=painting.status
+                            data-name=painting.name.toLowerCase()
+                        )
+
+                            .image
+
+                                img(
+                                    src=`/img/paintings/${painting.image}`
+                                    alt=painting.name
+                                )
+
+
+                            .content
+
+                                .painting-title
+
+                                    h3= painting.name
+
+                                    span.type= painting.type
+
+                                    span.size
+                                        | Size: #{painting.size}
+
+
+                                p= painting.briefPara
+
+
+                                .details
+
+                                    .detail-item
+                                        small Starting Price
+                                        span $#{painting.startingPrice}
+
+                                    .detail-item
+                                        small Current Bid
+                                        span $#{painting.currentPrice}
+
+                                    .detail-item
+                                        small Auction Ends
+
+                                        //- if painting.auctionEnd
+                                        //-     span
+                                        //-         = painting.auctionEnd.toLocaleDateString(
+                                        //-             'en-GB',
+                                        //-             {
+                                        //-                 day: '2-digit',
+                                        //-                 month: 'short',
+                                        //-                 year: 'numeric'
+                                        //-             }
+                                        //-         )
+                                        //- else
+                                        //-     span —
+
+                                        if painting.auctionEnd
+                                            span= painting.auctionEnd.toLocaleDateString('en-GB')
+                                        else
+                                            span —
+
+
+                                    .detail-item
+                                        small Status
+
+                                        span.status= painting.status.charAt(0).toUpperCase() + painting.status.slice(1)
+
+
+                                .buttons
+
+                                    a.show-btn(
+                                        href=`/admin/paintings/${painting._id}`
+                                    )
+                                        | Show
+
+                                    a.edit-btn(
+                                        href=`/admin/paintings/${painting._id}/edit`
+                                    )
+                                        | Edit
+
+                                    button.delete-btn(
+                                        type="button"
+                                        data-painting-id=painting._id
+                                    )
+                                        | Delete
+
+                else
+
+                    .no-paintings
+                        p No paintings found.
+                        a.add-btn(href="/admin/paintings/add")
+                            i.fas.fa-plus
+                            | Add Your First Painting
