@@ -132,7 +132,10 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
 });
 
 
-
+// ============================================================================================================================================================
+// =========================================================================== render Paintings pages for admin ===============================================
+// ============================================================================================================================================================
+// get the paintinds dashboard
 exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
   const [
     totalPaintings,
@@ -163,27 +166,26 @@ exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
     Painting.find().sort('-createdAt')
   ]);
 
-//   res.status(200).render('admin/paintings/paintingsDashboard', {
-//     title: 'Paintings Dashboard',
-
-//     totalPaintings,
-//     soldPaintings,
-//     reservedPaintings,
-//     activePaintings,
-//     endedPaintings,
-
-//     paintings
-//   });
+    // res.status(200).render('admin/paintings/paintingsDashboard', {
+    // title: 'Paintings Dashboard',
+    // totalPaintings,
+    // soldPaintings,
+    // reservedPaintings,
+    // activePaintings,
+    // endedPaintings,
+    // paintings,
+    // message: req.query.message
+    // });
 
     res.status(200).render('admin/paintings/paintingsDashboard', {
-    title: 'Paintings Dashboard',
-    totalPaintings,
-    soldPaintings,
-    reservedPaintings,
-    activePaintings,
-    endedPaintings,
-    paintings,
-    message: req.query.message
+      title: 'Paintings Dashboard',
+      totalPaintings,
+      soldPaintings,
+      reservedPaintings,
+      activePaintings,
+      endedPaintings,
+      paintings,
+      message: req.query.message
     });
 });
 
@@ -191,5 +193,16 @@ exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
 exports.getAddPainting = catchAsync(async (req, res, next) => {
   res.status(200).render('admin/paintings/addPainting', {
     title: 'Add New Painting'
+  });
+});
+
+
+//ُ Edit paintings
+exports.getEditPainting = catchAsync(async (req, res, next) => {
+  const painting = await Painting.findById(req.params.id);
+
+  res.status(200).render('admin/paintings/editPainting', {
+    title: 'Edit Painting',
+    painting
   });
 });

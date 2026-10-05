@@ -1,0 +1,237 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/add-edit.css")
+
+block content
+    section.dashboard
+        .container
+            .dashboard-box
+                h2 Edit Painting
+
+                form#edit-painting-form(
+                    action=`/api/v1/paintings/${painting._id}?_method=PATCH`
+                    method="POST"
+                    enctype="multipart/form-data"
+                )
+                    .form-group
+                        label(for="name") Painting Name
+                        input(
+                            type="text"
+                            id="name"
+                            name="name"
+                            value=painting.name
+                        )
+
+                    .form-row
+                        .form-group
+                            label(for="type") Type
+                            select(
+                                id="type"
+                                name="type"
+                            )
+                                option(
+                                    value="Expressive"
+                                    selected=painting.type === 'Expressive'
+                                ) Expressive
+                                option(
+                                    value="Nature"
+                                    selected=painting.type === 'Nature'
+                                ) Nature
+                                option(
+                                    value="Romantic"
+                                    selected=painting.type === 'Romantic'
+                                ) Romantic
+                                option(
+                                    value="Portrait"
+                                    selected=painting.type === 'Portrait'
+                                ) Portrait
+
+                        .form-group
+                            label(for="size") Size
+                            input(
+                                type="text"
+                                id="size"
+                                name="size"
+                                value=painting.size
+                            )
+
+                    .form-group
+                        label(for="briefPara") Brief Overview
+                        textarea(
+                            id="briefPara"
+                            name="briefPara"
+                            rows="3"
+                        )= painting.briefPara
+
+                    .form-group
+                        label(for="description1") Description1
+                        textarea(
+                            id="description1"
+                            name="description1"
+                            rows="4"
+                        )= painting.description1
+
+                    .form-group
+                        label(for="description2") Description2
+                        textarea(
+                            id="description2"
+                            name="description2"
+                            rows="4"
+                        )= painting.description2
+
+                    .form-row
+                        .form-group
+                            label(for="startingPrice") Starting Price
+                            input(
+                                type="number"
+                                id="startingPrice"
+                                name="startingPrice"
+                                value=painting.startingPrice
+                            )
+
+                        .form-group
+                            label(for="status") Status
+                            select(
+                                id="status"
+                                name="status"
+                            )
+                                option(
+                                    value="draft"
+                                    selected=painting.status === 'draft'
+                                ) Draft
+                                option(
+                                    value="active"
+                                    selected=painting.status === 'active'
+                                ) Active
+                                option(
+                                    value="cancelled"
+                                    selected=painting.status === 'cancelled'
+                                ) Cancelled
+                                option(
+                                    value="reserved"
+                                    selected=painting.status === 'reserved'
+                                ) Reserved
+                                option(
+                                    value="sold"
+                                    selected=painting.status === 'sold'
+                                ) Sold
+                                option(
+                                    value="ended"
+                                    selected=painting.status === 'ended'
+                                ) Ended
+
+                    .form-row
+                        .form-group
+                            label(for="auctionStart") Auction Starts
+                            input(
+                                type="datetime-local"
+                                id="auctionStart"
+                                name="auctionStart"
+                                value=painting.auctionStart ? new Date(painting.auctionStart).toISOString().slice(0, 16) : ''
+                            )
+
+                        .form-group
+                            label(for="auctionEnd") Auction Ends
+                            input(
+                                type="datetime-local"
+                                id="auctionEnd"
+                                name="auctionEnd"
+                                value=painting.auctionEnd ? new Date(painting.auctionEnd).toISOString().slice(0, 16) : ''
+                            )
+
+                    .image-preview
+                        h3 Main Image
+
+                        img(
+                            src=`/img/paintings/${painting.image}`
+                            alt=painting.name
+                        )
+
+                        input(
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                        )
+
+                    .image-preview
+                        h3 Decoration Images
+
+                        .preview-grid
+                            if painting.decoImages && painting.decoImages.length
+                                each image in painting.decoImages
+                                    img(
+                                        src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`
+                                        alt=painting.name
+                                    )
+
+                        input(
+                            type="file"
+                            name="decoImages"
+                            multiple
+                            accept="image/*"
+                        )
+
+                    .image-preview
+                        h3 Stage Images
+
+                        .preview-grid
+                            if painting.stageImages && painting.stageImages.length
+                                each image in painting.stageImages
+                                    img(
+                                        src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`
+                                        alt=painting.name
+                                    )
+
+                        input(
+                            type="file"
+                            name="stageImages"
+                            multiple
+                            accept="image/*"
+                        )
+
+                    .dashboard-buttons
+                        button.dashboard-btn(type="submit")
+                            | Save Changes
+
+                        button.delete-btn(
+                            type="button"
+                            data-painting-id=painting._id
+                        )
+                            | Delete Painting
+
+
+
+
+
+    script.
+        const form = document.getElementById('edit-painting-form');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch(
+                    `/api/v1/paintings/#{painting._id}?_method=PATCH`,
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Something went wrong');
+                }
+
+                window.location.href =
+                    '/admin/paintings?message=Painting updated successfully';
+
+            } catch (err) {
+                alert(err.message);
+            }
+        });

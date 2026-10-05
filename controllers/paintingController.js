@@ -54,23 +54,19 @@ exports.uploadPaintingImages = upload.fields([
 
 
 exports.resizePaintingImages = catchAsync(async (req, res, next) => {
-  // console.log('🔥🔥🔥 RESIZE PAINTING IMAGES CALLED 🔥🔥🔥');
-
   if (!req.files?.image && !req.files?.decoImages && !req.files?.stageImages) {
     return next();
   }
 
-  let paintingFolder;
+  const folderName = req.body.name.replace(/\s+/g, '-');
+  const paintingFolder = `public/img/paintings/${folderName}`;
 
-  // =========================================
-  // 1) Main Image
-  // =========================================
+  fs.mkdirSync(paintingFolder, { recursive: true });
 
+  // Main Image
   if (req.files.image) {
-    // Generate a unique name for the main painting image
     req.body.image = `painting-${Date.now()}-cover.jpeg`;
 
-    // Save the main image directly inside the paintings folder
     await sharp(req.files.image[0].buffer)
       .resize({
         width: 2000,
@@ -80,77 +76,41 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
       .toFile(`public/img/paintings/${req.body.image}`);
-
-    // =========================================
-    // Create one folder for this painting
-    // The folder name is based on the main image name
-    // =========================================
-
-    // const folderName = req.body.image.replace('.jpeg', '');
-
-    // paintingFolder = `public/img/paintings/${folderName}`;
-    // Create a folder using the painting name
-  const folderName = req.body.name.replace(/\s+/g, '-');
-
-  paintingFolder = `public/img/paintings/${folderName}`;
-
-  fs.mkdirSync(paintingFolder, { recursive: true });
-
-
-    // console.log('================================');
-    // console.log('IMAGE:', req.body.image);
-    // console.log('FOLDER:', paintingFolder);
-    // console.log('EXISTS:', fs.existsSync(paintingFolder));
-    // console.log('================================');
   }
 
-  // =========================================
-  // 2) Decoration Images
-  // =========================================
-
+  // Decoration Images
   if (req.files.decoImages) {
-    // Initialize the decoration images array
     req.body.decoImages = [];
 
     await Promise.all(
       req.files.decoImages.map(async (file, i) => {
-        // Generate a simple name for the decoration image
         const filename = `deco-${i + 1}.jpeg`;
 
-        // Save the decoration image inside the painting folder
         await sharp(file.buffer)
           .resize(2000, 1333)
           .toFormat('jpeg')
           .jpeg({ quality: 90 })
           .toFile(`${paintingFolder}/${filename}`);
 
-        // Store the filename in the database
         req.body.decoImages.push(filename);
       })
     );
   }
 
-  // =========================================
-  // 3) Stage Images
-  // =========================================
-
+  // Stage Images
   if (req.files.stageImages) {
-    // Initialize the stage images array
     req.body.stageImages = [];
 
     await Promise.all(
       req.files.stageImages.map(async (file, i) => {
-        // Generate a simple name for the stage image
         const filename = `stage-${i + 1}.jpeg`;
 
-        // Save the stage image inside the painting folder
         await sharp(file.buffer)
           .resize(2000, 1333)
           .toFormat('jpeg')
           .jpeg({ quality: 90 })
           .toFile(`${paintingFolder}/${filename}`);
 
-        // Store the filename in the database
         req.body.stageImages.push(filename);
       })
     );
@@ -158,6 +118,115 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+
+
+
+// exports.resizePaintingImages = catchAsync(async (req, res, next) => {
+//   // console.log('🔥🔥🔥 RESIZE PAINTING IMAGES CALLED 🔥🔥🔥');
+
+//   if (!req.files?.image && !req.files?.decoImages && !req.files?.stageImages) {
+//     return next();
+//   }
+
+//   let paintingFolder;
+
+//   // =========================================
+//   // 1) Main Image
+//   // =========================================
+
+//   if (req.files.image) {
+//     // Generate a unique name for the main painting image
+//     req.body.image = `painting-${Date.now()}-cover.jpeg`;
+
+//     // Save the main image directly inside the paintings folder
+//     await sharp(req.files.image[0].buffer)
+//       .resize({
+//         width: 2000,
+//         height: 1333,
+//         fit: 'inside'
+//       })
+//       .toFormat('jpeg')
+//       .jpeg({ quality: 90 })
+//       .toFile(`public/img/paintings/${req.body.image}`);
+
+//     // =========================================
+//     // Create one folder for this painting
+//     // The folder name is based on the main image name
+//     // =========================================
+
+//     // const folderName = req.body.image.replace('.jpeg', '');
+
+//     // paintingFolder = `public/img/paintings/${folderName}`;
+//     // Create a folder using the painting name
+//   const folderName = req.body.name.replace(/\s+/g, '-');
+
+//   paintingFolder = `public/img/paintings/${folderName}`;
+
+//   fs.mkdirSync(paintingFolder, { recursive: true });
+
+
+//     // console.log('================================');
+//     // console.log('IMAGE:', req.body.image);
+//     // console.log('FOLDER:', paintingFolder);
+//     // console.log('EXISTS:', fs.existsSync(paintingFolder));
+//     // console.log('================================');
+//   }
+
+//   // =========================================
+//   // 2) Decoration Images
+//   // =========================================
+
+//   if (req.files.decoImages) {
+//     // Initialize the decoration images array
+//     req.body.decoImages = [];
+
+//     await Promise.all(
+//       req.files.decoImages.map(async (file, i) => {
+//         // Generate a simple name for the decoration image
+//         const filename = `deco-${i + 1}.jpeg`;
+
+//         // Save the decoration image inside the painting folder
+//         await sharp(file.buffer)
+//           .resize(2000, 1333)
+//           .toFormat('jpeg')
+//           .jpeg({ quality: 90 })
+//           .toFile(`${paintingFolder}/${filename}`);
+
+//         // Store the filename in the database
+//         req.body.decoImages.push(filename);
+//       })
+//     );
+//   }
+
+//   // =========================================
+//   // 3) Stage Images
+//   // =========================================
+
+//   if (req.files.stageImages) {
+//     // Initialize the stage images array
+//     req.body.stageImages = [];
+
+//     await Promise.all(
+//       req.files.stageImages.map(async (file, i) => {
+//         // Generate a simple name for the stage image
+//         const filename = `stage-${i + 1}.jpeg`;
+
+//         // Save the stage image inside the painting folder
+//         await sharp(file.buffer)
+//           .resize(2000, 1333)
+//           .toFormat('jpeg')
+//           .jpeg({ quality: 90 })
+//           .toFile(`${paintingFolder}/${filename}`);
+
+//         // Store the filename in the database
+//         req.body.stageImages.push(filename);
+//       })
+//     );
+//   }
+
+//   next();
+// });
 
 
 exports.finishAuctions = async () => {

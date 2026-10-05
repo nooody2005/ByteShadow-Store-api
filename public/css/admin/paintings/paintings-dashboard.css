@@ -425,3 +425,58 @@
         font-size: 32px;
     }
 }
+
+
+
+.success-message {
+    width: fit-content;
+    margin: 0 auto 30px;
+    padding: 14px 24px;
+
+    background: #eefaf1;
+    color: #2e7d4f;
+
+    border: 1px solid #b8e0c5;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    animation: messageAppear 0.4s ease;
+}
+
+.success-message::before {
+    content: "✓";
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2e7d4f;
+    color: white;
+
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

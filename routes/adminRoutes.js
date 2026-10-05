@@ -27,6 +27,13 @@ router.get(
   adminController.getAddPainting
 );
 
+router.get(
+  '/paintings/:id/edit',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getEditPainting
+);
+
 // router.post(
 //   '/paintings/add',
 //   authController.protect,
