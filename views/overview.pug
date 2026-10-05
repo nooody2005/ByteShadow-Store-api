@@ -2,10 +2,15 @@ extends base
 
 block content
 
-
     //- Start Landing
     .landing#home
+
         .overlay
+            if user && user.role === 'admin'
+                .admin-link
+                    a(href="/admin")
+                        i.fas.fa-user-shield
+                        | Go to Admin Dashboard
             .text
                 .content
                     h2

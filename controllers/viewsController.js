@@ -16,7 +16,8 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   res.status(200).render('overview', {
     title: 'All Paintings',
-    paintings
+    paintings,
+    // user: req.user
   });
 });
 
