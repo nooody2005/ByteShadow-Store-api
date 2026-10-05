@@ -163,17 +163,28 @@ exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
     Painting.find().sort('-createdAt')
   ]);
 
-  res.status(200).render('admin/paintings/paintingsDashboard', {
-    title: 'Paintings Dashboard',
+//   res.status(200).render('admin/paintings/paintingsDashboard', {
+//     title: 'Paintings Dashboard',
 
+//     totalPaintings,
+//     soldPaintings,
+//     reservedPaintings,
+//     activePaintings,
+//     endedPaintings,
+
+//     paintings
+//   });
+
+    res.status(200).render('admin/paintings/paintingsDashboard', {
+    title: 'Paintings Dashboard',
     totalPaintings,
     soldPaintings,
     reservedPaintings,
     activePaintings,
     endedPaintings,
-
-    paintings
-  });
+    paintings,
+    message: req.query.message
+    });
 });
 
 // add paintings

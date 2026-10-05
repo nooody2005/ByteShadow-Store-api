@@ -14,7 +14,7 @@ block content
 
                 h2 Add New Painting
 
-                form(
+                form#add-painting-form(
                     action="/api/v1/paintings"
                     method="POST"
                     enctype="multipart/form-data"
@@ -153,3 +153,35 @@ block content
 
                     button.dashboard-btn(type="submit")
                         | Publish Painting
+
+
+
+
+
+
+    script.
+        const form = document.getElementById('add-painting-form');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/api/v1/paintings', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Something went wrong');
+                }
+
+                window.location.href =
+                    '/admin/paintings?message=Painting added successfully';
+            } catch (err) {
+                alert(err.message);
+            }
+        });
