@@ -1,8 +1,10 @@
 const Painting = require('../models/paintingModel');
 const User = require('../models/userModel');
 const Order = require('../models/orderModel');
-
+const Bid = require('../models/bidModel');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
+
 
 exports.getAdminDashboard = catchAsync(async (req, res, next) => {
   const [
@@ -241,5 +243,46 @@ exports.getUsersDashboard = catchAsync(async (req, res, next) => {
     admins,
     blockedUsers,
     users
+  });
+});
+
+
+//show user
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  const [bids, participatedAuctions, wonPaintings, orders] = await Promise.all([
+    Bid.find({ user: user._id }).populate('painting'),
+
+    Bid.distinct('painting', {
+      user: user._id
+    }),
+
+    Painting.find({
+      winner: user._id
+    }),
+
+    Order.find({
+      user: user._id
+    }).populate('painting')
+  ]);
+
+  const totalSpent = orders.reduce(
+    (total, order) => total + (order.amount || 0),
+    0
+  );
+
+  res.status(200).render('admin/users/showUser', {
+    title: `${user.name} - User Details`,
+    user,
+    bids,
+    participatedAuctions,
+    wonPaintings,
+    orders,
+    totalSpent
   });
 });

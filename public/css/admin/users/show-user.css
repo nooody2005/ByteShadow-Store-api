@@ -480,23 +480,17 @@
 }
 
 
-
-.user-actions button {
-
+.user-actions button,
+.user-actions a {
     flex: 1;
-
     padding: 16px;
-
     border-radius: 10px;
-
     font-size: 17px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: .35s;
-
+    text-align: center;
+    
 }
 
 
@@ -508,6 +502,7 @@
     color: var(--main-color);
 
     border: 1px solid var(--soft-border);
+    text-decoration: none;
 
 }
 
@@ -537,12 +532,10 @@
 
 
 
-.user-actions button:hover {
-
+.user-actions button:hover,
+.user-actions a:hover {
     transform: translateY(-5px);
-
     box-shadow: 0 20px 35px var(--shadow-dark);
-
 }
 
 

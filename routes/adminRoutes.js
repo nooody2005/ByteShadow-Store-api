@@ -43,11 +43,20 @@ router.get(
 // );
 
 // ========================================= usres dashboard ===========================================
+//get all users
 router.get(
   '/users',
   authController.protect,
   authController.restrictTo('admin'),
   adminController.getUsersDashboard
+);
+
+// show user
+router.get(
+    '/users/:id',
+    authController.protect,
+    authController.restrictTo('admin'),
+    adminController.getUser
 );
 
 

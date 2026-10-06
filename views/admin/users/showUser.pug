@@ -1,0 +1,247 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/users/show-user.css")
+
+block content
+
+    //- Start User Details
+    section.user-details
+
+        .container
+
+            //- User Profile
+            .user-profile
+
+                .user-image
+                    img(
+                        src=`/img/users/${user.photo}`
+                        alt=user.name
+                    )
+
+                .user-info
+
+                    h2= user.name
+
+                    p
+                        span Email:
+                        |  #{user.email}
+
+                    p
+                        span Role:
+                        |  #{user.role === 'user' ? 'User' : user.role}
+
+                    //- p
+                    //-     span Account Created:
+                    //-     if user.createdAt
+                    //-         |  #{new Date(user.createdAt).toLocaleDateString('en-GB', {
+                    //-         |      day: 'numeric',
+                    //-         |      month: 'long',
+                    //-         |      year: 'numeric'
+                    //-         |  })}
+                    //-     else
+                    //-         |  -
+
+                    p
+                        span Account Created:
+                        if user.createdAt
+                            | #{new Date(user.createdAt).toLocaleDateString('en-GB')}
+                        else
+                            | -
+
+
+                    //- p
+                    //-     span Last Login:
+                    //-     if user.lastLogin
+                    //-         |  #{new Date(user.lastLogin).toLocaleDateString('en-GB', {
+                    //-         |      day: 'numeric',
+                    //-         |      month: 'long',
+                    //-         |      year: 'numeric'
+                    //-         |  })}
+                    //-     else
+                    //-         |  Never
+
+                    p
+                        span Last Login:
+                        if user.lastLogin
+                            | #{new Date(user.lastLogin).toLocaleDateString('en-GB')}
+                        else
+                            | Never
+
+                    p
+                        span Status:
+                        if user.status === 'blocked'
+                            span.blocked Blocked
+                        else
+                            span.active Active
+
+
+            //- Statistics
+            .user-stats
+
+                .stat-card
+                    h3 Total Bids
+                    span= bids.length
+
+                .stat-card
+                    h3 Participated Auctions
+                    span= participatedAuctions.length
+
+                .stat-card
+                    h3 Won Paintings
+                    span= wonPaintings.length
+
+                .stat-card
+                    h3 Total Spent
+                    span $#{totalSpent}
+
+
+            //- Active Auctions
+            .section-box
+
+                h2 Active Auctions
+
+                .auction-list
+
+                    each bid in bids
+
+                        if bid.painting && bid.painting.status === 'active'
+
+                            .auction-item
+
+                                img(
+                                    src=`/img/paintings/${bid.painting.image}`
+                                    alt=bid.painting.name
+                                )
+
+                                .auction-info
+
+                                    h3= bid.painting.name
+
+                                    p
+                                        | Current Price:
+                                        strong $#{bid.painting.currentPrice}
+
+                                    p
+                                        | Your Bid:
+                                        strong $#{bid.amount}
+
+                                    if bid.amount >= bid.painting.currentPrice
+                                        span.leading Leading
+                                    else
+                                        span.outbid Outbid
+
+
+            //- Won Paintings
+            .section-box
+
+                h2 Won Paintings
+
+                .won-list
+
+                    each painting in wonPaintings
+
+                        .won-card
+
+                            img(
+                                src=`/img/paintings/${painting.image}`
+                                alt=painting.name
+                            )
+
+                            div
+
+                                h3= painting.name
+
+                                p
+                                    | Final Price:
+                                    |  $#{painting.finalPrice}
+
+                                //- p
+                                //-     | Won Date:
+                                //-     if painting.auctionEnd
+                                //-         |  #{new Date(painting.auctionEnd).toLocaleDateString('en-GB', {
+                                //-         |      day: 'numeric',
+                                //-         |      month: 'long',
+                                //-         |      year: 'numeric'
+                                //-         |  })}
+                                //-     else
+                                //-         |  -
+
+                                p
+                                    | Won Date:
+                                    if painting.auctionEnd
+                                        | #{new Date(painting.auctionEnd).toLocaleDateString('en-GB')}
+                                    else
+                                        | -
+
+
+
+
+
+            //- Recent Activity
+            .section-box
+
+                h2 Recent Activity
+
+                ul.activity
+
+                    if bids.length
+
+                        each bid in bids.slice(-3).reverse()
+
+                            li
+
+                                | Increased bid on
+
+                                strong
+                                    |  #{bid.painting ? bid.painting.name : 'Painting'}
+
+                                span
+                                    if bid.createdAt
+                                        | #{new Date(bid.createdAt).toLocaleDateString('en-GB')}
+                                    else
+                                        | -
+                                
+            
+                    if user.lastLogin
+                        li
+                            | Logged in
+                            span
+                                | #{new Date(user.lastLogin).toLocaleDateString('en-GB')}
+
+                    if user.createdAt
+                        li
+                            | Created account
+                            span
+                                | #{new Date(user.createdAt).toLocaleDateString('en-GB')}
+
+
+            //- Admin Actions
+            .user-actions
+
+                a.edit-user(
+                    href=`/admin/users/${user._id}/edit`
+                )
+                    | Edit User
+
+                if user.status === 'active'
+                    button.block-user(
+                        type="button"
+                        data-user-id=user._id
+                    )
+                        | Block User
+                else
+                    button.block-user(
+                        type="button"
+                        data-user-id=user._id
+                    )
+                        | Unblock User
+
+                button.delete-user(
+                    type="button"
+                    data-user-id=user._id
+                )
+                    | Delete User
+
+    //- End User Details
