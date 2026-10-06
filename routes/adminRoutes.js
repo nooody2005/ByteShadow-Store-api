@@ -12,6 +12,7 @@ router.get(
   adminController.getAdminDashboard
 );
 
+// =========================== paintings dashboard ===========================
 router.get(
   '/paintings',
   authController.protect,
@@ -40,6 +41,14 @@ router.get(
 //   authController.restrictTo('admin'),
 //   adminController.createPainting
 // );
+
+// ========================================= usres dashboard ===========================================
+router.get(
+  '/users',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getUsersDashboard
+);
 
 
 module.exports = router;

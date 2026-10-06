@@ -1110,33 +1110,11 @@ ul{
 
 
 /* only for admins */
-/* .admin-link {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-} */
-
 .admin-link {
-    position: relative;
-    z-index: 10;
-
     display: flex;
     justify-content: center;
     margin: 30px 0;
 }
-/* 
-.admin-link a {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 22px;
-    background-color: var(--transparent-color);
-    color: var(--main-color);
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 18px;
-    transition: 0.3s ease;
-} */
 
 .admin-link a {
     position: relative;

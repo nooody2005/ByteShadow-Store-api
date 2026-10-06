@@ -132,9 +132,9 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
 });
 
 
-// ============================================================================================================================================================
-// =========================================================================== render Paintings pages for admin ===============================================
-// ============================================================================================================================================================
+// ===================================================================================================================
+// ====================================== render Paintings pages for admin ============================================
+// ====================================================================================================================
 // get the paintinds dashboard
 exports.getPaintingsDashboard = catchAsync(async (req, res, next) => {
   const [
@@ -204,5 +204,42 @@ exports.getEditPainting = catchAsync(async (req, res, next) => {
   res.status(200).render('admin/paintings/editPainting', {
     title: 'Edit Painting',
     painting
+  });
+});
+
+
+// ===================================================================================================================
+// ====================================== render Users pages for admin ============================================
+// ====================================================================================================================
+
+//get all users
+// exports.getUsersDashboard = catchAsync(async (req, res, next) => {
+//   res.status(200).render('admin/users/usersDashboard', {
+//     title: 'Users Dashboard'
+//   });
+// });
+
+exports.getUsersDashboard = catchAsync(async (req, res, next) => {
+  const [
+    totalUsers,
+    customers,
+    admins,
+    blockedUsers,
+    users
+  ] = await Promise.all([
+    User.countDocuments(),
+    User.countDocuments({ role: 'user' }),
+    User.countDocuments({ role: 'admin' }),
+    User.countDocuments({ status: 'blocked' }),
+    User.find().sort('-createdAt')
+  ]);
+
+  res.status(200).render('admin/users/usersDashboard', {
+    title: 'Users Dashboard',
+    totalUsers,
+    customers,
+    admins,
+    blockedUsers,
+    users
   });
 });

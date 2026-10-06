@@ -1,0 +1,146 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/users/users-dashboard.css")
+
+block content
+
+    //- Start Users Dashboard
+    section.users-dashboard
+
+        .container
+
+            .users-header
+
+                h2 Users Management
+
+                a.add-btn(href="/admin/users/add")
+                    i.fas.fa-plus
+                    | Add User
+
+
+            //- Statistics
+            .users-stats
+
+                .user-stat-card
+                    h3 Total Users
+                    span= totalUsers
+
+                .user-stat-card
+                    h3 Customers
+                    span= customers
+
+                .user-stat-card
+                    h3 Admins
+                    span= admins
+
+                .user-stat-card
+                    h3 Blocked
+                    span= blockedUsers
+
+
+            //- Search & Filter
+            .search-filter
+
+                .search-box
+                    input(
+                        type="text"
+                        placeholder="Search User..."
+                    )
+
+                .status-filter
+
+                    button.filter-btn.active(
+                        type="button"
+                        data-filter="all"
+                    )
+                        | All
+
+                    button.filter-btn(
+                        type="button"
+                        data-filter="user"
+                    )
+                        | Customers
+
+                    button.filter-btn(
+                        type="button"
+                        data-filter="admin"
+                    )
+                        | Admins
+
+                    button.filter-btn(
+                        type="button"
+                        data-filter="blocked"
+                    )
+                        | Blocked
+
+
+            //- Users Cards
+            
+            .users-list
+
+                each user in users
+
+                    .user-card
+
+                        .user-info
+
+                            .avatar
+                                img(
+                                    src=`/img/users/${user.photo}`
+                                    alt=user.name
+                                    
+                                )
+
+                            div
+
+                                h3= user.name
+
+                                p= user.email
+
+
+                        .user-details
+
+                            div
+                                small Role
+
+                                if user.role === 'user'
+                                    span Customer
+                                else
+                                    span= user.role
+
+
+                            div
+                                small Joined
+
+                                span= user.createdAt
+
+
+                            div
+                                small Status
+
+                                if user.status === 'blocked'
+                                    span.blocked Blocked
+                                else
+                                    span.active Active
+
+
+                        .user-actions
+
+                            a.show-user(
+                                href=`/admin/users/${user._id}`
+                            )
+                                | Show
+
+                            a.edit-user(
+                                href=`/admin/users/${user._id}/edit`
+                            )
+                                | Edit
+
+                            a.delete-user(
+                                href="#"
+                            )
+                                | Delete
+
+    //- End Users Dashboard
