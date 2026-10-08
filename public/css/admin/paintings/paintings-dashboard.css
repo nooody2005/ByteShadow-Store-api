@@ -480,3 +480,133 @@
         transform: translateY(0);
     }
 }
+
+
+
+.no-paintings {
+    padding: 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 16px;
+    text-align: center;
+    color: var(--muted-text);
+    font-size: 18px;
+}
+
+/* ================================================================== */
+/* In orders dashboard */
+/* Status Edit */
+
+.status-edit {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--soft-border);
+    border-radius: 10px;
+}
+
+.status-edit small {
+    color: var(--muted-text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-edit select {
+    flex: 1;
+    padding: 11px 14px;
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 8px;
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.status-edit select:hover,
+.status-edit select:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 8px 20px var(--shadow-dark);
+}
+
+.status-edit select option {
+    background: #1e1519;
+    color: var(--main-color);
+}
+
+.status-edit {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--soft-border);
+    border-radius: 10px;
+}
+
+.status-edit small {
+    color: var(--muted-text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-edit select {
+    flex: 1;
+    padding: 11px 14px;
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 8px;
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.status-edit select:hover,
+.status-edit select:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 8px 20px var(--shadow-dark);
+}
+
+.status-edit select option {
+    background: #1e1519;
+    color: var(--main-color);
+}
+
+.confirm-status {
+    padding: 11px 20px;
+    background: transparent;
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.confirm-status:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px var(--shadow-dark);
+}
+
+/* ====================================================================== */
+
+
+/* in auction dashboard */
+.auction-section-header {
+    margin-top: 70px;
+    margin-bottom: 35px;
+}
+
+.auction-section-header h2 {
+    margin: 0;
+}

@@ -1,0 +1,347 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+            //- Page Header
+            .dashboard-header
+                h2 Auction Bids
+
+
+            //- Auction Information
+            .painting-card
+
+                .image
+                    img(
+                        src=`/img/paintings/${painting.image}`
+                        alt=painting.name
+                    )
+
+                .content
+
+                    .painting-title
+
+                        h3= painting.name
+
+                        span.type= painting.type
+
+                        span.size
+                            if painting.status === 'active'
+                                | Active
+                            else if painting.status === 'reserved'
+                                | Reserved
+                            else if painting.status === 'sold'
+                                | Sold
+                            else if painting.status === 'ended'
+                                | Ended
+                            else if painting.status === 'cancelled'
+                                | Cancelled
+                            else
+                                = painting.status.charAt(0).toUpperCase() + painting.status.slice(1)
+
+
+                    p= painting.briefPara
+
+
+                    .details
+
+                        //- Starting Price
+                        div
+                            small Starting Price
+                            span
+                                | $#{painting.startingPrice}
+
+
+                        //- Current / Final Bid
+                        div
+                            if painting.status === 'active'
+
+                                small Current Bid
+
+                                span
+                                    | $#{painting.currentPrice || painting.startingPrice}
+
+                            else if painting.status === 'reserved' || painting.status === 'sold'
+
+                                small Final Bid
+
+                                span
+                                    | $#{painting.finalPrice || painting.currentPrice || painting.startingPrice}
+
+                            else
+
+                                small Final Bid
+
+                                span
+                                    | $#{painting.finalPrice || painting.currentPrice || painting.startingPrice}
+
+
+                        //- Total Bids
+                        div
+                            small Total Bids
+                            span= painting.totalBids || bids.length
+
+
+                        //- Status
+                        div
+                            small Status
+
+                            span.status
+                                if painting.status === 'active'
+                                    | Active
+                                else if painting.status === 'reserved'
+                                    | Reserved
+                                else if painting.status === 'sold'
+                                    | Sold
+                                else if painting.status === 'ended'
+                                    | Ended
+                                else if painting.status === 'cancelled'
+                                    | Cancelled
+                                else
+                                    = painting.status.charAt(0).toUpperCase() + painting.status.slice(1)
+
+
+                        //- Auction Start
+                        div
+
+                            if painting.status === 'active'
+                                small Auction Starts
+                            else
+                                small Auction Started
+
+                            if painting.auctionStart
+                                span= new Date(painting.auctionStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                            else
+                                span —
+
+
+                        //- Auction End
+                        div
+
+                            if painting.status === 'active'
+                                small Auction Ends
+                            else
+                                small Auction Ended
+
+                            if painting.auctionEnd
+                                span= new Date(painting.auctionEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                            else
+                                span —
+
+
+                    //- Buttons
+                    .buttons
+
+                        a.show-btn(
+                            href=`/painting/${painting.slug}`
+                        )
+                            | Show Painting
+
+                        a.edit-btn(
+                            href="/admin/auctions"
+                        )
+                            | Back to Auctions
+
+
+            //- Winner / Current Highest Bid / No Winner
+
+            .dashboard-header.auction-section-header
+
+                if painting.status === 'reserved' || painting.status === 'sold'
+
+                    h2 Winner
+
+                else if painting.status === 'active'
+
+                    h2 Current Highest Bid
+
+                else if painting.status === 'ended'
+
+                    h2 Auction Ended
+
+                else if painting.status === 'cancelled'
+
+                    h2 Auction Cancelled
+
+                else
+
+                    h2 Auction Status
+
+
+            //- Winner / Highest Bid
+
+            if highestBid
+
+                .painting-card
+
+                    .content
+
+                        .painting-title
+
+                            h3= highestBid.user.name
+
+                            span.type
+
+                                if painting.status === 'reserved' || painting.status === 'sold'
+
+                                    | Winner
+
+                                else
+
+                                    | Highest Bidder
+
+
+                            span.size
+                                | $#{highestBid.amount}
+
+
+                        .details
+
+                            //- Bid Amount
+                            div
+                                small Bid Amount
+                                span
+                                    | $#{highestBid.amount}
+
+
+                            //- Bid Date
+                            div
+                                small Bid Date
+                                span= new Date(highestBid.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+
+                            //- Bid Time
+                            div
+                                small Bid Time
+                                span= new Date(highestBid.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+
+
+                            //- Status
+                            div
+
+                                small Status
+
+                                span.status
+
+                                    if painting.status === 'reserved' || painting.status === 'sold'
+
+                                        | Winner
+
+                                    else if painting.status === 'active'
+
+                                        | Highest Bid
+
+                                    else
+
+                                        | Highest Bid
+
+
+            else
+
+                .painting-card
+
+                    .content
+
+                        .painting-title
+
+                            if painting.status === 'ended'
+
+                                h3 No Winner
+
+                            else if painting.status === 'cancelled'
+
+                                h3 Auction Cancelled
+
+                            else
+
+                                h3 No Bids Yet
+
+
+                        p
+
+                            if painting.status === 'ended'
+
+                                | This auction ended without any bids.
+
+                            else if painting.status === 'cancelled'
+
+                                | This auction was cancelled.
+
+                            else
+
+                                | This auction has no bids yet.
+
+
+            //- All Bids
+
+
+            .dashboard-header.auction-section-header
+                h2 All Bids
+
+            if bids.length
+                .paintings
+                    each bid, index in bids
+                        .painting-card
+                            .content
+
+                                .painting-title
+                                    h3= bid.user.name
+
+                                    span.type Bidder
+
+                                    span.size
+                                        | $#{bid.amount}
+
+                                .details
+
+                                    //- Bid Amount
+                                    div
+                                        small Bid Amount
+                                        span
+                                            | $#{bid.amount}
+
+                                    //- Status
+                                    div
+                                        small Status
+
+                                        span
+                                            if index === 0
+                                                if painting.status === 'reserved' || painting.status === 'sold'
+                                                    span.status Winner
+
+                                                else if painting.status === 'active'
+                                                    span.status Highest
+
+                                                else
+                                                    | Highest Bid
+
+                                            else
+                                                | Outbid
+
+                                    //- Date
+                                    div
+                                        small Date
+                                        span= new Date(bid.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+                                    //- Time
+                                    div
+                                        small Time
+                                        span= new Date(bid.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+
+                                //- User Button
+                                .buttons
+                                    a.show-btn(
+                                        href=`/admin/users/${bid.user._id}`
+                                    )
+                                        | Show User
+
+            else
+                .no-paintings
+                    p No bids found for this auction.

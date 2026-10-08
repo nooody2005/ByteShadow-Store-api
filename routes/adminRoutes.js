@@ -20,16 +20,6 @@ router.get(
   adminController.getPaintingsDashboard
 );
 
-// =============================
-// get all acutions
-router.get(
-  '/auctions',
-  authController.protect,
-  authController.restrictTo('admin'),
-  adminController.getAuctionsDashboard
-);
-// ==============================
-
 // Add painting
 router.get(
   '/paintings/add',
@@ -143,6 +133,24 @@ router.get(
 );
 
 
+
+// =========================== Aucitons dashboard ===========================
+// get all acutions
+router.get(
+  '/auctions',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getAuctionsDashboard
+);
+
+//get bids of an acution 
+router.get(
+  '/auctions/:id/bids',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getAuctionBids
+);
+// ==============================
 
 
 

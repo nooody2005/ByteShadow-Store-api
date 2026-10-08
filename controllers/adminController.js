@@ -494,3 +494,28 @@ exports.getAuctionsDashboard = catchAsync(async (req, res, next) => {
     message: req.query.message
   });
 });
+
+
+// get bids of an auciton
+exports.getAuctionBids = catchAsync(async (req, res, next) => {
+  const painting = await Painting.findById(req.params.id);
+
+  if (!painting) {
+    return next(new AppError('No painting found with that ID', 404));
+  }
+
+  const bids = await Bid.find({
+    painting: painting._id
+  })
+    .populate('user', 'name email photo')
+    .sort('-amount');
+
+  const highestBid = bids[0] || null;
+
+  res.status(200).render('admin/auctions/auctionBids', {
+    title: `${painting.name} - Auction Bids`,
+    painting,
+    bids,
+    highestBid
+  });
+});
