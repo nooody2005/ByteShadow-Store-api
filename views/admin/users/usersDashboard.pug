@@ -51,33 +51,38 @@ block content
                     input(
                         type="text"
                         placeholder="Search User..."
+                        id="user-search"
                     )
 
                 .status-filter
+                    button.filter-btn.active(type="button" data-filter="all") All
+                    button.filter-btn(type="button" data-filter="user") Customers
+                    button.filter-btn(type="button" data-filter="admin") Admins
+                    button.filter-btn(type="button" data-filter="blocked") Blocked
 
-                    button.filter-btn.active(
-                        type="button"
-                        data-filter="all"
-                    )
-                        | All
+                    //- button.filter-btn.active(
+                    //-     type="button"
+                    //-     data-filter="all"
+                    //- )
+                    //-     | All
 
-                    button.filter-btn(
-                        type="button"
-                        data-filter="user"
-                    )
-                        | Customers
+                    //- button.filter-btn(
+                    //-     type="button"
+                    //-     data-filter="user"
+                    //- )
+                    //-     | Customers
 
-                    button.filter-btn(
-                        type="button"
-                        data-filter="admin"
-                    )
-                        | Admins
+                    //- button.filter-btn(
+                    //-     type="button"
+                    //-     data-filter="admin"
+                    //- )
+                    //-     | Admins
 
-                    button.filter-btn(
-                        type="button"
-                        data-filter="blocked"
-                    )
-                        | Blocked
+                    //- button.filter-btn(
+                    //-     type="button"
+                    //-     data-filter="blocked"
+                    //- )
+                    //-     | Blocked
 
 
             //- Users Cards
@@ -86,7 +91,12 @@ block content
 
                 each user in users
 
-                    .user-card
+                    .user-card(
+                        data-name=user.name.toLowerCase()
+                        data-email=user.email.toLowerCase()
+                        data-role=user.role
+                        data-status=user.status
+                    )
 
                         .user-info
 
@@ -160,6 +170,7 @@ block content
     //- End Users Dashboard
 
 
-    block scripts
-        script(src="/js/bundle.js")
-        script(src="/js/admin/delete-user.js")
+block scripts
+    script(src="/js/bundle.js")
+    script(src="/js/admin/users/users-dashboard.js")
+    script(src="/js/admin/delete-user.js")
