@@ -28,11 +28,21 @@ router.get(
   adminController.getAddPainting
 );
 
+// edit painting
+
 router.get(
   '/paintings/:id/edit',
   authController.protect,
   authController.restrictTo('admin'),
   adminController.getEditPainting
+);
+
+// delete painting
+router.delete(
+  '/paintings/:id',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.deletePainting
 );
 
 // router.post(

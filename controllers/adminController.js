@@ -209,6 +209,20 @@ exports.getEditPainting = catchAsync(async (req, res, next) => {
   });
 });
 
+//delete painting
+exports.deletePainting = catchAsync(async (req, res, next) => {
+  const painting = await Painting.findByIdAndDelete(req.params.id);
+
+  if (!painting) {
+    return next(new AppError('No painting found with that ID', 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});
+
 
 // ===================================================================================================================
 // ====================================== render Users pages for admin ============================================
@@ -296,7 +310,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
     totalSpent
   });
 });
-
 
 // add user
 // exports.getAddUser = catchAsync(async (req, res, next) => {
