@@ -519,3 +519,134 @@ exports.getAuctionBids = catchAsync(async (req, res, next) => {
     highestBid
   });
 });
+
+
+
+// =========================
+// Orders Dashboard
+// =========================
+
+
+exports.getOrdersDashboard = catchAsync(async (req, res, next) => {
+  const orders = await Order.find()
+    .populate('user', 'name email photo phone address')
+    .populate('painting', 'name image type slug')
+    .sort('-createdAt');
+
+  const totalOrders = orders.length;
+
+  const processingOrders = orders.filter(
+    order =>
+      order.status !== 'cancelled' && order.shippingStatus === 'processing'
+  ).length;
+
+  const shippedOrders = orders.filter(
+    order => order.status !== 'cancelled' && order.shippingStatus === 'shipped'
+  ).length;
+
+  const deliveredOrders = orders.filter(
+    order =>
+      order.status !== 'cancelled' && order.shippingStatus === 'delivered'
+  ).length;
+
+  const cancelledOrders = orders.filter(order => order.status === 'cancelled')
+    .length;
+
+  res.status(200).render('admin/orders/ordersDashboard', {
+    title: 'Orders Dashboard',
+
+    totalOrders,
+    processingOrders,
+    shippedOrders,
+    deliveredOrders,
+    cancelledOrders,
+
+    orders,
+
+    message: req.query.message
+  });
+});
+
+
+// =========================
+// Show One Order
+// =========================
+
+
+
+exports.getOrder = catchAsync(async (req, res, next) => {
+  const order = await Order.findById(req.params.id)
+    .populate('user', 'name email photo phone address')
+    .populate(
+      'painting',
+      'name image type slug briefPara startingPrice currentPrice'
+    );
+
+  if (!order) {
+    return next(new AppError('No order found with that ID', 404));
+  }
+
+  res.status(200).render('admin/orders/showOrder', {
+    title: `Order #${order._id}`,
+    order
+  });
+});
+
+
+// =========================
+// Update Order Status
+// =========================
+
+exports.updateOrderStatus = catchAsync(async (req, res, next) => {
+
+    const { shippingStatus } = req.body;
+
+    const allowedShippingStatuses = [
+        'processing',
+        'shipped',
+        'delivered'
+    ];
+
+    if (
+        shippingStatus !== 'cancelled' &&
+        !allowedShippingStatuses.includes(shippingStatus)
+    ) {
+        return next(
+            new AppError('Invalid shipping status', 400)
+        );
+    }
+
+
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+        return next(
+            new AppError('No order found with that ID', 404)
+        );
+    }
+
+
+    // Cancel order
+    if (shippingStatus === 'cancelled') {
+
+        order.status = 'cancelled';
+
+    } else {
+
+        order.shippingStatus = shippingStatus;
+
+    }
+
+
+    await order.save({
+        validateBeforeSave: false
+    });
+
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            order
+        }
+    });
+});

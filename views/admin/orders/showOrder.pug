@@ -1,0 +1,281 @@
+extends ../../base
+
+
+block head
+
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+
+            //- =========================
+            //- Order Header
+            //- =========================
+
+            .dashboard-header
+
+                //- h2
+                //-     | Order ##{order._id}
+                h2
+                    | Order by #{order.user ? order.user.name : 'Unknown User'}
+
+                span.size
+
+                    if order.status === 'cancelled'
+
+                        | Cancelled
+
+                    else
+
+                        | #{order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)}
+
+
+            //- =========================
+            //- Order
+            //- =========================
+
+            .painting-card
+
+
+                //- =========================
+                //- Painting Image
+                //- =========================
+
+                .image
+
+                    if order.painting
+
+                        img(
+                            src=`/img/paintings/${order.painting.image}`
+                            alt=order.painting.name
+                        )
+
+                    else
+
+                        img(
+                            src="/img/paintings/default.jpg"
+                            alt="Painting"
+                        )
+
+
+                .content
+
+
+                    //- =========================
+                    //- Painting
+                    //- =========================
+
+                    .painting-title
+
+                        if order.painting
+
+                            h3= order.painting.name
+
+                            if order.painting.type
+                                span.type= order.painting.type
+
+                        else
+
+                            h3 Painting
+
+                        span.size
+                            | $#{order.amount}
+
+
+                    if order.painting
+
+                        p
+                            | #{order.painting.name}
+
+                            if order.painting.type
+                                | — #{order.painting.type}
+
+                    else
+
+                        p
+                            | Painting information is unavailable.
+
+
+                    //- =========================
+                    //- Painting Details
+                    //- =========================
+
+                    .details
+
+                        //- Starting Price
+                        div
+
+                            small Starting Price
+
+                            span
+                                if order.painting
+                                    | $#{order.painting.startingPrice}
+                                else
+                                    | —
+
+
+                        //- Final Price
+                        div
+
+                            small Final Price
+
+                            span
+                                | $#{order.amount}
+
+
+                        //- Order Date
+                        div
+
+                            small Order Date
+
+                            span
+                                | #{new Date(order.createdAt).toLocaleDateString('en-GB')}
+
+
+                        //- Payment
+                        div
+
+                            small Payment
+
+                            span.status
+
+                                if order.paymentStatus
+
+                                    | #{order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
+
+                                else
+
+                                    | Unknown
+
+
+                    //- =========================
+                    //- Customer
+                    //- =========================
+
+                    .painting-title
+
+                        h3 Customer
+
+                        if order.user
+
+                            span.type
+                                | #{order.user.name}
+
+
+                    .details
+
+                        //- Name
+                        div
+
+                            small Name
+
+                            span
+                                | #{order.user ? order.user.name : 'Unknown'}
+
+
+                        //- Email
+                        div
+
+                            small Email
+
+                            span
+                                | #{order.user ? order.user.email : 'Unknown'}
+
+
+                        //- Phone
+                        div
+
+                            small Phone
+
+                            span
+                                | #{order.user && order.user.phone ? order.user.phone : 'Not provided'}
+
+
+                        //- Country
+                        div
+
+                            small Country
+
+                            span
+                                | Egypt
+
+
+                    //- =========================
+                    //- Delivery
+                    //- =========================
+
+                    .painting-title
+
+                        h3 Delivery
+
+                        span.type
+                            | Egypt
+
+                        span.size
+
+                            if order.status === 'cancelled'
+
+                                | Cancelled
+
+                            else
+
+                                | #{order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)}
+
+
+                    .details
+
+                        //- Address
+                        div
+
+                            small Address
+
+                            span
+                                | #{order.user && order.user.address ? order.user.address : 'Not provided'}
+
+
+                        //- Shipping
+                        div
+
+                            small Shipping
+
+                            span.status
+
+                                if order.status === 'cancelled'
+
+                                    | Cancelled
+
+                                else
+
+                                    | #{order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)}
+
+
+                    //- =========================
+                    //- Buttons
+                    //- =========================
+
+                    .buttons
+
+                        if order.painting
+
+                            a.show-btn(
+                                href=`/painting/${order.painting.slug}`
+                            )
+                                | Show Painting
+
+                        if order.user
+
+                            a.show-btn(
+                                href=`/admin/users/${order.user._id}`
+                            )
+                                | Show Customer
+
+                        a.edit-btn(
+                            href="/admin/orders"
+                        )
+                            | Back to Orders

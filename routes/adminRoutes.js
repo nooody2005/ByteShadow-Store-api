@@ -150,7 +150,32 @@ router.get(
   authController.restrictTo('admin'),
   adminController.getAuctionBids
 );
-// ==============================
+// ===============================================================================
+// ================================ Order Dashboard =============================
+
+
+router.get(
+    '/orders',
+    authController.protect,
+    authController.restrictTo('admin'),
+    adminController.getOrdersDashboard
+);
+
+// get order
+router.get(
+    '/orders/:id',
+    authController.protect,
+    authController.restrictTo('admin'),
+    adminController.getOrder
+);
+ 
+// edit order status
+router.patch(
+    '/orders/:id/status',
+    authController.protect,
+    authController.restrictTo('admin'),
+    adminController.updateOrderStatus
+);
 
 
 

@@ -1,0 +1,361 @@
+extends ../../base
+
+
+block head
+
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+
+            //- =========================
+            //- Dashboard Header
+            //- =========================
+
+            .dashboard-header
+
+                h2 Orders Dashboard
+
+
+            //- =========================
+            //- Success Message
+            //- =========================
+
+            if message
+
+                .success-message
+                    | #{message}
+
+
+            //- =========================
+            //- Statistics
+            //- =========================
+
+            .stats-paintings
+
+                .stat-card
+
+                    h3 Total Orders
+                    span= totalOrders
+
+
+                .stat-card
+
+                    h3 Processing
+                    span= processingOrders
+
+
+                .stat-card
+
+                    h3 Shipped
+                    span= shippedOrders
+
+
+                .stat-card
+
+                    h3 Delivered
+                    span= deliveredOrders
+
+
+                .stat-card
+
+                    h3 Cancelled
+                    span= cancelledOrders
+
+
+            //- =========================
+            //- Search & Filter
+            //- =========================
+
+            .search-filter
+
+                .search-box
+
+                    input(
+                        type="text"
+                        placeholder="Search Order..."
+                        id="order-search"
+                    )
+
+
+                .status-filter
+
+                    button.filter-btn.active(
+                        type="button"
+                        data-status="all"
+                    )
+                        | All
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="processing"
+                    )
+                        | Processing
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="shipped"
+                    )
+                        | Shipped
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="delivered"
+                    )
+                        | Delivered
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="cancelled"
+                    )
+                        | Cancelled
+
+
+            //- =========================
+            //- Orders
+            //- =========================
+
+            .paintings
+
+                if orders.length
+
+                    each order in orders
+
+                        - const isCancelled = order.status === 'cancelled'
+                        - const currentStatus = isCancelled ? 'cancelled' : order.shippingStatus
+
+                        .painting-card(
+                            data-status=currentStatus
+                            data-search=`${order.user ? order.user.name : ''} ${order.painting ? order.painting.name : ''} ${order._id}`
+                        )
+
+                            //- =========================
+                            //- Painting Image
+                            //- =========================
+
+                            .image
+
+                                if order.painting
+
+                                    img(
+                                        src=`/img/paintings/${order.painting.image}`
+                                        alt=order.painting.name
+                                    )
+
+                                else
+
+                                    img(
+                                        src="/img/paintings/default.jpg"
+                                        alt="Painting"
+                                    )
+
+
+                            .content
+
+
+                                //- =========================
+                                //- Order Header
+                                //- =========================
+
+                                .painting-title
+
+                                    h3
+
+                                        | Order: 
+                                        span.type
+                                            | #{order.user ? order.user.name : 'Unknown User'}
+
+
+                                    span.size
+                                        if isCancelled
+                                            | Cancelled
+
+                                        else
+                                            | #{currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
+
+
+                                    h3
+
+                                        | Order date: 
+                                        span.type
+                                            | #{new Date(order.createdAt).toLocaleDateString('en-GB')}
+
+
+                                //- =========================
+                                //- Painting Name
+                                //- =========================
+
+                                if order.painting
+
+                                    p
+                                        | #{order.painting.name}
+
+                                        if order.painting.type
+                                            | — #{order.painting.type}
+
+
+                                else
+
+                                    p
+                                        | Painting information unavailable.
+
+
+                                //- =========================
+                                //- Order Details
+                                //- =========================
+
+                                .details
+
+
+                                    //- Customer
+                                    div
+
+                                        small Customer
+
+                                        span
+                                            | #{order.user ? order.user.name : 'Unknown'}
+
+
+                                    //- Country
+                                    div
+
+                                        small Country
+
+                                        span
+                                            | Egypt
+
+
+                                    //- Painting
+                                    div
+
+                                        small Painting
+
+                                        span
+                                            | #{order.painting ? order.painting.name : 'Unknown'}
+
+
+                                    //- Amount
+                                    div
+
+                                        small Amount
+
+                                        span
+                                            | $#{order.amount}
+
+
+                                    //- Payment
+                                    div
+
+                                        small Payment
+
+                                        span.status
+
+                                            if order.paymentStatus
+
+                                                | #{order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
+
+                                            else
+
+                                                | Unknown
+
+
+                                    //- Shipping
+                                    div
+
+                                        small Shipping
+
+                                        span.status.order-shipping-status
+
+                                            if isCancelled
+
+                                                | Cancelled
+
+                                            else
+
+                                                | #{currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
+
+
+                                //- =========================
+                                //- Buttons
+                                //- =========================
+
+                                .buttons
+
+                                    a.show-btn(
+                                        href=`/admin/orders/${order._id}`
+                                    )
+                                        | Show Order
+
+                                    if !isCancelled
+
+                                        button.edit-btn.edit-status-btn(
+                                            type="button"
+                                            data-order-id=order._id
+                                        )
+                                            | Edit Status
+
+
+                                //- =========================
+                                //- Status Edit
+                                //- =========================
+
+                                if !isCancelled
+
+                                    .status-edit(
+                                        style="display: none;"
+                                    )
+
+                                        small Shipping Status
+
+
+                                        select.order-status-select
+
+                                            option(
+                                                value="processing"
+                                                selected=currentStatus === 'processing'
+                                            )
+                                                | Processing
+
+                                            option(
+                                                value="shipped"
+                                                selected=currentStatus === 'shipped'
+                                            )
+                                                | Shipped
+
+                                            option(
+                                                value="delivered"
+                                                selected=currentStatus === 'delivered'
+                                            )
+                                                | Delivered
+
+                                            option(
+                                                value="cancelled"
+                                            )
+                                                | Cancelled
+
+
+                                        button.confirm-status(
+                                            type="button"
+                                            data-order-id=order._id
+                                        )
+                                            | Confirm
+
+
+                else
+
+                    .no-paintings
+
+                        p No orders found.
+
+
+block scripts
+
+    script(src="/js/bundle.js")
+
+    script(src="/js/admin/orders/orders-dashboard.js")
