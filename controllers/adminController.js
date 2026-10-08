@@ -392,3 +392,23 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     data: null
   });
 });
+
+// Block user || un block if he's blocked
+exports.toggleUserStatus = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  user.status = user.status === 'active' ? 'blocked' : 'active';
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      status: user.status
+    }
+  });
+});

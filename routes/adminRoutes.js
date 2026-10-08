@@ -105,6 +105,14 @@ router.delete(
 );
 
 
+// Block User || un block
+router.patch(
+  '/users/:id/status',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.toggleUserStatus
+);
+
 
 // show user
 router.get(
@@ -113,6 +121,8 @@ router.get(
     authController.restrictTo('admin'),
     adminController.getUser
 );
+
+
 
 
 

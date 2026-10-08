@@ -82,6 +82,15 @@ exports.login = catchAsync(async (req, res, next) => {
         return next(new AppError('Incorrect email or password', 401));
     }
 
+    if (user.status === 'blocked') {
+      return next(
+        new AppError(
+          'Your account has been blocked. Please contact the administrator.',
+          403
+        )
+      );
+    }
+
     // 3) check everything is okay then send token
 
       // get last login
@@ -132,6 +141,15 @@ exports.login = catchAsync(async (req, res, next) => {
    if (!currentUser) {
      return next(
        new AppError('the user belongs to this token no longer exist :)', 401)
+     );
+   }
+
+   if (currentUser.status === 'blocked') {
+     return next(
+       new AppError(
+         'Your account has been blocked. Please contact the administrator.',
+         403
+       )
      );
    }
 
