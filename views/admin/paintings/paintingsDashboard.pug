@@ -75,8 +75,13 @@ block content
 
                     button.filter-btn(
                         type="button"
-                        data-status="sold"
-                    ) Sold
+                        data-status="active"
+                    ) Active
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="ended"
+                    ) Ended
 
                     button.filter-btn(
                         type="button"
@@ -85,13 +90,10 @@ block content
 
                     button.filter-btn(
                         type="button"
-                        data-status="active"
-                    ) Active
+                        data-status="sold"
+                    ) Sold
 
-                    button.filter-btn(
-                        type="button"
-                        data-status="ended"
-                    ) Ended
+
 
 
             //- =========================
@@ -175,7 +177,7 @@ block content
                                     a.show-btn(
                                         href=`/painting/${painting.slug}`
                                     )
-                                        | Show
+                                        | Show 
 
                                     a.edit-btn(
                                         href=`/admin/paintings/${painting._id}/edit`
@@ -201,4 +203,5 @@ block content
 
     block scripts
         script(src="/js/bundle.js")
+        script(src="/js/admin/paintings/paintings-dashboard.js")
         script(src="/js/admin/delete-painting.js")

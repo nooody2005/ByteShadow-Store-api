@@ -111,6 +111,7 @@ block content
 
                                         button(type="submit") Save And Continue
 
+
                         .info
 
                             .size
@@ -133,6 +134,48 @@ block content
                                     | Auction End
 
                                 span.value= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+
+                            //- //- Admin Actions
+                            //- if user && user.role === 'admin'
+
+                            //-     .admin-actions
+
+                            //-         a.edit-btn(
+                            //-             href=`/admin/paintings/${painting._id}/edit`
+                            //-         )
+                            //-             | Edit Painting
+
+                            //-         //- if painting.auctionStart && painting.auctionEnd
+
+                            //-         //-     a.show-btn(
+                            //-         //-         href=`/admin/auctions/${painting._id}/bids`
+                            //-         //-     )
+                            //-         //-         | View Auction Bids
+                                    
+                            //-         if painting.status === 'active' || painting.status === 'ended' || painting.status === 'reserved' || painting.status === 'sold'
+
+                            //-             a.show-btn(
+                            //-                 href=`/admin/auctions/${painting._id}/bids`
+                            //-             )
+                            //-                 | View Auction Bids
+
+                    //- Admin Actions
+                    if user && user.role === 'admin'
+
+                        .admin-actions
+
+                            a.edit-btn(
+                                href=`/admin/paintings/${painting._id}/edit`
+                            )
+                                | Edit Painting
+
+                            if painting.status === 'active' || painting.status === 'ended' || painting.status === 'reserved' || painting.status === 'sold'
+
+                                a.show-btn(
+                                    href=`/admin/auctions/${painting._id}/bids`
+                                )
+                                    | View Auction Bids
 
     //- End Painting
 
