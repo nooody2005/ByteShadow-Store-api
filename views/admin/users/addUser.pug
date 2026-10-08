@@ -1,0 +1,113 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/auth.css")
+    link(rel="stylesheet", href="/css/admin/add-edit.css")
+
+block content
+
+    section.dashboard
+
+        .container
+
+            .dashboard-box
+
+                h2 Add New User
+
+                form(
+                    action="/admin/users/add"
+                    method="POST"
+                    enctype="multipart/form-data"
+                   
+                )
+
+                    //- Name
+                    .form-group
+                        label User Name
+                        input(
+                            type="text"
+                            name="name"
+                            placeholder="Enter user name"
+                            required
+                        )
+
+                    //- Email
+                    .form-group
+                        label Email
+                        input(
+                            type="email"
+                            name="email"
+                            placeholder="Enter email address"
+                            required
+                        )
+
+                    //- Phone + Role
+                    .form-row
+
+                        .form-group
+                            label Phone
+                            input(
+                                type="tel"
+                                name="phone"
+                                placeholder="Enter phone number"
+                            )
+
+                        .form-group
+                            label Role
+                            select(name="role")
+                                option(value="user") Customer
+                                option(value="admin") Admin
+                                option(value="lead-guide") Lead Guide
+                                option(value="guide") Guide
+
+                    //- Address
+                    .form-group
+                        label Address
+                        textarea(
+                            name="address"
+                            rows="3"
+                            placeholder="Enter user address"
+                        )
+
+                    //- Password + Confirm Password
+                    .form-row
+
+                        .form-group
+                            label Password
+                            input(
+                                type="password"
+                                name="password"
+                                placeholder="Enter password"
+                                required
+                            )
+
+                        .form-group
+                            label Confirm Password
+                            input(
+                                type="password"
+                                name="passwordConfirm"
+                                placeholder="Confirm password"
+                                required
+                            )
+
+                    //- Status
+                    .form-group
+                        label Status
+                        select(name="status")
+                            option(value="active") Active
+                            option(value="blocked") Blocked
+
+                    //- Profile Photo
+                    .form-group
+                        label Profile Photo
+                        input(
+                            type="file"
+                            name="photo"
+                            accept="image/*"
+                        )
+
+                    button.dashboard-btn(
+                        type="submit"
+                    )
+                        | Add User

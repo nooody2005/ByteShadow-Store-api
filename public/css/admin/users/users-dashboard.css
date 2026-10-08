@@ -567,3 +567,13 @@
     object-fit: cover;
     display: block;
 }
+
+
+
+.success-message {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #d4edda;
+    color: #155724;
+}

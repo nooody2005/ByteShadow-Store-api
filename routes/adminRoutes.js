@@ -2,7 +2,7 @@ const express = require('express');
 
 const adminController = require('../controllers/adminController');
 const authController = require('../controllers/authController');
-
+const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.get(
@@ -51,6 +51,32 @@ router.get(
   adminController.getUsersDashboard
 );
 
+
+// add user
+router.get(
+  '/users/add',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getAddUser
+);
+
+// router.post(
+//   '/users/add',
+//   authController.protect,
+//   authController.restrictTo('admin'),
+//   adminController.addUser
+// );
+
+router.post(
+  '/users/add',
+  authController.protect,
+  authController.restrictTo('admin'),
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  adminController.addUser
+);
+
+
 // show user
 router.get(
     '/users/:id',
@@ -58,6 +84,7 @@ router.get(
     authController.restrictTo('admin'),
     adminController.getUser
 );
+
 
 
 module.exports = router;

@@ -11,6 +11,14 @@ block content
 
         .container
 
+    
+            if message
+                .success-message
+                    | #{message}
+
+            .users-header
+                h2 Users Management
+
             .users-header
 
                 h2 Users Management
@@ -114,7 +122,11 @@ block content
                             div
                                 small Joined
 
-                                span= user.createdAt
+                                //- span= user.createdAt
+                                if user.createdAt
+                                    span= new Date(user.createdAt).toLocaleDateString('en-GB')
+                                else
+                                    span -
 
 
                             div

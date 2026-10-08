@@ -236,13 +236,23 @@ exports.getUsersDashboard = catchAsync(async (req, res, next) => {
     User.find().sort('-createdAt')
   ]);
 
+//   res.status(200).render('admin/users/usersDashboard', {
+//     title: 'Users Dashboard',
+//     totalUsers,
+//     customers,
+//     admins,
+//     blockedUsers,
+//     users
+//   });
+
   res.status(200).render('admin/users/usersDashboard', {
     title: 'Users Dashboard',
     totalUsers,
     customers,
     admins,
     blockedUsers,
-    users
+    users,
+    message: req.query.message
   });
 });
 
@@ -285,4 +295,44 @@ exports.getUser = catchAsync(async (req, res, next) => {
     orders,
     totalSpent
   });
+});
+
+
+// add user
+// exports.getAddUser = catchAsync(async (req, res, next) => {
+//   res.status(200).render('admin/users/addUser', {
+//     title: 'Add New User'
+//   });
+// });
+
+// add user
+
+exports.getAddUser = catchAsync(async (req, res, next) => {
+
+    res.status(200).render('admin/users/addUser', {
+        title: 'Add New User',
+        // message: 'User added successfully'
+    });
+
+});
+
+
+// add user
+
+// exports.addUser = catchAsync(async (req, res, next) => {
+
+//     await User.create(req.body);
+
+//     res.redirect('/admin/users?message=User added successfully');
+
+// });
+
+exports.addUser = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    req.body.photo = req.file.filename;
+  }
+
+  await User.create(req.body);
+
+  res.redirect('/admin/users?message=User added successfully');
 });
