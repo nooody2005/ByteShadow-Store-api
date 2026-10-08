@@ -1,0 +1,127 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/auth.css")
+    link(rel="stylesheet", href="/css/admin/add-edit.css")
+
+block content
+    section.dashboard
+        .container
+            .dashboard-box
+
+                h2 Edit User
+
+                form(
+                    action=`/admin/users/${user._id}/edit?_method=PATCH`
+                    method="POST"
+                    enctype="multipart/form-data"
+                )
+
+                    //- Name
+                    .form-group
+                        label User Name
+                        input(
+                            type="text"
+                            name="name"
+                            value=user.name
+                            required
+                        )
+
+                    //- Email
+                    .form-group
+                        label Email
+                        input(
+                            type="email"
+                            name="email"
+                            value=user.email
+                            required
+                        )
+
+                    //- Phone + Role
+                    .form-row
+
+                        .form-group
+                            label Phone
+                            input(
+                                type="tel"
+                                name="phone"
+                                value=user.phone || ''
+                            )
+
+                        .form-group
+                            label Role
+                            select(name="role")
+
+                                option(
+                                    value="user"
+                                    selected=user.role === 'user'
+                                ) Customer
+
+                                option(
+                                    value="admin"
+                                    selected=user.role === 'admin'
+                                ) Admin
+
+                                option(
+                                    value="lead-guide"
+                                    selected=user.role === 'lead-guide'
+                                ) Lead Guide
+
+                                option(
+                                    value="guide"
+                                    selected=user.role === 'guide'
+                                ) Guide
+
+                    //- Address
+                    .form-group
+                        label Address
+                        textarea(
+                            name="address"
+                            rows="3"
+                        )= user.address || ''
+
+                    //- Status
+                    .form-group
+                        label Status
+                        select(name="status")
+
+                            option(
+                                value="active"
+                                selected=user.status === 'active'
+                            ) Active
+
+                            option(
+                                value="blocked"
+                                selected=user.status === 'blocked'
+                            ) Blocked
+
+                    //- Profile Photo
+                    .image-preview
+
+                        h3 Profile Photo
+
+                        img(
+                            src=`/img/users/${user.photo}`
+                            alt=user.name
+                        )
+
+                        input(
+                            type="file"
+                            name="photo"
+                            accept="image/*"
+                        )
+
+                    //- Buttons
+                    .dashboard-buttons
+
+                        button.dashboard-btn(
+                            type="submit"
+                        )
+                            | Save Changes
+
+                        button.delete-btn(
+                            type="button"
+                            data-user-id=user._id
+                        )
+                            | Delete User

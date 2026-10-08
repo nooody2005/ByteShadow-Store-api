@@ -77,6 +77,24 @@ router.post(
 );
 
 
+// Edit User page
+router.get(
+    '/users/:id/edit',
+    authController.protect,
+    authController.restrictTo('admin'),
+    adminController.getEditUser
+);
+
+// Update User
+router.patch(
+  '/users/:id/edit',
+  authController.protect,
+  authController.restrictTo('admin'),
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  adminController.updateUser
+);
+
 // show user
 router.get(
     '/users/:id',

@@ -336,3 +336,34 @@ exports.addUser = catchAsync(async (req, res, next) => {
 
   res.redirect('/admin/users?message=User added successfully');
 });
+
+// Edit user
+exports.getEditUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(200).render('admin/users/editUser', {
+    title: `Edit ${user.name}`,
+    user
+  });
+});
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    req.body.photo = req.file.filename;
+  }
+
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.redirect(`/admin/users/${user._id}?message=User updated successfully`);
+});
