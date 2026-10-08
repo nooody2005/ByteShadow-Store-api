@@ -20,6 +20,16 @@ router.get(
   adminController.getPaintingsDashboard
 );
 
+// =============================
+// get all acutions
+router.get(
+  '/auctions',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.getAuctionsDashboard
+);
+// ==============================
+
 // Add painting
 router.get(
   '/paintings/add',

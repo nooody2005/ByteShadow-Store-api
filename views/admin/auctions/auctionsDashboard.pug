@@ -1,0 +1,258 @@
+extends ../../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+            //- Dashboard Header
+            .dashboard-header
+                h2 Auctions Dashboard
+
+
+            //- Statistics
+            .stats-paintings
+
+                .stat-card
+                    h3 Total Auctions
+                    span= totalAuctions
+
+                .stat-card
+                    h3 Upcoming
+                    span= upcomingAuctions
+
+                .stat-card
+                    h3 Active
+                    span= activeAuctions
+
+                .stat-card
+                    h3 Ended
+                    span= endedAuctions
+
+                .stat-card
+                    h3 Re-Auction
+                    span= reAuctions
+
+
+            //- Search & Filter
+            .search-filter
+
+                .search-box
+                    input(
+                        type="text"
+                        placeholder="Search Auction..."
+                        id="auction-search"
+                    )
+
+                .status-filter
+
+                    button.filter-btn.active(
+                        type="button"
+                        data-status="all"
+                    )
+                        | All
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="active"
+                    )
+                        | Active
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="upcoming"
+                    )
+                        | Upcoming
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="ended"
+                    )
+                        | Ended
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="re-auction"
+                    )
+                        | Re-Auction
+
+
+            //- Auctions
+            .paintings
+
+                if auctions.length
+
+                    each auction in auctions
+
+                        .painting-card(
+                            data-status=auction.auctionStatus
+                            data-name=auction.name.toLowerCase()
+                        )
+
+                            .image
+                                img(
+                                    src=`/img/paintings/${auction.image}`
+                                    alt=auction.name
+                                )
+
+
+                            .content
+
+                                //- Painting Title
+                                .painting-title
+
+                                    h3= auction.name
+
+                                    span.type= auction.type
+
+                                    span.size
+                                        if auction.auctionStatus === 're-auction'
+                                            | Re-Auction
+                                        else
+                                            = auction.auctionStatus.charAt(0).toUpperCase() + auction.auctionStatus.slice(1)
+
+
+                                //- Description
+                                p= auction.briefPara
+
+
+                                .details
+
+                                    //- Starting Price
+                                    div
+                                        small Starting Price
+                                        span
+                                            | $#{auction.startingPrice}
+
+
+                                    //- Current / Final Bid
+                                    div
+                                        if auction.auctionStatus === 'ended' || auction.auctionStatus === 're-auction'
+
+                                            small Final Bid
+
+                                            span
+                                                | $#{auction.finalPrice || auction.currentPrice || auction.startingPrice}
+
+                                        else
+
+                                            small Current Bid
+
+                                            span
+                                                | $#{auction.currentPrice || auction.startingPrice}
+
+
+                                    //- Total Bids
+                                    div
+                                        small Total Bids
+                                        span= auction.totalBids || 0
+
+
+                                    //- Status
+                                    div
+
+                                        small Status
+
+                                        span.status
+                                            if auction.auctionStatus === 're-auction'
+                                                | Re-Auction
+                                            else
+                                                = auction.auctionStatus.charAt(0).toUpperCase() + auction.auctionStatus.slice(1)
+
+
+                                    //- Auction Start
+                                    div
+
+                                        if auction.auctionStatus === 'ended' || auction.auctionStatus === 're-auction'
+                                            small Auction Started
+                                        else
+                                            small Auction Starts
+
+                                        if auction.auctionStart
+                                            span= new Date(auction.auctionStart).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                                        else
+                                            span —
+
+
+                                    //- Auction End
+                                    div
+
+                                        if auction.auctionStatus === 'ended' || auction.auctionStatus === 're-auction'
+                                            small Auction Ended
+                                        else
+                                            small Auction Ends
+
+                                        if auction.auctionEnd
+                                            span= new Date(auction.auctionEnd).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                                        else
+                                            span —
+
+
+                                //- Buttons
+                                .buttons
+
+                                    //- //- Show
+                                    //- a.show-btn(
+                                    //-     href=`/painting/${auction.slug}`
+                                    //- )
+                                    //-     | Show Auction
+
+
+                                    //- Active Auction
+                                    if auction.auctionStatus === 'active'
+
+                                        a.edit-btn(
+                                            href=`/admin/auctions/${auction._id}/bids`
+                                        )
+                                            | View Bids
+
+                                        button.delete-btn(
+                                            type="button"
+                                            data-auction-id=auction._id
+                                        )
+                                            | End Auction
+
+
+                                    //- Upcoming Auction
+                                    else if auction.auctionStatus === 'upcoming'
+
+                                        a.edit-btn(
+                                            href=`/admin/paintings/${auction._id}/edit`
+                                        )
+                                            | Edit
+
+                                        button.delete-btn(
+                                            type="button"
+                                            data-auction-id=auction._id
+                                        )
+                                            | Delete
+
+
+                                    //- Ended Auction
+                                    else if auction.auctionStatus === 'ended'
+
+                                        a.edit-btn(
+                                            href=`/admin/auctions/${auction._id}/bids`
+                                        )
+                                            | View Bids
+
+
+                                    //- Re-Auction
+                                    else if auction.auctionStatus === 're-auction'
+
+                                        button.edit-btn(
+                                            type="button"
+                                            data-auction-id=auction._id
+                                        )
+                                            | Start New Auction
+
+
+                else
+
+                    .no-paintings
+                        p No auctions found.

@@ -425,3 +425,72 @@ exports.toggleUserStatus = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+// get all auctions 
+exports.getAuctionsDashboard = catchAsync(async (req, res, next) => {
+  const paintings = await Painting.find({
+    auctionStart: { $ne: null },
+    auctionEnd: { $ne: null }
+  }).sort('-auctionStart');
+
+  const now = new Date();
+
+  const auctions = paintings.map(painting => {
+    let auctionStatus;
+
+    if (painting.auctionStart > now) {
+      auctionStatus = 'upcoming';
+    } else if (
+      painting.auctionStart <= now &&
+      painting.auctionEnd >= now &&
+      painting.status === 'active'
+    ) {
+      auctionStatus = 'active';
+    } else if (
+      painting.auctionEnd < now &&
+      painting.status === 'ended' &&
+      !painting.winner
+    ) {
+      auctionStatus = 're-auction';
+    } else {
+      auctionStatus = 'ended';
+    }
+
+    return {
+      ...painting.toObject(),
+      auctionStatus
+    };
+  });
+
+  const totalAuctions = auctions.length;
+
+  const upcomingAuctions = auctions.filter(
+    auction => auction.auctionStatus === 'upcoming'
+  ).length;
+
+  const activeAuctions = auctions.filter(
+    auction => auction.auctionStatus === 'active'
+  ).length;
+
+  const endedAuctions = auctions.filter(
+    auction => auction.auctionStatus === 'ended'
+  ).length;
+
+  const reAuctions = auctions.filter(
+    auction => auction.auctionStatus === 're-auction'
+  ).length;
+
+  res.status(200).render('admin/auctions/auctionsDashboard', {
+    title: 'Auctions Dashboard',
+
+    totalAuctions,
+    upcomingAuctions,
+    activeAuctions,
+    endedAuctions,
+    reAuctions,
+
+    auctions,
+
+    message: req.query.message
+  });
+});
