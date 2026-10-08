@@ -95,6 +95,17 @@ router.patch(
   adminController.updateUser
 );
 
+
+// Delete user
+router.delete(
+  '/users/:id',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.deleteUser
+);
+
+
+
 // show user
 router.get(
     '/users/:id',
@@ -102,6 +113,7 @@ router.get(
     authController.restrictTo('admin'),
     adminController.getUser
 );
+
 
 
 

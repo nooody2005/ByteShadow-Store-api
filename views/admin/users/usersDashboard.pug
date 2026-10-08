@@ -19,10 +19,6 @@ block content
             .users-header
                 h2 Users Management
 
-            .users-header
-
-                h2 Users Management
-
                 a.add-btn(href="/admin/users/add")
                     i.fas.fa-plus
                     | Add User
@@ -150,9 +146,19 @@ block content
                             )
                                 | Edit
 
-                            a.delete-user(
-                                href="#"
+                            //- a.delete-user(
+                            //-     href="#"
+                            //- )
+                            //-     | Delete
+
+                            button.delete-user(
+                                type="button"
+                                data-user-id=user._id
                             )
                                 | Delete
 
     //- End Users Dashboard
+
+
+    block scripts
+        script(src="/js/admin/delete-user.js")

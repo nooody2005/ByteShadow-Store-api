@@ -367,3 +367,28 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 
   res.redirect(`/admin/users/${user._id}?message=User updated successfully`);
 });
+
+
+// Delete user
+// exports.deleteUser = catchAsync(async (req, res, next) => {
+//   const user = await User.findByIdAndDelete(req.params.id);
+
+//   if (!user) {
+//     return next(new AppError('No user found with that ID', 404));
+//   }
+
+//   res.redirect('/admin/users?message=User deleted successfully');
+// });
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+
+  if (!user) {
+    return next(new AppError('No user found with that ID', 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});
