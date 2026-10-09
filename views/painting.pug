@@ -16,6 +16,7 @@ block content
     .painting(
     data-user-id=user ? user._id : ''
     data-user-phone=user ? user.phone : ''
+    data-user-country=user ? user.country : ''
     data-user-address=user ? user.address : ''
     data-painting-id=painting._id
     )
@@ -100,6 +101,14 @@ block content
                                                 type="tel"
                                                 placeholder="Enter your phone number"
                                                 required
+                                            )
+
+                                        .form-group
+                                            label(for="country") Country
+                                            input#country(
+                                                type="text"
+                                                name="country"
+                                                placeholder="Enter your country"
                                             )
 
                                         .form-group

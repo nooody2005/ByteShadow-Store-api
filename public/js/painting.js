@@ -17,6 +17,7 @@ if (placeBidBtn) {
     const userId = painting.dataset.userId;
 
     const userPhone = painting.dataset.userPhone;
+    const userCountry = painting.dataset.userCountry;
     const userAddress = painting.dataset.userAddress;
 
     // Not logged in
@@ -94,6 +95,7 @@ if (placeBidBtn) {
       e.preventDefault();
 
       const phone = document.getElementById('phone').value;
+      const country = document.getElementById('country').value;
       const address = document.getElementById('address').value;
 
       try {
@@ -103,6 +105,7 @@ if (placeBidBtn) {
           url: '/api/v1/users/updateMe',
           data: {
             phone,
+            country,
             address
           }
         });
@@ -117,6 +120,7 @@ if (placeBidBtn) {
 
         // Update the data stored in the page
         painting.dataset.userPhone = phone;
+        painting.dataset.userCountry = country;
         painting.dataset.userAddress = address;
 
         // Place the bid automatically

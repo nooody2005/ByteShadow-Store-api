@@ -20,61 +20,56 @@ block content
                         alt=user.name
                     )
 
+                
+                // user info
                 .user-info
 
-                    h2= user.name
+                    .user-heading
+                        h2= user.name
 
-                    p
-                        span Email:
-                        |  #{user.email}
+                        .user-badges
+                            span.role-badge= user.role === 'user' ? 'User' : user.role
 
-                    p
-                        span Role:
-                        |  #{user.role === 'user' ? 'User' : user.role}
+                            if user.status === 'blocked'
+                                span.status-badge.blocked Blocked
+                            else
+                                span.status-badge.active Active
 
-                    //- p
-                    //-     span Account Created:
-                    //-     if user.createdAt
-                    //-         |  #{new Date(user.createdAt).toLocaleDateString('en-GB', {
-                    //-         |      day: 'numeric',
-                    //-         |      month: 'long',
-                    //-         |      year: 'numeric'
-                    //-         |  })}
-                    //-     else
-                    //-         |  -
+                    .user-meta-row
+                        p
+                            span Email:
+                            |  #{user.email}
 
-                    p
-                        span Account Created:
-                        if user.createdAt
-                            | #{new Date(user.createdAt).toLocaleDateString('en-GB')}
-                        else
-                            | -
+                        p
+                            span Phone:
+                            |  #{user.phone || '-'}
 
+                    .user-meta-row
+                        p
+                            span Account Created:
+                            if user.createdAt
+                                |  #{new Date(user.createdAt).toLocaleDateString('en-GB')}
+                            else
+                                |  -
 
-                    //- p
-                    //-     span Last Login:
-                    //-     if user.lastLogin
-                    //-         |  #{new Date(user.lastLogin).toLocaleDateString('en-GB', {
-                    //-         |      day: 'numeric',
-                    //-         |      month: 'long',
-                    //-         |      year: 'numeric'
-                    //-         |  })}
-                    //-     else
-                    //-         |  Never
+                        p
+                            span Country:
+                            |  #{user.country || '-'}
 
-                    p
-                        span Last Login:
-                        if user.lastLogin
-                            | #{new Date(user.lastLogin).toLocaleDateString('en-GB')}
-                        else
-                            | Never
+                    
 
-                    p
-                        span Status:
-                        if user.status === 'blocked'
-                            span.blocked Blocked
-                        else
-                            span.active Active
+                    .user-meta-row
+                        p
+                            span Last Login:
+                            if user.lastLogin
+                                |  #{new Date(user.lastLogin).toLocaleDateString('en-GB')}
+                            else
+                                |  Never
+                        
+                        p
+                            span Address:
+                            |  #{user.address || '-'}
+
 
 
             //- Statistics

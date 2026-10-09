@@ -94,6 +94,15 @@ block content
                                 )
 
                             .form-group
+                                label(for="country") Country
+                                input#country(
+                                    type="text"
+                                    placeholder="Enter your country"
+                                    value=user.country || ''
+                                    name="country"
+                                )
+
+                            .form-group
                                 label(for="address") Address
                                 textarea#address(
                                     placeholder="Enter your address"

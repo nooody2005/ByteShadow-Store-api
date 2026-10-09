@@ -8078,6 +8078,7 @@ if (placeBidBtn) {
   placeBidBtn.addEventListener('click', async () => {
     const userId = painting.dataset.userId;
     const userPhone = painting.dataset.userPhone;
+    const userCountry = painting.dataset.userCountry;
     const userAddress = painting.dataset.userAddress;
 
     // Not logged in
@@ -8140,6 +8141,7 @@ if (placeBidBtn) {
     userInfoForm.addEventListener('submit', async e => {
       e.preventDefault();
       const phone = document.getElementById('phone').value;
+      const country = document.getElementById('country').value;
       const address = document.getElementById('address').value;
       try {
         // Update user information
@@ -8148,6 +8150,7 @@ if (placeBidBtn) {
           url: '/api/v1/users/updateMe',
           data: {
             phone,
+            country,
             address
           }
         });
@@ -8158,6 +8161,7 @@ if (placeBidBtn) {
 
         // Update the data stored in the page
         painting.dataset.userPhone = phone;
+        painting.dataset.userCountry = country;
         painting.dataset.userAddress = address;
 
         // Place the bid automatically
@@ -8249,6 +8253,9 @@ if (userDataForm) userDataForm.addEventListener('submit', e => {
   const form = new FormData();
   form.append('name', document.getElementById('name').value);
   form.append('email', document.getElementById('email').value);
+  form.append('phone', document.getElementById('phone').value);
+  form.append('country', document.getElementById('country').value);
+  form.append('address', document.getElementById('address').value);
   form.append('photo', document.getElementById('photo').files[0]);
   console.log(form);
   (0, _updateSettings.updateSettings)(form, 'data');
@@ -8355,7 +8362,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56752" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60361" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
