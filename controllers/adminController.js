@@ -15,8 +15,10 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
     endedPaintings,
 
     totalAuctions,
+    upcomingAuctions,
     activeAuctions,
     endedAuctions,
+    reAuctions,
 
     totalUsers,
     customers,
@@ -59,14 +61,29 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
       auctionEnd: { $ne: null }
     }),
 
+    // count of Upcoming auction -- start date still not started
+    Painting.countDocuments({
+      auctionStart: { $gt: new Date() },
+      auctionEnd: { $ne: null }
+    }),
+
+    // count of active auciton
     Painting.countDocuments({
       status: 'active'
     }),
 
+    // count of Ended auctions
     Painting.countDocuments({
-      status: 'ended'
+      status: { $in: ['ended', 'reserved', 'sold'] }
     }),
 
+
+    // count of ended auction with no bids (Re-auction)
+    Painting.countDocuments({
+      status: 'ended',
+      auctionEnd: { $lt: new Date() },
+      auctionStart: { $ne: null }
+    }),
     // =========================
     // Users
     // =========================
@@ -116,8 +133,10 @@ exports.getAdminDashboard = catchAsync(async (req, res, next) => {
 
     // Auctions
     totalAuctions,
+    upcomingAuctions,
     activeAuctions,
     endedAuctions,
+    reAuctions,
 
     // Users
     totalUsers,

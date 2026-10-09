@@ -59,15 +59,15 @@ block content
 
                     button.filter-btn(
                         type="button"
-                        data-status="active"
-                    )
-                        | Active
-
-                    button.filter-btn(
-                        type="button"
                         data-status="upcoming"
                     )
                         | Upcoming
+
+                    button.filter-btn(
+                        type="button"
+                        data-status="active"
+                    )
+                        | Active
 
                     button.filter-btn(
                         type="button"
@@ -256,3 +256,8 @@ block content
 
                     .no-paintings
                         p No auctions found.
+
+
+block scripts
+    script(src="/js/bundle.js")
+    script(src="/js/admin/auctions/auctions-dashboard.js")

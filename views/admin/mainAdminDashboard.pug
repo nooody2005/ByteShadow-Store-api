@@ -29,16 +29,16 @@ block content
                             strong= activePaintings
 
                         .stat-detail
-                            span Sold
-                            strong= soldPaintings
+                            span Ended
+                            strong= endedPaintings
 
                         .stat-detail
                             span Reserved
                             strong= reservedPaintings
 
                         .stat-detail
-                            span Ended
-                            strong= endedPaintings
+                            span Sold
+                            strong= soldPaintings
 
 
                 //- Auctions
@@ -46,11 +46,15 @@ block content
                 .stat-card
 
                     h3
-                        a(href="/admin/paintings") All Auctions
+                        a(href="/admin/auctions") All Auctions
 
                     span= totalAuctions
 
                     .stat-details
+
+                        .stat-detail
+                            span Upcoming
+                            strong= upcomingAuctions
 
                         .stat-detail
                             span Active
@@ -59,6 +63,10 @@ block content
                         .stat-detail
                             span Ended
                             strong= endedAuctions
+
+                        .stat-detail
+                            span Re-Auction
+                            strong= reAuctions
 
 
                 //- Users
