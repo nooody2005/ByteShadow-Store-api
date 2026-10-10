@@ -132,3 +132,41 @@ document.querySelectorAll('.re-auction-form').forEach(form => {
     }
   });
 });
+
+// End aucition
+
+document
+  .querySelectorAll(
+    '.painting-card[data-status="active"] .delete-btn[data-auction-id]'
+  )
+  .forEach(button => {
+    button.addEventListener('click', async () => {
+      const auctionId = button.dataset.auctionId;
+
+      const confirmed = confirm('Are you sure you want to end this auction?');
+
+      if (!confirmed) return;
+
+      button.disabled = true;
+
+      try {
+        const response = await fetch(`/admin/auctions/${auctionId}/end`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Could not end the auction');
+        }
+
+        window.location.reload();
+      } catch (error) {
+        alert(error.message);
+        button.disabled = false;
+      }
+    });
+  });

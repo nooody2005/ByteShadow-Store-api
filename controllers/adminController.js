@@ -4,6 +4,7 @@ const Order = require('../models/orderModel');
 const Bid = require('../models/bidModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const paintingController = require('./paintingController');
 
 
 exports.getAdminDashboard = catchAsync(async (req, res, next) => {
@@ -741,5 +742,33 @@ exports.startNewAuction = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: 'New auction started successfully'
+  });
+});
+
+
+// End auction
+
+exports.endAuction = catchAsync(async (req, res, next) => {
+  const painting = await Painting.findById(req.params.id);
+
+  if (!painting) {
+    return next(new AppError('Painting not found', 404));
+  }
+
+  if (painting.status !== 'active') {
+    return next(new AppError('Only active auctions can be ended', 400));
+  }
+
+  // Set the auction end time to now
+  painting.auctionEnd = new Date();
+
+  await painting.save({ validateBeforeSave: false });
+
+  // Apply the existing auction finishing logic
+  await paintingController.finishAuctions();
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Auction ended successfully'
   });
 });

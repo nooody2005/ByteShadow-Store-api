@@ -142,13 +142,22 @@ router.get(
   authController.restrictTo('admin'),
   adminController.getAuctionsDashboard
 );
-
+// re- auction
 router.post(
   '/auctions/:id/re-auction',
   authController.protect,
   authController.restrictTo('admin'),
   adminController.startNewAuction
 );
+
+// end auciton --> start new auction
+router.patch(
+  '/auctions/:id/end',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.endAuction
+);
+
 
 //get bids of an acution 
 router.get(
