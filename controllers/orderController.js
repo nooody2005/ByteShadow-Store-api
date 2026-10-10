@@ -123,6 +123,8 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
 //     });
 //   }
 
+
+
   if (obj.amount_cents !== Math.round(order.amount * 100)) {
     return res.status(400).json({
       status: 'fail',
@@ -130,9 +132,28 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
     });
   }
 
-  order.paymentStatus = 'paid';
-  order.status = 'paid';
+  // Prevent processing the same successful payment twice
+  if (order.paymentStatus === 'paid') {
+    return res.status(200).json({
+      status: 'success',
+      message: 'Payment already processed'
+    });
+  }
 
+  // The order must still be pending
+  if (order.status !== 'pending') {
+    order.paymentStatus = 'paid';
+    await order.save();
+
+    console.error(
+      `Payment received for non-pending order ${order._id}. Manual review/refund may be required.`
+    );
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Payment recorded for manual review'
+    });
+  }
 
   const painting = await Painting.findById(order.painting);
 
@@ -143,16 +164,78 @@ exports.paymobWebhook = catchAsync(async (req, res, next) => {
     });
   }
 
+  const isCurrentWinner =
+    painting.winner &&
+    painting.winner.toString() === order.user.toString();
+
+  const deadlineIsValid =
+    painting.paymentDeadline &&
+    painting.paymentDeadline > new Date();
+
+  // The painting must still be reserved for this winner,
+  // and the 24-hour payment deadline must not have passed.
+  if (
+    painting.status !== 'reserved' ||
+    !isCurrentWinner ||
+    !deadlineIsValid
+  ) {
+    order.paymentStatus = 'paid';
+    await order.save();
+
+    console.error(
+      `Late or mismatched payment for order ${order._id}. Manual review/refund may be required.`
+    );
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Payment recorded for manual review'
+    });
+  }
+
+  // Payment is valid for the current reservation
   painting.status = 'sold';
   await painting.save();
 
+  order.paymentStatus = 'paid';
+  order.status = 'paid';
   await order.save();
+
+  return res.status(200).json({
+    status: 'success'
+  });
+
+
+//   if (obj.amount_cents !== Math.round(order.amount * 100)) {
+//     return res.status(400).json({
+//       status: 'fail',
+//       message: 'Payment amount mismatch'
+//     });
+//   }
+
+//   order.paymentStatus = 'paid';
+//   order.status = 'paid';
+
+
+//   const painting = await Painting.findById(order.painting);
+
+//   if (!painting) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Painting not found'
+//     });
+//   }
+
+//   painting.status = 'sold';
+//   await painting.save();
 
 //   await order.save();
 
-  res.status(200).json({
-    status: 'success'
-  });
+// //   await order.save();
+
+//   res.status(200).json({
+//     status: 'success'
+//   });
+  
 });
 
 

@@ -158,9 +158,20 @@ block content
 
                                         small Status
 
+                                        //- span.status
+                                        //-     if auction.auctionStatus === 're-auction'
+                                        //-         | Re-Auction
+                                        //-     else
+                                        //-         = auction.auctionStatus.charAt(0).toUpperCase() + auction.auctionStatus.slice(1)
                                         span.status
-                                            if auction.auctionStatus === 're-auction'
+                                            if auction.status === 'reserved'
+                                                | Reserved
+                                            else if auction.auctionStatus === 're-auction'
                                                 | Re-Auction
+                                            else if auction.status === 'ended' && auction.totalBids === 0
+                                                | Ended - No Bids
+                                            else if auction.status === 'sold'
+                                                | Sold
                                             else
                                                 = auction.auctionStatus.charAt(0).toUpperCase() + auction.auctionStatus.slice(1)
 
@@ -243,13 +254,57 @@ block content
 
 
                                     //- Re-Auction
+                                    //- else if auction.auctionStatus === 're-auction'
+
+                                    //-     button.edit-btn(
+                                    //-         type="button"
+                                    //-         data-auction-id=auction._id
+                                    //-     )
+                                    //-         | Start New Auction
+                                    //- Re-Auction
                                     else if auction.auctionStatus === 're-auction'
 
-                                        button.edit-btn(
-                                            type="button"
-                                            data-auction-id=auction._id
-                                        )
+                                        if auction.totalBids > 0
+                                            a.edit-btn(
+                                                href=`/admin/auctions/${auction._id}/bids`
+                                            )
+                                                | View Bids
+
+                                        //- button.edit-btn.start-auction-btn(
+                                        //-     type="button"
+                                        //-     data-auction-id=auction._id
+                                        //- )
+                                        //-     | Start New Auction
+
+                                        a.edit-btn(
+                                            href=`/admin/paintings/${auction._id}/edit`
+                                            )
                                             | Start New Auction
+
+                                        form.re-auction-form(
+                                            data-auction-id=auction._id
+                                            hidden
+                                        )
+                                            .form-group
+                                                label(for=`auctionStart-${auction._id}`) Auction Starts
+                                                input(
+                                                    type="datetime-local"
+                                                    id=`auctionStart-${auction._id}`
+                                                    name="auctionStart"
+                                                    required
+                                                )
+
+                                            .form-group
+                                                label(for=`auctionEnd-${auction._id}`) Auction Ends
+                                                input(
+                                                    type="datetime-local"
+                                                    id=`auctionEnd-${auction._id}`
+                                                    name="auctionEnd"
+                                                    required
+                                                )
+
+                                            button.edit-btn(type="submit")
+                                                | Confirm New Auction
 
 
                 else

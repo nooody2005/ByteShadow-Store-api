@@ -228,25 +228,83 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
 //   next();
 // });
 
+// =====================================================================================
+
+// exports.finishAuctions = async () => {
+//   const now = new Date();
+
+//   const paintings = await Painting.find({
+//     auctionEnd: { $lte: now },
+//     status: 'active'
+//   });
+
+//   for (const painting of paintings) {
+
+//     if (painting.highestBidder) {
+
+      
+//       painting.winner = painting.highestBidder;
+//       painting.finalPrice = painting.currentPrice;
+//       // painting.status = 'sold';
+//       painting.status = 'reserved';
+
+//       // painting.paymentDeadline = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+//       const existingOrder = await Order.findOne({
+//         painting: painting._id
+//       });
+
+//       if (!existingOrder) {
+//         await Order.create({
+//           user: painting.highestBidder,
+//           painting: painting._id,
+//           amount: painting.currentPrice
+//         });
+//       }
+//     } else {
+//       painting.status = 'ended';
+//     }
+
+
+//     await painting.save({
+//       validateBeforeSave: false
+//     });
+//   }
+
+//   console.log(`Finished ${paintings.length} auction(s)`);
+// };
+
+
 
 exports.finishAuctions = async () => {
   const now = new Date();
 
+  // 1. Finish auctions that have reached their end time
   const paintings = await Painting.find({
     auctionEnd: { $lte: now },
     status: 'active'
   });
 
   for (const painting of paintings) {
-
     if (painting.highestBidder) {
       painting.winner = painting.highestBidder;
       painting.finalPrice = painting.currentPrice;
-      // painting.status = 'sold';
       painting.status = 'reserved';
 
+      // Give the winner 24 hours to pay
+      // painting.paymentDeadline = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      painting.paymentDeadline = new Date(
+        painting.auctionEnd.getTime() + 24 * 60 * 60 * 1000
+      );
+
+      // const existingOrder = await Order.findOne({
+      //   painting: painting._id,
+      //   status: { $in: ['pending', 'paid'] }
+      // });
       const existingOrder = await Order.findOne({
-        painting: painting._id
+        painting: painting._id,
+        user: painting.highestBidder,
+        status: { $in: ['pending', 'paid'] }
       });
 
       if (!existingOrder) {
@@ -258,40 +316,130 @@ exports.finishAuctions = async () => {
       }
     } else {
       painting.status = 'ended';
+      painting.paymentDeadline = null;
     }
-  
-    // if (painting.highestBidder) {
-    //   painting.winner = painting.highestBidder;
-    //   painting.finalPrice = painting.currentPrice;
-    //   painting.status = 'sold';
-
-    //   await Order.create({
-    //     user: painting.highestBidder,
-    //     painting: painting._id,
-    //     amount: painting.currentPrice
-    //   });
-
-    // } else {
-    //   painting.status = 'ended';
-    // }
-
-
-    // if (painting.highestBidder) {
-    //   painting.winner = painting.highestBidder;
-    //   painting.finalPrice = painting.currentPrice;
-    //   painting.status = 'sold';
-    // } else {
-    //   painting.status = 'ended';
-    // }
-    
 
     await painting.save({
       validateBeforeSave: false
     });
   }
 
-  console.log(`Finished ${paintings.length} auction(s)`);
+  
+  // 2. Release expired reservations
+  const expiredPaintings = await Painting.find({
+    status: 'reserved',
+    paymentDeadline: { $lte: now }
+  });
+
+  let releasedCount = 0;
+
+  for (const painting of expiredPaintings) {
+    const paidOrder = await Order.findOne({
+      painting: painting._id,
+      user: painting.winner,
+      paymentStatus: 'paid'
+    });
+
+    // Never release a painting if its winner has paid
+    
+  // 2. Release reservations whose payment deadline has passed
+    if (paidOrder) continue;
+
+    const pendingOrder = await Order.findOne({
+      painting: painting._id,
+      user: painting.winner,
+      status: 'pending'
+    });
+
+    if (pendingOrder) {
+      pendingOrder.status = 'cancelled';
+      await pendingOrder.save();
+    }
+
+    painting.status = 'ended';
+    painting.paymentDeadline = null;
+
+    await painting.save({ validateBeforeSave: false });
+
+    releasedCount++;
+  }
+
+  console.log(
+    `Finished ${paintings.length} auction(s), released ${releasedCount} expired reservation(s)`
+  );
+
+
+
+  // 2. Release expired reservations
+  // const expiredPaintings = await Painting.find({
+  //   status: 'reserved',
+  //   paymentDeadline: { $lte: now }
+  // });
+
+  // const reservedPaintings = await Painting.find({
+  //   status: 'reserved'
+  // }).select('name status paymentDeadline auctionEnd');
+
+  // console.log('All reserved paintings:', reservedPaintings);
+
+  // const expiredPaintings = await Painting.find({
+  //   status: 'reserved',
+  //   paymentDeadline: { $lte: now }
+  // });
+
+  // console.log('Expired paintings found:', expiredPaintings.length);
+
+  // console.log('Expired paintings found:', expiredPaintings.length);
+  // console.log('Current time:', now);
+
+  // let releasedCount = 0;
+
+  // for (const painting of expiredPaintings) {
+
+  //   console.log('Checking painting:', {
+  //     id: painting._id.toString(),
+  //     status: painting.status,
+  //     paymentDeadline: painting.paymentDeadline,
+  //     winner: painting.winner?.toString()
+  //   });
+
+  //   const paidOrder = await Order.findOne({
+  //     painting: painting._id,
+  //     user: painting.winner,
+  //     paymentStatus: 'paid'
+  //   });
+
+  //   console.log('Paid order found:', Boolean(paidOrder));
+
+  //   // Never release a painting if its winner has paid
+  //   if (paidOrder) continue;
+
+  //   const pendingOrder = await Order.findOne({
+  //     painting: painting._id,
+  //     user: painting.winner,
+  //     status: 'pending'
+  //   });
+
+  //   if (pendingOrder) {
+  //     pendingOrder.status = 'cancelled';
+  //     await pendingOrder.save();
+  //   }
+
+  //   painting.status = 'ended';
+  //   painting.paymentDeadline = null;
+
+  //   await painting.save({ validateBeforeSave: false });
+
+  //   releasedCount++;
+  // }
+
+  // console.log(
+  //   `Finished ${paintings.length} auction(s), released ${releasedCount} expired reservation(s)`
+  // );
 };
+
+
+
 
 
 // //================================================================================

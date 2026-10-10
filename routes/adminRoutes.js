@@ -143,6 +143,13 @@ router.get(
   adminController.getAuctionsDashboard
 );
 
+router.post(
+  '/auctions/:id/re-auction',
+  authController.protect,
+  authController.restrictTo('admin'),
+  adminController.startNewAuction
+);
+
 //get bids of an acution 
 router.get(
   '/auctions/:id/bids',

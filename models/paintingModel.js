@@ -10,52 +10,52 @@ const paintingSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "A painting must have a name"],
+      required: [true, 'A painting must have a name'],
       unique: true,
       trim: true,
-      maxlength: [100, "A painting name must have less than 100 characters"],
-      minlength: [3, "A painting name must have more than 3 characters"],
+      maxlength: [100, 'A painting name must have less than 100 characters'],
+      minlength: [3, 'A painting name must have more than 3 characters']
     },
 
     slug: String,
 
     briefPara: {
       type: String,
-      required: [true, "A painting must have a brief description"],
-      trim: true,
+      required: [true, 'A painting must have a brief description'],
+      trim: true
     },
 
     description1: {
       //paragraph
       type: String,
-      required: [true, "A painting must have a description"],
-      trim: true,
+      required: [true, 'A painting must have a description'],
+      trim: true
     },
 
     description2: {
       //the rest of paragraph
       type: String,
-      required: [true, "A painting must have a description"],
-      trim: true,
+      required: [true, 'A painting must have a description'],
+      trim: true
     },
 
     type: {
       type: String,
-      required: [true, "A painting must have a type"],
+      required: [true, 'A painting must have a type'],
       enum: {
-        values: ["Nature", "Portrait", "Romantic", "Expressive"],
-        message: "Type is either: Nature, Portrait, Romantic or Expressive",
-      },
+        values: ['Nature', 'Portrait', 'Romantic', 'Expressive'],
+        message: 'Type is either: Nature, Portrait, Romantic or Expressive'
+      }
     },
 
     size: {
       type: String,
-      required: [true, "A painting must have a size"],
+      required: [true, 'A painting must have a size']
     },
 
     image: {
       type: String,
-      required: [true, "A painting must have a main image"],
+      required: [true, 'A painting must have a main image']
     },
 
     decoImages: [String],
@@ -64,25 +64,30 @@ const paintingSchema = new mongoose.Schema(
 
     startingPrice: {
       type: Number,
-      required: [true, "A painting must have a starting price"],
-      min: [1, "Price must be greater than 0"],
+      required: [true, 'A painting must have a starting price'],
+      min: [1, 'Price must be greater than 0']
     },
 
     currentPrice: {
       type: Number,
-      default: function () {
+      default: function() {
         return this.startingPrice;
-      },
+      }
     },
 
     auctionStart: {
       type: Date,
-      required: [true, "Auction must have a start date"],
+      required: [true, 'Auction must have a start date']
     },
 
     auctionEnd: {
       type: Date,
-      required: [true, "Auction must have an end date"],
+      required: [true, 'Auction must have an end date']
+    },
+
+    paymentDeadline: {
+      type: Date,
+      default: null
     },
 
     // bids: [
@@ -98,24 +103,24 @@ const paintingSchema = new mongoose.Schema(
 
     totalBids: {
       type: Number,
-      default: 0,
+      default: 0
     },
 
     highestBidder: {
       type: mongoose.Schema.ObjectId,
-      ref: "User",
-      default: null,
+      ref: 'User',
+      default: null
     },
 
     winner: {
       type: mongoose.Schema.ObjectId,
-      ref: "User",
-      default: null,
+      ref: 'User',
+      default: null
     },
 
     finalPrice: {
       type: Number,
-      default: null,
+      default: null
     },
 
     // artist: {
@@ -125,16 +130,16 @@ const paintingSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["draft", "active", "ended","reserved", "sold", "cancelled"],
-      default: "draft",
-    },
+      enum: ['draft', 'active', 'ended', 'reserved', 'sold', 'cancelled'],
+      default: 'draft'
+    }
   },
   {
     timestamps: true, //createdAt  updatedAt
-    
+
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
-  },
+  }
 );
 
 

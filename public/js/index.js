@@ -117,8 +117,11 @@ if (alertMessage) showAlert('success', alertMessage, 20);
 
 
 if (signupForm) {
-  signupForm.addEventListener('submit', e => {
+    console.log('SIGNUP FORM FOUND ✅');
+    signupForm.addEventListener('submit', e => {
     e.preventDefault();
+
+    console.log('SIGNUP SUBMITTED ✅');
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;

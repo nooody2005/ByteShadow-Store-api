@@ -454,32 +454,59 @@ exports.getAuctionsDashboard = catchAsync(async (req, res, next) => {
 
   const now = new Date();
 
-  const auctions = paintings.map(painting => {
-    let auctionStatus;
+//   const auctions = paintings.map(painting => {
+//     let auctionStatus;
 
-    if (painting.auctionStart > now) {
-      auctionStatus = 'upcoming';
-    } else if (
-      painting.auctionStart <= now &&
-      painting.auctionEnd >= now &&
-      painting.status === 'active'
-    ) {
-      auctionStatus = 'active';
-    } else if (
-      painting.auctionEnd < now &&
-      painting.status === 'ended' &&
-      !painting.winner
-    ) {
-      auctionStatus = 're-auction';
-    } else {
-      auctionStatus = 'ended';
-    }
+//     if (painting.auctionStart > now) {
+//       auctionStatus = 'upcoming';
+//     } else if (
+//       painting.auctionStart <= now &&
+//       painting.auctionEnd >= now &&
+//       painting.status === 'active'
+//     ) {
+//       auctionStatus = 'active';
+//     } else if (
+//       painting.auctionEnd < now &&
+//       painting.status === 'ended' 
+//     //   && !painting.winner
+//     ) {
+//       auctionStatus = 're-auction';
+//     } else {
+//       auctionStatus = 'ended';
+//     }
 
-    return {
-      ...painting.toObject(),
-      auctionStatus
-    };
-  });
+//     return {
+//       ...painting.toObject(),
+//       auctionStatus
+//     };
+//   });
+
+const auctions = paintings.map(painting => {
+  let auctionStatus;
+
+  if (painting.status === 'reserved') {
+    // Auction ended, but winner still has time to pay
+    auctionStatus = 'ended';
+  } else if (painting.status === 'active' && painting.auctionStart > now) {
+    auctionStatus = 'upcoming';
+  } else if (
+    painting.status === 'active' &&
+    painting.auctionStart <= now &&
+    painting.auctionEnd >= now
+  ) {
+    auctionStatus = 'active';
+  } else if (painting.status === 'ended' && painting.auctionEnd < now) {
+    // Includes no-bid auctions and expired unpaid reservations
+    auctionStatus = 're-auction';
+  } else {
+    auctionStatus = 'ended';
+  }
+
+  return {
+    ...painting.toObject(),
+    auctionStatus
+  };
+});
 
   const totalAuctions = auctions.length;
 
@@ -668,4 +695,51 @@ exports.updateOrderStatus = catchAsync(async (req, res, next) => {
             order
         }
     });
+});
+
+
+// if re auciton
+exports.startNewAuction = catchAsync(async (req, res, next) => {
+  const painting = await Painting.findById(req.params.id);
+
+  if (!painting) {
+    return next(new AppError('Painting not found', 404));
+  }
+
+  if (painting.status !== 'ended') {
+    return next(new AppError('Only ended auctions can be restarted', 400));
+  }
+
+  const auctionStart = new Date(req.body.auctionStart);
+  const auctionEnd = new Date(req.body.auctionEnd);
+  const now = new Date();
+
+  if (
+    Number.isNaN(auctionStart.getTime()) ||
+    Number.isNaN(auctionEnd.getTime()) ||
+    auctionStart <= now ||
+    auctionEnd <= auctionStart
+  ) {
+    return next(
+      new AppError('Choose a future start time and a later end time', 400)
+    );
+  }
+
+  painting.auctionStart = auctionStart;
+  painting.auctionEnd = auctionEnd;
+
+  painting.currentPrice = painting.startingPrice;
+  painting.totalBids = 0;
+  painting.highestBidder = null;
+  painting.winner = null;
+  painting.finalPrice = null;
+  painting.paymentDeadline = null;
+  painting.status = 'active';
+
+  await painting.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'New auction started successfully'
+  });
 });

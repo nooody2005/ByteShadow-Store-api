@@ -8037,6 +8037,36 @@ exports.signup = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+// import axios from 'axios';
+// import { showAlert } from './alerts';
+
+// export const signup = async (name, email, password, passwordConfirm) => {
+//   try {
+//     const res = await axios({
+//       method: 'POST',
+//       url: '/api/v1/users/signup',
+//       data: {
+//         name,
+//         email,
+//         password,
+//         passwordConfirm
+//       }
+//     });
+
+//     if (res.data.status === 'success') {
+//         console.log('Signup response:', res.data);
+//         alert('Signup success reached!');
+//       showAlert('success', 'Account created successfully 🎉');
+
+//       // window.setTimeout(() => {
+//       //   location.assign('/');
+//       // }, 1500);
+//     }
+//   } catch (err) {
+//     showAlert('error', err.response?.data?.message || 'Something went wrong');
+//   }
+// };
+
 const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await (0, _axios.default)({
@@ -8049,11 +8079,23 @@ const signup = async (name, email, password, passwordConfirm) => {
         passwordConfirm
       }
     });
+
+    // if (res.data.status === 'success') {
+    //   console.log('SIGNUP SUCCESS ✅');
+    //   console.log(res.data);
+
+    //   showAlert('success', 'Account created successfully 🎉');
+
+    //   window.setTimeout(() => {
+    //     location.assign('/');
+    //   }, 1500);
+    // }
     if (res.data.status === 'success') {
+      console.log('SIGNUP SUCCESS ✅');
       (0, _alerts.showAlert)('success', 'Account created successfully 🎉');
       window.setTimeout(() => {
         location.assign('/');
-      }, 1500);
+      }, 3000);
     }
   } catch (err) {
     var _err$response;
@@ -8312,8 +8354,10 @@ if (userPasswordForm) userPasswordForm.addEventListener('submit', async e => {
 const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) (0, _alerts.showAlert)('success', alertMessage, 20);
 if (signupForm) {
+  console.log('SIGNUP FORM FOUND ✅');
   signupForm.addEventListener('submit', e => {
     e.preventDefault();
+    console.log('SIGNUP SUBMITTED ✅');
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -8362,7 +8406,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60361" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64272" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
