@@ -13,6 +13,11 @@ block content
             //- Dashboard Header
             .dashboard-header
                 h2 Auctions Dashboard
+                if user && user.role === 'admin'
+                    .admin-link
+                        a(href="/admin")
+                            i.fas.fa-user-shield
+                            | Go to Admin Dashboard
 
 
             //- Statistics

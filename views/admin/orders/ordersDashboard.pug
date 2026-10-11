@@ -22,6 +22,12 @@ block content
 
                 h2 Orders Dashboard
 
+                if user && user.role === 'admin'
+                    .admin-link
+                        a(href="/admin")
+                            i.fas.fa-user-shield
+                            | Go to Admin Dashboard
+
 
             //- =========================
             //- Success Message
