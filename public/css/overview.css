@@ -124,6 +124,8 @@ ul{
     transition-delay: 0.5s;
 }
 
+
+
 /* End Main Heading  */
 /* Start Header  */
 .header {
@@ -456,6 +458,50 @@ ul{
         display: none;
     }
 } */
+
+/* ===== Landing entrance animation ===== */
+
+.landing .overlay .text {
+    opacity: 0;
+    transform: translate(-300px, -50%);
+    transition:
+        opacity 0.8s ease,
+        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing .overlay .text.entrance-show {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
+
+
+/* Hide the second logo outside the right side */
+.header .container .logo img.logo-secondary {
+    opacity: 0;
+    transform: translateX(-100px);
+
+    transition:
+        opacity 0.9s ease,
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide the second logo into its original position */
+.header .container .logo img.logo-secondary.entrance-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+    .landing .overlay .text,
+    .header .container .logo img.logo-secondary {
+        transition: none;
+        transform: none;
+        opacity: 1;
+    }
+}
 
 /* End Landing  */
 

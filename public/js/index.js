@@ -133,8 +133,30 @@ if (signupForm) {
 }
 
 
+window.addEventListener(
+  'load',
+  () => {
+    const textPanel = document.querySelector('.landing .overlay .text');
+    const secondLogo = document.querySelector(
+      '.header .container .logo img.logo-secondary'
+    );
 
+    // Text panel enters from the left
+    if (textPanel) {
+      setTimeout(() => {
+        textPanel.classList.add('entrance-show');
+      }, 300);
+    }
 
+    // Second logo enters from the right
+    if (secondLogo) {
+      setTimeout(() => {
+        secondLogo.classList.add('entrance-show');
+      }, 500);
+    }
+  },
+  { once: true }
+);
 
 
 
