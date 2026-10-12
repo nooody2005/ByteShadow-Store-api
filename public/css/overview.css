@@ -190,7 +190,7 @@ ul{
 }
 
 .header .container .logo img {
-    width: 60px;
+    width: 65px;
     height: 60px;
     object-fit: contain;
     display: block;
@@ -201,7 +201,8 @@ ul{
     width: 250px;
     height: 90px;
     object-fit: contain;
-    margin-left: -65px;
+    margin-left: -75px;
+    padding-top: 20px;
 }
 
 .header .container .logo img:hover {
@@ -503,6 +504,84 @@ ul{
     }
 }
 
+/* Heading appears first */
+.landing .overlay .text .content h2 {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Paragraph appears after the heading settles */
+.landing .overlay .text .content p {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition:
+        opacity 0.8s ease,
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 1.5s;
+}
+
+/* Show heading and paragraph in sequence */
+.landing .overlay .text.entrance-show .content h2,
+.landing .overlay .text.entrance-show .content p {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .landing .overlay .text .content h2,
+    .landing .overlay .text .content p {
+        transition: none;
+        transition-delay: 0s;
+        transform: none;
+        opacity: 1;
+    }
+}
+
+/* The transparent rectangle appears first */
+.landing .overlay .text {
+    opacity: 0;
+    transform: translate(-300px, -50%);
+    transition:
+        opacity 0.8s ease,
+        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing .overlay .text.entrance-show {
+    opacity: 1;
+    transform: translate(0, -50%);
+}
+
+/* Heading appears after the rectangle */
+.landing .overlay .text .content h2 {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 1.2s;
+}
+
+/* Paragraph appears after the heading */
+.landing .overlay .text .content p {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition:
+        opacity 0.8s ease,
+        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 2.2s;
+}
+
+.landing .overlay .text.entrance-show .content h2,
+.landing .overlay .text.entrance-show .content p {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 /* End Landing  */
 
 /* Start Gallery  */
@@ -545,6 +624,114 @@ ul{
     color: var(--main-color);
     box-shadow: 0 8px 20px var(--strong-color);
 }
+
+
+
+/* Three.js Shuffle Stage */
+.gallery .shuffle-wrapper {
+    position: relative;
+    isolation: isolate;
+    width: fit-content;
+    max-width: 100%;
+    margin: -20px auto 50px;
+    padding: 10px 20px;
+    perspective: 1000px;
+}
+
+.gallery .shuffle-scene {
+    position: absolute;
+    inset: -25px -15px;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.gallery .shuffle-scene canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery .container .shuffle {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
+
+.gallery .container .shuffle li {
+    opacity: 0;
+    backface-visibility: hidden;
+}
+
+.gallery .container .shuffle.show li:nth-child(1),
+.gallery .container .shuffle.show li:nth-child(2) {
+    animation: shuffleFromLeft 1s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+
+.gallery .container .shuffle.show li:nth-child(3),
+.gallery .container .shuffle.show li:nth-child(4) {
+    animation: shuffleFromRight 1s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+
+.gallery .container .shuffle.show li:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.gallery .container .shuffle.show li:nth-child(2) {
+    animation-delay: .3s;
+}
+
+.gallery .container .shuffle.show li:nth-child(3) {
+    animation-delay: .5s;
+}
+
+.gallery .container .shuffle.show li:nth-child(4) {
+    animation-delay: .7s;
+}
+
+@keyframes shuffleFromLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-100px, 0, -100px) rotateY(-35deg);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes shuffleFromRight {
+    from {
+        opacity: 0;
+        transform: translate3d(100px, 0, -100px) rotateY(35deg);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotateY(0);
+        filter: blur(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gallery .container .shuffle li {
+        animation: none !important;
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
+}
+
 .gallery .container .gallery-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -756,6 +943,252 @@ ul{
     box-shadow: 0 12px 20px rgba(87, 56, 70, .35);
 
 }
+
+
+/* Artistic Three.js background */
+.gallery {
+    position: relative;
+    isolation: isolate;
+}
+
+.gallery .gallery-art-scene {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.gallery .gallery-art-scene canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Keep the original gallery background unchanged */
+.gallery .container {
+    isolation: isolate;
+}
+
+/* Painting entrance */
+.gallery .container .gallery-content .box {
+    opacity: 0;
+    translate: 0 0;
+    rotate: 0deg;
+    scale: 1;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: opacity, translate, rotate, scale;
+}
+
+/* First painting: falls from above */
+.gallery-content.is-visible .box:nth-child(6n + 1) {
+    animation: paintingFromTop 1.15s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+/* Second painting: rises from below */
+.gallery-content.is-visible .box:nth-child(6n + 2) {
+    animation: paintingFromBottom 1.15s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+/* Third painting: enters from the right */
+.gallery-content.is-visible .box:nth-child(6n + 3) {
+    animation: paintingFromRight 1.2s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+/* Fourth painting: enters from the left */
+.gallery-content.is-visible .box:nth-child(6n + 4) {
+    animation: paintingFromLeft 1.2s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+/* Fifth painting: comes forward in 3D */
+.gallery-content.is-visible .box:nth-child(6n + 5) {
+    animation: paintingFromDepth 1.3s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+/* Sixth painting: rotates into place */
+.gallery-content.is-visible .box:nth-child(6n + 6) {
+    animation: paintingSpinIn 1.3s cubic-bezier(.16, 1, .3, 1) var(--card-delay, 0s) both;
+}
+
+@keyframes paintingFromTop {
+    from {
+        opacity: 0;
+        translate: 0 -100vh;
+        rotate: -10deg;
+        scale: .8;
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes paintingFromBottom {
+    from {
+        opacity: 0;
+        translate: 0 100vh;
+        rotate: 10deg;
+        scale: .8;
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes paintingFromRight {
+    from {
+        opacity: 0;
+        translate: 110vw 40px;
+        rotate: 18deg;
+        scale: .75;
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes paintingFromLeft {
+    from {
+        opacity: 0;
+        translate: -110vw -40px;
+        rotate: -18deg;
+        scale: .75;
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes paintingFromDepth {
+    from {
+        opacity: 0;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: .15;
+        filter: blur(12px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes paintingSpinIn {
+    from {
+        opacity: 0;
+        translate: 0 50px;
+        rotate: 35deg;
+        scale: .55;
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+        filter: blur(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gallery .container .gallery-content .box {
+        animation: none !important;
+        opacity: 1;
+        filter: none;
+        translate: none;
+        rotate: none;
+        scale: 1;
+    }
+}
+
+/* Floating Byte Shadow logos */
+.gallery .gallery-art-scene {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.gallery .floating-logo {
+    position: absolute;
+    width: var(--logo-size, 18px);
+    height: var(--logo-size, 18px);
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none;
+    filter: grayscale(20%);
+    will-change: transform, opacity;
+    animation: logoDrift var(--duration, 12s) ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes logoDrift {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(.8);
+        opacity: 0.08;
+    }
+
+    25% {
+        transform: translate3d(var(--move-x), var(--move-y), 0) rotate(70deg) scale(1.1);
+        opacity: 0.22;
+    }
+
+    60% {
+        transform: translate3d(var(--move-x2), var(--move-y2), 0) rotate(190deg) scale(.9);
+        opacity: 0.12;
+    }
+
+    100% {
+        transform: translate3d(var(--move-x3), var(--move-y3), 0) rotate(330deg) scale(1.15);
+        opacity: 0.20;
+    }
+}
+
+/* Keep paintings visible after their entrance animation */
+.gallery-content.is-visible .box {
+    animation-fill-mode: forwards;
+}
+
+.gallery-content.is-visible .box.animation-done {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
+    translate: 0 0;
+    rotate: 0deg;
+    scale: 1;
+}
+
 /* End Gallery */
 
 
@@ -895,13 +1328,14 @@ ul{
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 2200px;
-    height: 6000px;
+    width: 100%;
+    height: 400px;
 
     background-image: url("/img/watermark.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    /* background-size: contain; */
+    background-size: 100% 100%;
 
     pointer-events: none;
     z-index: 1;
@@ -1113,10 +1547,10 @@ ul{
     width: 70px;
     height: 70px;
     object-fit: cover;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     display: block;
     margin: 0 auto 20px;
-    border: 2px solid var(--main-color);
+    /* border: 2px solid var(--main-color); */
     transition: .35s ease;
 }
 
@@ -1146,6 +1580,22 @@ ul{
     font-weight: bold;
     color: var(--main-color);
 }
+
+.footer .social-icons a {
+    color: var(--main-color);
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 5px;
+    font-size: 20px;
+    transition: .3s ease;
+}
+
+.footer .social-icons a:hover {
+    color: var(--strong-color);
+    transform: translateY(-4px);
+}
+
+
 
 /* End Footer  */
 

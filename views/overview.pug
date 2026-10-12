@@ -30,6 +30,9 @@ block content
 
     //- Start Gallery
     .gallery#gallery
+
+        .gallery-art-scene
+
         .container
 
             .main-heading
@@ -37,12 +40,17 @@ block content
                     .text
                         h2 Gallery
 
-            //- Shuffle
-            ul.shuffle
-                li.active All
-                li Expressive
-                li Romantic
-                li Nature
+            
+            //- Shuffle with Three.js scene
+            .shuffle-wrapper
+                .shuffle-scene
+
+                ul.shuffle
+                    li.active All
+                    li Expressive
+                    li Romantic
+                    li Nature
+
 
             //- Gallery Content
             .gallery-content
@@ -179,21 +187,24 @@ block content
                 .info
                     h4 Get In Touch
                     span.phone +001551037389
-                    span.phone +001551037389
+                    span.phone +001285421281
 
                     h4 Where We Are
 
                     address
-                        | Awesome Address 17
+                        | Mansoura
                         br
-                        | New York, NYC
+                        | Dakahlia, Egypt
                         br
                         | 01551037389
-                        br
-                        | USA
+                        //- br
+                        //- | USA
     //- End Contact Us
 
-
+block scripts
+    script(src="/js/bundle.js")
+    script(type="module" src="/js/shuffle-scene.js")
+    script(type="module" src="/js/gallery-scene.js")
 
 
 
