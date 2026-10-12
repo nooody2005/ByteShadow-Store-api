@@ -211,3 +211,118 @@ observer.observe(galleryContent);
     renderer.render(scene, camera);
   });
 }
+
+
+
+// const artistSection = document.querySelector('.behind-brush');
+// const artistText = document.querySelector('.behind-brush-text');
+// const artistVideo = document.querySelector('.artist-reel video');
+
+// if (artistSection && artistText && artistVideo) {
+//   const artistObserver = new IntersectionObserver(
+//     entries => {
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//           artistText.classList.add('show-text');
+
+//           artistVideo.play().catch(error => {
+//             console.log('Video autoplay was blocked:', error);
+//           });
+//         } else {
+//           artistText.classList.remove('show-text');
+//           artistVideo.pause();
+//         }
+//       });
+//     },
+//     {
+//       threshold: 0.25
+//     }
+//   );
+
+//   artistObserver.observe(artistSection);
+// }
+
+
+// const artistSection = document.querySelector('.behind-brush');
+// const artistText = document.querySelector('.behind-brush-text');
+// const artistVideo = document.querySelector('.artist-reel video');
+
+// if (artistSection && artistText && artistVideo) {
+//   const artistObserver = new IntersectionObserver(
+//     entries => {
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//           artistText.classList.add('show-text');
+
+//           artistVideo.currentTime = 0;
+
+//           artistVideo.play().catch(error => {
+//             console.log('Video autoplay was blocked:', error);
+//           });
+//         } else {
+//           artistText.classList.remove('show-text');
+//           artistVideo.pause();
+//         }
+//       });
+//     },
+//     {
+//       threshold: 0.25
+//     }
+//   );
+
+//   artistObserver.observe(artistSection);
+// }
+
+
+const artistSection = document.querySelector('.behind-brush');
+const artistText = document.querySelector('.behind-brush-text');
+const artistVideo = document.querySelector('.artist-reel video');
+
+if (artistSection && artistText && artistVideo) {
+  const artistObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          artistText.classList.add('show-text');
+
+          artistVideo.play().catch(error => {
+            console.log('Autoplay blocked. Use the video controls.', error);
+          });
+        } else {
+          artistText.classList.remove('show-text');
+          artistVideo.pause();
+        }
+      });
+    },
+    {
+      threshold: 0.25
+    }
+  );
+
+  artistObserver.observe(artistSection);
+}
+
+
+
+
+// const artistReel = document.querySelector('.artist-reel');
+// const artistVideoForCover = artistReel?.querySelector('video');
+// const artistCover = artistReel?.querySelector('.artist-video-cover');
+
+// if (artistReel && artistVideoForCover && artistCover) {
+//   artistCover.addEventListener('click', () => {
+//     artistVideoForCover.play().catch(console.error);
+//   });
+
+//   artistVideoForCover.addEventListener('playing', () => {
+//     artistReel.classList.add('video-started');
+//   });
+
+//   artistVideoForCover.addEventListener('pause', () => {
+//     artistReel.classList.remove('video-started');
+//   });
+
+//   artistVideoForCover.addEventListener('ended', () => {
+//     artistReel.classList.remove('video-started');
+//   });
+// }
