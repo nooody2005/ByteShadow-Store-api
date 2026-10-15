@@ -205,36 +205,6 @@ block content
 
 
 
-    script.
-        const form = document.getElementById('edit-painting-form');
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch(
-                    `/api/v1/paintings/#{painting._id}?_method=PATCH`,
-                    {
-                        method: 'POST',
-                        body: formData
-                    }
-                );
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Something went wrong');
-                }
-
-                window.location.href =
-                    '/admin/paintings?message=Painting updated successfully';
-
-            } catch (err) {
-                alert(err.message);
-            }
-        });
-
+    script(src="/js/admin/paintings/edit-painting.js" defer)
 
     script(src="/js/admin/delete-painting.js")
