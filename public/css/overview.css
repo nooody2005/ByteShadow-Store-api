@@ -563,7 +563,7 @@ ul{
     transition:
         opacity 0.7s ease,
         transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: 1.2s;
+    transition-delay: 1s;
 }
 
 /* Paragraph appears after the heading */
@@ -1913,3 +1913,512 @@ ul{
 .admin-link i {
     font-size: 14px;
 }
+
+
+/* ============================================= */
+/* styling other media */
+
+/* ============================================= */
+/* Responsive Design */
+/* ============================================= */
+
+@media (max-width: 767px) {
+
+    /* Global */
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    :root {
+        --section-padding: 60px;
+    }
+
+
+    /* Header */
+    .header .container {
+        min-height: 75px;
+        gap: 5px;
+    }
+
+    .header .container .logo {
+        min-width: 0;
+        gap: 0;
+    }
+
+    .header .container .logo-link {
+        min-width: 0;
+    }
+
+    .header .container .logo img {
+        width: 42px;
+        height: 45px;
+    }
+
+    .header .container .logo img.logo-secondary {
+        width: 125px;
+        height: 60px;
+        margin-left: -30px;
+        padding-top: 8px;
+    }
+
+    .header .container .links {
+        flex-shrink: 0;
+    }
+
+    .header .container .links .auth {
+        gap: 6px;
+        margin-right: 12px;
+    }
+
+    .header .container .links .auth a {
+        padding: 7px;
+        font-size: 11px;
+    }
+
+    .header .container .links .auth a.nav__el {
+        padding: 0 !important;
+    }
+
+    .nav__user-img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .header .links .icons {
+        width: 24px;
+    }
+
+    .header .links ul {
+        min-width: 170px;
+    }
+
+    .header .links ul li a {
+        padding: 16px;
+        font-size: 14px;
+    }
+  
+    
+    /* Mobile Navigation Menu */
+    .header .links ul {
+        min-width: 150px;
+        top: 155%;
+        max-height: 25svh;
+        overflow-y: auto;
+    }
+
+    .header .links ul li a {
+        padding: 8px 15px;
+        font-size: 10px;
+    }
+
+    .header .links ul li a:hover {
+        padding-left: 18px;
+    }
+
+    .header .links ul::before {
+        right: 5px;
+    }
+
+    .header .links .icons {
+        width: 25px;
+    }
+    
+
+    /* Landing */
+    .landing {
+        height: 25svh;
+        min-height: 220px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .landing .overlay {
+        height: 100%;
+    }
+
+    .landing .overlay .text {
+        width: 50%;
+        max-width: 50%;
+        padding: 10px;
+        top: 60%;
+        /* height: 50%; */
+    }
+
+    .landing .overlay .text .content {
+        max-width: 100%;
+    }
+
+    .landing .overlay .text .content h2 {
+        font-size: clamp(10px, 4vw, 21px);
+        line-height: 1;
+    }
+
+    .landing .overlay .text .content p {
+        font-size: 8px;
+        line-height: 1.2;
+        margin-top: 5px;
+    }
+
+    .landing .go-down {
+        display: none;
+    }
+
+
+    /* Main Headings */
+    .main-heading {
+        padding-bottom: 45px;
+    }
+
+    .main-heading .container .text {
+        padding: 10px;
+    }
+
+    .main-heading .container .text h2 {
+        font-size: 22px;
+    }
+
+    .main-heading .container::before {
+        left: -25px;
+        width: 10px;
+        height: 10px;
+    }
+
+    .main-heading .container::after {
+        right: -25px;
+        width: 10px;
+        height: 10px;
+    }
+
+
+    /* Gallery Filters */
+    .gallery .shuffle-wrapper {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 0;
+        margin: -20px auto 35px;
+    }
+
+    .gallery .shuffle-scene {
+        inset: -10px;
+    }
+
+    .gallery .container .shuffle {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .gallery .container .shuffle li {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+
+    /* Gallery Cards */
+    .gallery {
+        padding-top: 60px;
+        padding-bottom: 90px;
+    }
+
+    .gallery .container .gallery-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px 10px;
+    }
+
+    .gallery .container .gallery-content .box {
+        width: 100%;
+        min-width: 0;
+        border-radius: 6px;
+    }
+
+    .gallery .box .image {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .gallery .box .image img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    .gallery .box .text,
+    .gallery .box:hover .text {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        transform: none;
+        background: rgba(0, 0, 0, .85);
+    }
+
+    .gallery .box .text h3 {
+        padding-bottom: 8px;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    .gallery .box .text p {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .gallery .box .text>span {
+        font-size: 12px;
+    }
+
+    .gallery .box .text .price .price-info .sold {
+        font-size: 11px;
+    }
+
+    .gallery .box .text .price .price-info .current-price {
+        font-size: 14px;
+    }
+
+    .gallery .box .text .price .price-info .current-price .currency {
+        font-size: 14px;
+    }
+
+    .gallery .box .info {
+        padding-top: 10px;
+    }
+
+    .gallery .box .info a {
+        font-size: 13px;
+    }
+
+    .gallery .box .info a i {
+        right: 2px;
+    }
+
+    .gallery .box:hover {
+        transform: translateY(-4px);
+    }
+
+    .gallery .container .more {
+        bottom: 25px;
+        font-size: 16px;
+        padding: 10px 16px;
+        white-space: nowrap;
+    }
+
+    .gallery .floating-logo {
+        max-width: 25px;
+        max-height: 25px;
+    }
+        
+    
+        /* Decoration */
+        .decore-content {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 25px;
+        }
+    
+        .decore-content .images {
+            order: 1;
+            position: relative;
+            width: 100%;
+            height: 450px;
+           
+            flex: none;
+            left: -100px;
+            margin-inline: auto;
+        }
+    
+        .decore-content .images img {
+            position: absolute;
+            width: 35%;
+            
+        }
+    
+        .decore-text {
+            order: 2;
+            position: relative;
+            width: 100%;
+            flex: none;
+            margin-top: 0;
+        }
+    
+     
+
+    /* Video Watermark */
+    .video::after {
+        width: 90%;
+        height: 180px;
+        background-size: contain;
+    }
+
+
+    /* Behind the Brush */
+    .behind-brush {
+        padding: 60px 0;
+    }
+
+    .behind-brush-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 25px;
+    }
+
+    .behind-brush-text {
+        width: 100%;
+        min-width: 0;
+        padding: 10px 5px;
+    }
+
+    .behind-brush-text h3 {
+        font-size: 36px;
+        line-height: 1.35;
+        margin-bottom: 25px;
+    }
+
+    .behind-brush-text p {
+        font-size: 16px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .artist-reel {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        flex: auto;
+    }
+
+    .artist-reel video {
+        width: 100%;
+        height: auto;
+        max-height: 75svh;
+        object-fit: contain;
+    }
+
+    .artist-reel video:hover {
+        transform: none;
+    }
+
+
+
+    /* Footer */
+    .footer {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .footer::after {
+        top: 88%;
+        width: 100%;
+        font-size: clamp(18px, 5vw, 32px);
+        letter-spacing: 3px;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .footer p:not(.copyright) {
+        max-width: 100%;
+        font-size: 16px;
+        padding: 15px 8px;
+    }
+
+    .footer .social-icons a {
+        font-size: 18px;
+        margin: 0 4px;
+    }
+
+    .footer .copyright {
+        margin-top: 30px;
+    }
+}
+
+
+/* Tablet Layout */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /* Header */
+    .header .container .logo img.logo-secondary {
+        width: 180px;
+        margin-left: -50px;
+    }
+
+    .header .container .links .auth {
+        gap: 10px;
+        margin-right: 20px;
+    }
+
+
+    /* Decoration */
+    .decore {
+        padding: 70px 0;
+    }
+
+    .decore-content {
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .decore-text,
+    .decore-content .images {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .decore-content .images {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+
+    /* Behind the Brush */
+    .behind-brush-content {
+        gap: 35px;
+    }
+
+    .behind-brush-text h3 {
+        font-size: 38px;
+    }
+
+    .behind-brush-text p {
+        font-size: 17px;
+    }
+
+    .artist-reel {
+        height: 450px;
+    }
+
+
+    /* Gallery */
+    .gallery .container .gallery-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+    }
+}
+
+
+/* Prevent Horizontal Overflow */
+@media (max-width: 991px) {
+
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: clip;
+    }
+}
+

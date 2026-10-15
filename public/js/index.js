@@ -160,6 +160,85 @@ window.addEventListener(
 
 
 
+// type of ovreview
+const shuffle = document.querySelector('.gallery .shuffle');
+const paintingBoxes = document.querySelectorAll('.gallery-content .box');
+
+if (shuffle && paintingBoxes.length) {
+  const filters = shuffle.querySelectorAll('li');
+
+  filters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      const selectedType = filter.textContent.trim();
+
+      // Update active filter
+      filters.forEach(item => item.classList.remove('active'));
+      filter.classList.add('active');
+
+      // Filter paintings
+      paintingBoxes.forEach(box => {
+        const paintingType = box.dataset.type;
+
+        const shouldShow =
+          selectedType === 'All' || paintingType === selectedType;
+
+        box.style.display = shouldShow ? '' : 'none';
+      });
+    });
+  });
+}
+
+// more button
+
+const galleryContent = document.querySelector('.gallery-content');
+const moreBtn = document.querySelector('.gallery .more');
+
+if (galleryContent && moreBtn) {
+  const paintings = [...galleryContent.querySelectorAll('.box')];
+  const initialCount = 8;
+  const step = 4;
+
+  let visibleCount = initialCount;
+
+  function updateGallery() {
+    const activeFilter = document.querySelector('.gallery .shuffle li.active');
+    const selectedType = activeFilter?.textContent.trim() || 'All';
+
+    const filteredPaintings = paintings.filter(box => {
+      return selectedType === 'All' || box.dataset.type === selectedType;
+    });
+
+    paintings.forEach(box => {
+      box.style.display = 'none';
+    });
+
+    filteredPaintings.forEach((box, index) => {
+      if (index < visibleCount) {
+        box.style.display = '';
+      }
+    });
+
+    moreBtn.style.display =
+      filteredPaintings.length > visibleCount ? '' : 'none';
+  }
+
+  moreBtn.addEventListener('click', () => {
+    visibleCount += step;
+    updateGallery();
+  });
+
+  document.querySelectorAll('.gallery .shuffle li').forEach(filter => {
+    filter.addEventListener('click', () => {
+      visibleCount = initialCount;
+      updateGallery();
+    });
+  });
+
+  updateGallery();
+}
+
+
+
 // document.getElementById('editTourForm').addEventListener('submit', async e => {
 //   e.preventDefault();
 
@@ -175,3 +254,4 @@ window.addEventListener(
 //   const data = await res.json();
 //   console.log(data);
 // });
+

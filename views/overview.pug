@@ -55,7 +55,8 @@ block content
             //- Gallery Content
             .gallery-content
                 each painting in paintings
-                    .box
+                    //- .box
+                    .box(data-type=painting.type)
                         .image
                             img(src=`/img/paintings/${painting.image}`, alt=painting.name)
 
@@ -110,7 +111,8 @@ block content
 
 
 
-            a.more(href="#") More
+            //- a.more(href="#") More
+            button.more(type="button") More
     //- End Gallery
 
 
@@ -127,8 +129,9 @@ block content
 
                 .decore-text
                     p
-                        | Lorem ipsum dolor sit amet consectetur adipisicing elit. Id consequatur quibusdam laborum perferendis commodi aut, vitae deserunt dolorem, saepe ipsam minima tempore dolore tempora in laboriosam, hic voluptates obcaecati excepturi?
+                        |   Turn your walls into works of art. The right painting adds color, warmth, and personality to any space, making it feel more beautiful and unique. Find the piece that speaks to you and give your space a touch of art with Byte Shadow.
 
+                    
                 .images
                     img(src="/img/1.jpg", alt="Decoration")
                     img(src="/img/1.jpg", alt="Decoration")
@@ -204,7 +207,7 @@ block content
             .main-heading
                 .container
                     .text
-                        h2 Contact Us
+                        h2 Contact Me
 
             .content
 
