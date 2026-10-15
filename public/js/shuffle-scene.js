@@ -1,5 +1,5 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
-
+// import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
+import * as THREE from 'three';  
 const wrapper = document.querySelector('.shuffle-wrapper');
 const sceneElement = document.querySelector('.shuffle-scene');
 const shuffle = document.querySelector('.gallery .shuffle');
