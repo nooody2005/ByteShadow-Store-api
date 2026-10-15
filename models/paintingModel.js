@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 
 const validator = require('validator');
-const User = require('./usermodel');
+const User = require('./userModel');
 
 
 //make collection (table)
