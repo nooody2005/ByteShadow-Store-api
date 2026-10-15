@@ -57,18 +57,60 @@ block content
 
                             //- if painting.status === 'active'
                             if painting.status === 'active' || (painting.status === 'ended' && painting.totalBids === 0)
+                                //- .bid-box
+                                //-     label(for="bid") Your Bid
+
+                                //-     input.bid-input(
+                                //-         id="bid"
+                                //-         type="number"
+                                //-         value=`${painting.currentPrice}`
+                                //-         min=`${painting.currentPrice}`
+                                //-         step="10"
+                                //-     )
+
+                                //- button.bid-btn(type="button" id="place-bid") Place Bid
+                                
                                 .bid-box
                                     label(for="bid") Your Bid
 
-                                    input.bid-input(
-                                        id="bid"
-                                        type="number"
-                                        value=`${painting.currentPrice}`
-                                        min=`${painting.currentPrice}`
-                                        step="10"
-                                    )
+                                    .bid-input-wrap
+                                        input.bid-input(
+                                            id="bid"
+                                            type="number"
+                                            value=`${painting.currentPrice}`
+                                            min=`${painting.currentPrice}`
+                                            step="10"
+                                        )
 
-                                button.bid-btn(type="button" id="place-bid") Place Bid
+                                        //- .bid-stepper
+                                        //-     button.bid-step(
+                                        //-         type="button"
+                                        //-         data-step="10"
+                                        //-         aria-label="Increase bid"
+                                        //-     ) +
+                                        //-     button.bid-step(
+                                        //-         type="button"
+                                        //-         data-step="-10"
+                                        //-         aria-label="Decrease bid"
+                                        //-     ) −
+                                        
+                                        .bid-stepper
+                                            button.bid-step(
+                                                type="button"
+                                                data-step="10"
+                                                aria-label="Increase bid"
+                                            )
+                                                span.triangle-up
+                                            button.bid-step(
+                                                type="button"
+                                                data-step="-10"
+                                                aria-label="Decrease bid"
+                                            )
+                                                span.triangle-down
+                                        
+
+                                    button.bid-btn(type="button" id="place-bid") Place Bid
+                                
 
 
                             //- if auction ended and no winner (no one tried to buy it) or no one shared in its auction

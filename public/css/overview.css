@@ -11,7 +11,8 @@
 /* End Variables  */
 /* Start Global Rules  */
 * {
-    --webkit-box-sizing: border-box;
+    /* --webkit-box-sizing: border-box; */
+    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0;
@@ -1915,12 +1916,33 @@ ul{
 }
 
 
-/* ============================================= */
-/* styling other media */
+/* ================================================================================================================ */
 
-/* ============================================= */
-/* Responsive Design */
-/* ============================================= */
+/* Small */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+
+/* ================================================== */
+/* Mobile Layout */
+/* ================================================== */
 
 @media (max-width: 767px) {
 
@@ -2005,8 +2027,8 @@ ul{
         padding: 16px;
         font-size: 14px;
     }
-  
-    
+
+
     /* Mobile Navigation Menu */
     .header .links ul {
         min-width: 150px;
@@ -2031,7 +2053,7 @@ ul{
     .header .links .icons {
         width: 25px;
     }
-    
+
 
     /* Landing */
     .landing {
@@ -2222,42 +2244,60 @@ ul{
         max-width: 25px;
         max-height: 25px;
     }
-        
+
+
+    /* Decoration */
+    .decore-content {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .decore-content .images {
+        order: 1;
+        position: relative;
+        width: 100%;
+        height: 35svh;
+        min-height: 250px;
+        flex: none;
+        left: -100px;
+        margin-inline: auto;
+    }
+
+    .decore-content .images img {
+        position: absolute;
+        width: 35%;
+    }
+
+    /* .decore-text {
+        order: 2;
+        position: relative;
+        width: 100%;
+        flex: none;
+        margin-top: 0;
+        height: fit-content;
+    }
+
+    .decore-text p {
+        font-size: 18px;
+    } */
+         .decore-text {
+             order: 2;
+             position: relative;
+             width: 100%;
+             flex: none;
+             margin-top: 0;
+             height: fit-content;
+             min-height: 0;
+             padding: 30px;
+         }
     
-        /* Decoration */
-        .decore-content {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 25px;
-        }
-    
-        .decore-content .images {
-            order: 1;
-            position: relative;
-            width: 100%;
-            height: 450px;
-           
-            flex: none;
-            left: -100px;
-            margin-inline: auto;
-        }
-    
-        .decore-content .images img {
-            position: absolute;
-            width: 35%;
-            
-        }
-    
-        .decore-text {
-            order: 2;
-            position: relative;
-            width: 100%;
-            flex: none;
-            margin-top: 0;
-        }
-    
-     
+         .decore-text p {
+             font-size: 18px;
+             line-height: 1.6;
+             margin: 0;
+         }
 
     /* Video Watermark */
     .video::after {
@@ -2316,7 +2356,6 @@ ul{
     }
 
 
-
     /* Footer */
     .footer {
         padding-top: 40px;
@@ -2349,7 +2388,10 @@ ul{
 }
 
 
+/* ================================================== */
 /* Tablet Layout */
+/* ================================================== */
+
 @media (min-width: 768px) and (max-width: 991px) {
 
     /* Header */
@@ -2363,45 +2405,80 @@ ul{
         margin-right: 20px;
     }
 
+        /* Decoration */
+        .decore {
+            padding: 70px 0;
+        }
+    
+        .decore-content {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 35px;
+        }
+    
+        .decore-content .images {
+            order: 1;
+            width: 100%;
+            min-width: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    
+        .decore-text {
+            order: 2;
+            width: 100%;
+            min-width: 0;
+        }
 
-    /* Decoration */
-    .decore {
-        padding: 70px 0;
-    }
-
-    .decore-content {
-        flex-direction: column;
-        gap: 35px;
-    }
-
-    .decore-text,
-    .decore-content .images {
-        width: 100%;
-        min-width: 0;
-    }
-
-    .decore-content .images {
-        max-width: 500px;
-        margin: 0 auto;
-    }
 
 
-    /* Behind the Brush */
-    .behind-brush-content {
-        gap: 35px;
-    }
 
-    .behind-brush-text h3 {
-        font-size: 38px;
-    }
+/* Behind the Brush */
+.behind-brush {
+    padding: 60px 0;
+}
 
-    .behind-brush-text p {
-        font-size: 17px;
-    }
+.behind-brush-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 25px;
+}
 
-    .artist-reel {
-        height: 450px;
-    }
+.behind-brush-text {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 5px;
+}
+
+.behind-brush-text h3 {
+    font-size: 36px;
+    line-height: 1.35;
+    margin-bottom: 25px;
+}
+
+.behind-brush-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.artist-reel {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    flex: auto;
+}
+
+.artist-reel video {
+    width: 100%;
+    height: auto;
+    max-height: 75svh;
+    object-fit: contain;
+}
+
+
 
 
     /* Gallery */
@@ -2412,13 +2489,147 @@ ul{
 }
 
 
-/* Prevent Horizontal Overflow */
+/* ================================================== */
+/* Shared Mobile and Tablet Fixes */
+/* ================================================== */
+
 @media (max-width: 991px) {
 
+    /* Prevent Horizontal Overflow */
     html,
     body {
         max-width: 100%;
         overflow-x: clip;
     }
+
+    /* Fix Decoration Layout on Mobile and Tablet */
+    .decore-content .images {
+        left: auto;
+        min-width: 0;
+        width: 100%;
+        max-width: 500px;
+        height: 450px;
+        margin: 0 auto;
+        flex: none;
+    }
+
+    .decore-content .images img {
+        width: clamp(130px, 28vw, 190px);
+        height: clamp(150px, 30vw, 210px);
+    }
+
+    .decore-content .images img:nth-child(1) {
+        top: 0;
+        right: 45%;
+    }
+
+    .decore-content .images img:nth-child(2) {
+        top: 35px;
+        right: 5%;
+    }
+
+    .decore-content .images img:nth-child(3) {
+        top: 190px;
+        right: 48%;
+    }
+
+    .decore-content .images img:nth-child(4) {
+        top: 230px;
+        right: 8%;
+    }
+
+    .decore-content .images img:nth-child(5) {
+        top: 115px;
+        right: 27%;
+    }
 }
 
+
+/* ================================================== */
+/* Tablet Landing Layout */
+/* ================================================== */
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .landing {
+        height: 50svh;
+        min-height: 220px;
+        background-size: cover;
+        background-position: center;
+        width: cover;
+    }
+
+    .landing .overlay {
+        height: 100%;
+    }
+
+    .landing .overlay .text {
+        height: auto;
+        min-height: 20svh;
+        width: 50%;
+        max-width: 50%;
+        padding: 12px;
+        top: 60%;
+    }
+
+    .landing .overlay .text .content {
+        max-width: 100%;
+    }
+
+    .landing .overlay .text .content h2 {
+        font-size: clamp(18px, 2.5svh, 32px);
+        line-height: 1.3;
+    }
+
+    .landing .overlay .text .content p {
+        font-size: clamp(13px, 1.8svh, 20px);
+        line-height: 1.4;
+        margin-top: 8px;
+    }
+
+    .landing .go-down {
+        display: none;
+    }
+}
+
+/* iPad Landscape / Large Tablet Landing */
+@media (min-width: 992px) and (max-width: 1100px) {
+    .landing {
+        height: 50svh;
+        min-height: 220px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .landing .overlay {
+        height: 100%;
+    }
+
+    .landing .overlay .text {
+        height: auto;
+        min-height: 20svh;
+        width: 50%;
+        max-width: 50%;
+        padding: 12px;
+        top: 60%;
+    }
+
+    .landing .overlay .text .content {
+        max-width: 100%;
+    }
+
+    .landing .overlay .text .content h2 {
+        font-size: clamp(18px, 2.5svh, 32px);
+        line-height: 1.3;
+    }
+
+    .landing .overlay .text .content p {
+        font-size: clamp(13px, 1.8svh, 20px);
+        line-height: 1.4;
+        margin-top: 8px;
+    }
+
+    .landing .go-down {
+        display: none;
+    }
+}

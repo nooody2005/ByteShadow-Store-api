@@ -549,3 +549,154 @@ Responsive
 
     
 }
+
+/* Additional Mobile Responsive Fixes */
+@media (max-width: 767px) {
+
+    /* Account Layout */
+    .account-page {
+        padding: 100px 0 40px;
+    }
+
+    .account-view {
+        gap: 20px;
+        min-width: 0;
+    }
+
+    .account-menu,
+    .account-content {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .account-content {
+        padding: 22px 16px;
+    }
+
+    /* Sidebar Navigation */
+    .side-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .side-nav li {
+        min-width: 0;
+        border-bottom: 1px solid var(--soft-border);
+    }
+
+    .side-nav li a {
+        min-height: 65px;
+        box-sizing: border-box;
+        padding: 12px 6px;
+        gap: 7px;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .side-nav li a:hover {
+        padding-left: 6px;
+    }
+
+    .side-nav li.side-nav--active a {
+        border-left: none;
+        border-bottom: 2px solid var(--main-color);
+    }
+
+    /* Section Headings */
+    .account-section {
+        margin-bottom: 45px;
+    }
+
+    .account-section h2 {
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .section-description {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 22px;
+    }
+
+    /* Forms */
+    .account-form {
+        width: 100%;
+        max-width: none;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group input,
+    #address {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    #address {
+        min-height: 100px;
+    }
+
+    /* Profile Photo */
+    .profile-photo {
+        gap: 12px;
+        margin: 25px 0;
+    }
+
+    .profile-photo img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .profile-photo input {
+        width: 100%;
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .account-btn {
+        max-width: 100%;
+        padding: 12px 18px;
+    }
+
+    /* Bid and Purchase Cards */
+    .account-card {
+        gap: 15px;
+        padding: 14px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .account-card>img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+    }
+
+    .card-info {
+        width: 100%;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .card-info h3 {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+
+    .card-info p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .card-btn {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+}

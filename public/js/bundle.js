@@ -8111,6 +8111,25 @@ var _alerts = require("./alerts");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 const painting = document.querySelector('.painting');
 const placeBidBtn = document.getElementById('place-bid');
+
+// Mobile Bid Stepper
+const bidInput = document.getElementById('bid');
+const bidStepButtons = document.querySelectorAll('.bid-step');
+bidStepButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const step = Number(bidInput.step) || 10;
+    const min = Number(bidInput.min) || 0;
+    const current = Number(bidInput.value) || min;
+    const change = Number(button.dataset.step);
+    bidInput.value = Math.max(min, current + change * step / 10);
+    bidInput.dispatchEvent(new Event('input', {
+      bubbles: true
+    }));
+    bidInput.dispatchEvent(new Event('change', {
+      bubbles: true
+    }));
+  });
+});
 const userInfoModal = document.getElementById('user-info-modal');
 const userInfoForm = document.getElementById('user-info-form');
 const modalClose = document.querySelector('.modal-close');
@@ -8487,7 +8506,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62537" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56278" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
