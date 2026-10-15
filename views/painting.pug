@@ -203,7 +203,8 @@ block content
 
             .images
                 each image in painting.decoImages
-                    img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/deco-${image}`, alt="Decoration")
+                    //- img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/deco-${image}`, alt="Decoration")
+                    img(src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`, alt="Decoration")
                     //- img(src=`/img/paintings/${painting.name}/deco-${image}`, alt="Decoration")
 
                     //- img(src=`/img/paintings/${image}`, alt="Decoration")
@@ -242,7 +243,8 @@ block content
 
             .stage-images
                 each image in painting.stageImages
-                    img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/stage-${image}`, alt="stages")
+                    //- img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/stage-${image}`, alt="stages")
+                    img(src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`, alt="stages")
                 //- img(src="/images/1.jpg", alt="Painting Process")
                 //- img(src="/images/1.jpg", alt="Painting Process")
                 //- img(src="/images/1.jpg", alt="Painting Process")

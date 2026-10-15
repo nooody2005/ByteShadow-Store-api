@@ -852,3 +852,276 @@
     transform: translateY(-3px);
     box-shadow: 0 12px 22px var(--shadow-dark);
 }
+
+
+
+/* Responsive Painting Details */
+@media (max-width: 767px) {
+
+    .painting {
+        padding: 100px 0 50px;
+    }
+
+    .painting .painting-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .painting .image {
+        flex: none;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .painting .image img:hover {
+        transform: none;
+    }
+
+    .painting .details {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .painting .painting-Name {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .painting .breif-overview {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    /* Show painting information before the bid card */
+    .sale-section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sale-section .info {
+        order: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sale-section .info>div {
+        width: 100%;
+        min-width: 0;
+        padding: 12px 8px;
+        border-radius: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .sale-section .info>div:hover {
+        transform: none;
+    }
+
+    .sale-section .info .title {
+        font-size: 10px;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .sale-section .info .value {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* Place Bid below the painting information */
+    .sale-section .price {
+        order: 2;
+        width: 100%;
+        min-width: 0;
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .sale-section .price h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .sale-section .current-price {
+        gap: 6px;
+        margin-bottom: 18px;
+    }
+
+    .sale-section .current-price .number {
+        font-size: 32px;
+    }
+
+    .sale-section .current-price .currency {
+        font-size: 20px;
+    }
+
+    .bid-box {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .bid-box label {
+        font-size: 14px;
+    }
+
+    .bid-input {
+        padding: 11px 12px;
+        font-size: 16px;
+    }
+
+    .bid-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .admin-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .admin-actions a {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+/* 
+    .decoration .images {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .decoration .images img {
+        margin-left: 0;
+        transform: none !important;
+        width: 40%;
+      
+        
+    } */
+
+        /* Decoration Images */
+        .decoration .images {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+    
+        .decoration .images img {
+            width: 40%;
+            max-width: 160px;
+            height: 210px;
+            margin-left: 0;
+            transform: none !important;
+            border-width: 4px;
+        }
+    
+        /* Painting Process Images */
+        .stage-images {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 0;
+            padding: 20px 5px;
+            scroll-behavior: smooth;
+        }
+    
+        .stage-images img {
+            flex: 0 0 160px;
+            width: 160px;
+            min-width: 0;
+            height: 210px;
+            border-width: 3px;
+            border-radius: 12px;
+        }
+    
+        .stage-images::before {
+            display: block;
+        }
+  
+           
+}
+
+
+/* Mobile Bid Card Alignment */
+@media (max-width: 767px) {
+
+    .sale-section .price {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sale-section .price h3,
+    .sale-section .current-price,
+    .sale-section .bid-box,
+    .sale-section .bid-btn {
+        width: 100%;
+    }
+
+    .sale-section .current-price {
+        justify-content: center;
+    }
+
+    .sale-section .bid-box {
+        align-items: center;
+    }
+
+    .sale-section .bid-input {
+        text-align: center;
+    }
+
+}
+
+
+/* Center Painting Details and Section Titles on Mobile */
+@media (max-width: 767px) {
+
+    /* Painting Name and Description */
+    .painting .painting-Name {
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .painting .breif-overview {
+        text-align: center;
+    }
+
+    /* Decoration Ideas Title */
+    .decoration .section-title {
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .decoration .section-title h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* Painting Process Title */
+    .stages .section-title {
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .stages .section-title h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* Center Section Descriptions */
+    .decoration .container>p,
+    .stages .container>p,
+    .description-feel .container>p {
+        text-align: center;
+    }
+
+}
