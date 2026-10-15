@@ -17,6 +17,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   res.status(200).render('overview', {
     title: 'All Paintings',
     paintings,
+    currentPage: 'home'
     // user: req.user
   });
 });

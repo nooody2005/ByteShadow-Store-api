@@ -51,13 +51,24 @@
                 ul
                     li
                         a(href="/") Home🏠
-                    li
-                        a(href="#gallery") Gallery🎨
-                    li
-                        a(href="#decoration") Decoration🖼️
-                    li
-                        a(href="#about") The Artist👩🏻‍🎨
-                    li
-                        a(href="#contact") Contact Me💌
+
+                    if typeof currentPage !== 'undefined' && currentPage === 'home'
+                        li
+                            a(href="#gallery") Gallery🎨
+                        li
+                            a(href="#decoration") Decoration🖼️
+                        li
+                            a(href="#about") The Artist👩🏻‍🎨
+                        li
+                            a(href="#contact") Contact Me💌
+                            
+                    //- li
+                    //-     a(href="#gallery") Gallery🎨
+                    //- li
+                    //-     a(href="#decoration") Decoration🖼️
+                    //- li
+                    //-     a(href="#about") The Artist👩🏻‍🎨
+                    //- li
+                    //-     a(href="#contact") Contact Me💌
 
 
