@@ -1231,3 +1231,118 @@
     border-top: 6px solid #222;
 }
 
+
+
+/* Tablet Painting Details Only */
+@media (min-width: 768px) and (max-width: 1100px) {
+
+    .painting {
+        padding: 120px 0 70px;
+    }
+
+    .painting .painting-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .painting .image {
+        flex: none;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .painting .details {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .painting .painting-Name {
+        font-size: 36px;
+    }
+
+    .painting .breif-overview {
+        max-width: 100%;
+        font-size: 17px;
+        margin-bottom: 30px;
+    }
+
+    .sale-section {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .sale-section .info {
+        flex: 1;
+        min-width: 0;
+        gap: 15px;
+    }
+
+    .sale-section .info>div {
+        box-sizing: border-box;
+        min-width: 0;
+        padding: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .sale-section .info .value {
+        font-size: 18px;
+    }
+
+    .sale-section .price {
+        flex: 1;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 22px;
+    }
+
+    .sale-section .current-price .number {
+        font-size: 38px;
+    }
+
+    .sale-section .current-price .currency {
+        font-size: 23px;
+    }
+}
+
+
+/* Show Bid Stepper on Tablets */
+@media (min-width: 768px) and (max-width: 1100px) {
+    .sale-section .bid-input-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+    .sale-section .bid-input-wrap .bid-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 42px;
+    }
+
+    .sale-section .bid-stepper {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        bottom: 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .sale-section .bid-step {
+        width: 30px;
+        flex: 1;
+        min-height: 18px;
+        padding: 0;
+        border: none;
+        border-radius: 4px;
+        background: #e5e5e5;
+        color: #222;
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+    }
+}
+
