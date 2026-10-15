@@ -158,41 +158,97 @@ block content
 
 
 
-
     script.
         const form = document.getElementById('add-painting-form');
 
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
+        console.log('ADD PAINTING SCRIPT LOADED:', !!form);
 
-            const image = document.getElementById('image');
+        if (form) {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
 
-            if (!image.files.length) {
-                alert('Please upload a main image before saving the painting.');
-                return;
-            }
+                console.log('FORM SUBMIT HANDLER WORKING');
 
-            const formData = new FormData(form);
+                const image = document.getElementById('image');
 
-            try {
-                const response = await fetch('/api/v1/paintings', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Something went wrong');
+                if (!image.files.length) {
+                    alert('Please upload a main image before saving the painting.');
+                    return;
                 }
 
-                window.location.href =
-                    '/admin/paintings?message=Painting added successfully';
+                const formData = new FormData(form);
 
-            } catch (err) {
-                alert(err.message);
-            }
-        });
+                try {
+                    const response = await fetch('/api/v1/paintings', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'Something went wrong');
+                    }
+
+                    window.location.href =
+                        '/admin/paintings?message=Painting added successfully';
+
+                } catch (err) {
+                    alert(err.message);
+                }
+            });
+        }
+
+
+
+    //- script.
+    //-     const form = document.getElementById('add-painting-form');
+    //-     console.log('ADD PAINTING SCRIPT LOADED:', !!form);
+
+    //-     form.addEventListener('submit', async function (e) {
+    //-         e.preventDefault();
+
+    //-         const image = document.getElementById('image');
+
+    //-         if (!image.files.length) {
+    //-             alert('Please upload a main image before saving the painting.');
+    //-             return;
+    //-         }
+
+    //-         const formData = new FormData(form);
+
+    //-         try {
+    //-             const response = await fetch('/api/v1/paintings', {
+    //-                 method: 'POST',
+    //-                 body: formData
+    //-             });
+
+    //-             const data = await response.json();
+
+    //-             if (!response.ok) {
+    //-                 throw new Error(data.message || 'Something went wrong');
+    //-             }
+
+    //-             window.location.href =
+    //-                 '/admin/paintings?message=Painting added successfully';
+
+    //-         } catch (err) {
+    //-             alert(err.message);
+    //-         }
+    //-     });
+
+
+
+
+
+
+
+
+
+
+
+
+
         //- const form = document.getElementById('add-painting-form');
 
         //- form.addEventListener('submit', async function (e) {
