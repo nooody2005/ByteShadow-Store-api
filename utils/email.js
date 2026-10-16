@@ -12,29 +12,53 @@ module.exports = class Email {
     this.from = `Nooody2005std<${process.env.EMAIL_FROM}>`;
   }
 
+  //   newTransport() {
+  //     if (process.env.NODE_ENV === 'production'){
+  //       //sendgrid
+  //       return nodemailer.createTransport({
+  //         service: 'SendGrid',
+  //         auth:{
+  //           user: process.env.SENDGRID_USERNAME,
+  //           pass: process.env.SENDGRID_PASSWORD
+  //         }
+  //       });
+
+  //     }
+
+  //   return nodemailer.createTransport({
+  //     host: process.env.EMAIL_HOST,
+  //     port: process.env.EMAIL_PORT,
+  //     secure: false,
+  //     auth: {
+  //       user: process.env.EMAIL_USERNAME,
+  //       pass: process.env.EMAIL_PASSWORD
+  //     }
+  //   });
+  // }
+
   newTransport() {
-    if (process.env.NODE_ENV === 'production'){
-      //sendgrid
+    if (process.env.NODE_ENV === 'production') {
       return nodemailer.createTransport({
-        service: 'SendGrid',
-        auth:{
-          user: process.env.SENDGRID_USERNAME,
-          pass: process.env.SENDGRID_PASSWORD
+        host: process.env.EMAIL_HOST,
+        port: Number(process.env.EMAIL_PORT),
+        secure: Number(process.env.EMAIL_PORT) === 465,
+        auth: {
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD
         }
       });
-      
     }
 
-  return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD
-    }
-  });
-}
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Number(process.env.EMAIL_PORT) === 465,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    });
+  }
 
   // newTransport(){
   //   if (process.env.NODE_ENV === 'production'){
@@ -96,7 +120,10 @@ module.exports = class Email {
   }
 
   async sendPasswordReset() {
-    await this.send('passwordReset', 'your password reset token (valid for only 10 mintues :)');
+    await this.send(
+      'passwordReset',
+      'your password reset token (valid for only 10 mintues :)'
+    );
   }
 };
 
