@@ -254,6 +254,7 @@ exports.restrictTo = (...roles) => {
 exports.forgetPassword = catchAsync(async(req,res,next) => {
     // 1) Get user based on posted email
     const user = await User.findOne({ email: req.body.email });
+    console.log('FORGOT PASSWORD: user lookup completed:', Boolean(user));
 
     if(!user){
         return next(new AppError('sorry there is no user with this email address :)',404));
@@ -262,6 +263,7 @@ exports.forgetPassword = catchAsync(async(req,res,next) => {
     // 2) Generate the random reset token
     const resetToken = user.createPasswordResetToken();
     await user.save({validateBeforeSave : false});
+    console.log('FORGOT PASSWORD: reset token saved');
 
     // 3) send it to user's email
     
@@ -282,7 +284,11 @@ exports.forgetPassword = catchAsync(async(req,res,next) => {
       //   subject: 'Your password reset token (valid for 10 min',
       //   message
       // });
+
+      console.log('FORGOT PASSWORD: email sending started');
       await new Email(user, resetURL).sendPasswordReset();
+      console.log('FORGOT PASSWORD: email sending completed');
+
 
       res.status(200).json({
         status: 'success',
@@ -291,7 +297,9 @@ exports.forgetPassword = catchAsync(async(req,res,next) => {
 
     }
     catch(err){
-      console.error('PASSWORD RESET EMAIL ERROR:', err);
+       console.log('FORGOT PASSWORD: email sending failed');
+       console.error('PASSWORD RESET EMAIL ERROR:', err);
+      // console.error('PASSWORD RESET EMAIL ERROR:', err);
 
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
