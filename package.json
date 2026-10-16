@@ -9,7 +9,9 @@
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js && parcel build ./public/js/gallery-scene.js ./public/js/shuffle-scene.js --out-dir ./public/js"
+    "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js && parcel build ./public/js/gallery-scene.js ./public/js/shuffle-scene.js --out-dir ./public/js",
+    "build:forgot-password": "parcel build ./public/js/forgotPassword.js --out-dir ./public/js/forgot-password-build --out-file forgotPassword.js",
+    "build:reset-password": "parcel build ./public/js/resetPassword.js --out-dir ./public/js/reset-password-build --out-file resetPassword.js"
   },
   "author": "Nada Hashem",
   "license": "ISC",

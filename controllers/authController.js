@@ -268,7 +268,14 @@ exports.forgetPassword = catchAsync(async(req,res,next) => {
     // const message = `Forgot your password ? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
     
     try{
-      const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+      // const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+      const resetURL = `${req.protocol}://${req.get(
+        'host'
+      )}/email/resetPassword/${resetToken}`;
+
+      // console.log('RESET URL:', resetURL);
+      // console.log('REQUEST PROTOCOL:', req.protocol);
+      // console.log('REQUEST HOST:', req.get('host'));
       
       // await sendEmail({
       //   email: user.email,
@@ -284,6 +291,8 @@ exports.forgetPassword = catchAsync(async(req,res,next) => {
 
     }
     catch(err){
+      console.error('PASSWORD RESET EMAIL ERROR:', err);
+
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false});

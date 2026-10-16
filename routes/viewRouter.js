@@ -34,6 +34,16 @@ router.post(
   authController.protect,
   viewsController.updateUserData
 );
+// ========================== Forget Password =============================
+
+router.get('/email/forgotPassword', viewsController.getForgotPasswordForm);
+
+// ========================== Reset Password =============================
+router.get('/email/resetPassword/:token', viewsController.getResetPasswordForm);
+
+// ========================================================================
+
+
 
 module.exports = router;
 

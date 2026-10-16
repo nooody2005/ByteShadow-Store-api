@@ -58,6 +58,23 @@ exports.getSignupForm = (req, res) => {
   });
 };
 
+
+//==================================== FORGOT PASSWORD PAGE ============================
+
+exports.getForgotPasswordForm = (req, res) => {
+  res.status(200).render('email/forgotPassword', {
+    title: 'Forgot Password'
+  });
+};
+
+//==================================== Reset PASSWORD PAGE ============================
+exports.getResetPasswordForm = (req, res) => {
+  res.status(200).render('email/resetPassword', {
+    title: 'Reset Password',
+    token: req.params.token
+  });
+};
+
 //==================================== ACCOUNT PAGE =============================
 
 // exports.getAccount = catchAsync(async (req, res, next) => {
