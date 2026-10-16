@@ -87,6 +87,12 @@ exports.createBid = catchAsync(async (req, res, next) => {
     : null;
 
 
+
+    console.log('Previous highest bidder ID:', previousHighestBidderId);
+    console.log('New bidder value:', user);
+    console.log('Current painting price before bid:', painting.currentPrice);
+
+
   // 6) Create bid
   // const bid = await Bid.create({
   //   painting: painting._id,
@@ -119,8 +125,18 @@ exports.createBid = catchAsync(async (req, res, next) => {
   });
 
 
+  
+
   // Send an email to the previous highest bidder
   const newBidderId = String(user?._id || user);
+
+  console.log('Outbid notification check:', {
+    previousHighestBidderId,
+    newBidderId, // لسه متعرّفش!
+    shouldNotify:
+      Boolean(previousHighestBidderId) &&
+      previousHighestBidderId !== newBidderId
+  });
 
   if (
     previousHighestBidderId &&
