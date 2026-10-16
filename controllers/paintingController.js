@@ -153,12 +153,18 @@ exports.finishAuctions = async () => {
       });
 
       if (!existingOrder) {
+        
+        console.log('Winner ID:', painting.highestBidder);
+        console.log('Creating order for winner:', painting.name);
+
+
         await Order.create({
           user: painting.highestBidder,
           painting: painting._id,
           amount: painting.currentPrice
         });
       }
+
 
       // Save the winner and payment deadline first
       await painting.save({ validateBeforeSave: false });

@@ -126,6 +126,18 @@ exports.getAccount = catchAsync(async (req, res, next) => {
     user: req.user._id
   }).populate('painting', 'name image slug auctionEnd');
 
+  
+  console.log('Logged-in user ID:', req.user._id);
+  console.log(
+    'Orders found:',
+    orders.map(order => ({
+      id: order._id,
+      user: order.user,
+      painting: order.painting?._id,
+      paymentStatus: order.paymentStatus
+    }))
+  );
+
   res.status(200).render('account', {
     title: 'Your Account',
     bids,
