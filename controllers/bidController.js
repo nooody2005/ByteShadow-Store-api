@@ -4,6 +4,9 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const handleFactory = require('./../controllers/handleFactory');
 
+const User = require('./../models/userModel');
+const Email = require('./../utils/email');
+
 // ============================================================
 // CREATE BID
 // ============================================================
@@ -77,6 +80,13 @@ exports.createBid = catchAsync(async (req, res, next) => {
     );
   }
 
+  // 6) save the previous highest bid to can send to his gmail message
+
+  const previousHighestBidderId = painting.highestBidder
+    ? painting.highestBidder.toString()
+    : null;
+
+
   // 6) Create bid
   // const bid = await Bid.create({
   //   painting: painting._id,
@@ -107,6 +117,28 @@ exports.createBid = catchAsync(async (req, res, next) => {
   await painting.save({
     validateBeforeSave: false,
   });
+
+
+  // Send an email to the previous highest bidder
+  const newBidderId = String(user?._id || user);
+
+  if (
+    previousHighestBidderId &&
+    previousHighestBidderId !== newBidderId
+  ) {
+    try {
+      const previousBidder = await User.findById(
+        previousHighestBidderId
+      );
+
+      if (previousBidder && previousBidder.email) {
+        await new Email(previousBidder, painting.slug)
+          .sendOutbidNotification(painting, amount);
+      }
+    } catch (err) {
+      console.error('Failed to send outbid notification:', err);
+    }
+  }
 
   // 8) Send response
   // res.status(201).json({

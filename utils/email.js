@@ -1,3 +1,54 @@
+// const { Resend } = require('resend');
+// const pug = require('pug');
+// const { htmlToText } = require('html-to-text');
+
+// module.exports = class Email {
+//   constructor(user, url) {
+//     this.to = user.email;
+//     this.firstName = user.name.split(' ')[0];
+//     this.url = url;
+//     this.from = 'Byte Shadow <noreply@byteshadow.art>';
+//   }
+
+//   async send(template, subject) {
+//     const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
+//       firstName: this.firstName,
+//       url: this.url,
+//       subject
+//     });
+
+//     const text = htmlToText(html);
+
+//     const resend = new Resend(process.env.RESEND_API_KEY);
+
+//     const { data, error } = await resend.emails.send({
+//       from: this.from,
+//       to: this.to,
+//       subject,
+//       html,
+//       text
+//     });
+
+//     if (error) {
+//       console.error('RESEND EMAIL ERROR:', error);
+//       throw new Error('Failed to send email through Resend');
+//     }
+
+//     console.log('RESEND: email accepted:', data.id);
+//   }
+
+//   async sendWelcome() {
+//     await this.send('welcome', 'welcome to the ByteShadow family :)');
+//   }
+
+//   async sendPasswordReset() {
+//     await this.send('passwordResetEmail', 'Your password reset link');
+//   }
+// };
+
+// =======================================================================================================
+
+
 const { Resend } = require('resend');
 const pug = require('pug');
 const { htmlToText } = require('html-to-text');
@@ -44,6 +95,49 @@ module.exports = class Email {
   async sendPasswordReset() {
     await this.send('passwordResetEmail', 'Your password reset link');
   }
+
+  // Notify a bidder when someone places a higher bid
+  async sendOutbidNotification(painting, newBid) {
+    const paintingUrl = `${process.env.BASE_URL}/painting/${painting.slug}`;
+
+    const subject = `Someone outbid you on ${painting.name}`;
+
+    const html = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.7; color: #1e1519;">
+        <h2>Hi ${this.firstName},</h2>
+        <p>Someone has placed a higher bid on the painting
+          <strong>${painting.name}</strong>.
+        </p>
+        <p>The new highest bid is <strong>${newBid} EGP</strong>.</p>
+        <p>You can visit the painting and place a higher bid if you wish.</p>
+        <p>
+          <a href="${paintingUrl}"
+             style="display:inline-block; padding:12px 20px; background:#837f81; color:white; text-decoration:none; border-radius:5px;">
+            View Painting & Place a Bid
+          </a>
+        </p>
+        <p>Good luck!<br>Byte Shadow</p>
+      </div>
+    `;
+
+    const text = htmlToText(html);
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const { data, error } = await resend.emails.send({
+      from: this.from,
+      to: this.to,
+      subject,
+      html,
+      text
+    });
+
+    if (error) {
+      console.error('RESEND OUTBID EMAIL ERROR:', error);
+      throw new Error('Failed to send outbid notification');
+    }
+
+    console.log('RESEND: outbid email accepted:', data.id);
+  }
 };
 
 
@@ -54,6 +148,18 @@ module.exports = class Email {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================================
 
 // const nodemailer = require('nodemailer');
 // const pug = require('pug');
