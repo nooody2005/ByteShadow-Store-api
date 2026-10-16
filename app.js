@@ -26,6 +26,7 @@ const orderRouter = require('./routes/orderRoutes');
 const { title } = require('process');
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(methodOverride('_method'));
 
