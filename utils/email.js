@@ -138,6 +138,62 @@ module.exports = class Email {
 
     console.log('RESEND: outbid email accepted:', data.id);
   }
+
+  // send congratulations message to winner
+
+  async sendWinnerNotification(painting) {
+    const subject = `Congratulations! You won ${painting.name}`;
+
+    const html = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.8; color: #1e1519;">
+      <h2>Congratulations, ${this.firstName}!</h2>
+
+      <p>You won the auction for <strong>${painting.name}</strong>.</p>
+
+      <p>
+        You have <strong>24 hours from the auction's end time</strong>
+        to complete your payment.
+      </p>
+
+      <p>
+        If you don't pay before the deadline, your reservation will expire
+        and the painting will no longer be reserved for you.
+      </p>
+
+      <p>
+        Log in to your account to find your painting in the
+        <strong>Winner</strong> section and click <strong>Pay Now</strong>.
+      </p>
+
+      <p>
+        <a href="${this.url}"
+           style="display:inline-block; padding:12px 20px; background:#837f81; color:white; text-decoration:none; border-radius:5px;">
+          Go to My Account
+        </a>
+      </p>
+
+      <p>Thank you for supporting Byte Shadow!<br>Byte Shadow</p>
+    </div>
+  `;
+
+    const text = htmlToText(html);
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const { data, error } = await resend.emails.send({
+      from: this.from,
+      to: this.to,
+      subject,
+      html,
+      text
+    });
+
+    if (error) {
+      console.error('RESEND WINNER EMAIL ERROR:', error);
+      throw new Error('Failed to send winner notification');
+    }
+
+    console.log('RESEND: winner email accepted:', data.id);
+  }
 };
 
 

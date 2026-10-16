@@ -90,6 +90,11 @@ const paintingSchema = new mongoose.Schema(
       default: null
     },
 
+    winnerEmailSent: {
+      type: Boolean,
+      default: false
+    },
+    
     // bids: [
     //   {
     //     user: {
