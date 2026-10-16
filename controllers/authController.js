@@ -48,25 +48,32 @@ const createSendToken = (user, statusCode, res) => {
     });
 }
 
+// exports.signup = catchAsync(async (req, res, next) => {
+
+//   const newUser = await User.create(req.body);
+
+//   const url = `${req.protocol}://${req.get('host')}/me`;
+//   console.log(url);
+//   await new Email(newUser,url).sendWelcome();
+
+//   createSendToken(newUser ,201 ,res);
+
+// });
+
 exports.signup = catchAsync(async (req, res, next) => {
-  // const newUser = await User.create(req.body);
   const newUser = await User.create(req.body);
 
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
-  await new Email(newUser,url).sendWelcome();
 
-  createSendToken(newUser ,201 ,res);
-  // const token = signToken(newUser._id);
+  // Send the signup response and login cookie first
+  createSendToken(newUser, 201, res);
 
-  // res.status(201).json({
-  //   status: 'success',
-  //   token,
-  //   data: {
-  //     user: newUser
-  //   }
-  // });
+  // Send the welcome email separately
+  new Email(newUser, url).sendWelcome().catch(err => {
+    console.error('Welcome email failed:', err);
+  });
 });
+
 
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
