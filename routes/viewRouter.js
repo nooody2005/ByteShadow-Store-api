@@ -42,8 +42,11 @@ router.get('/email/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/email/resetPassword/:token', viewsController.getResetPasswordForm);
 
 // ========================================================================
+// ==================== contact box existed in overview page ======================
 
+router.post('/contact', contactController.sendContactMessage);
 
+// ===========================================================================
 
 module.exports = router;
 

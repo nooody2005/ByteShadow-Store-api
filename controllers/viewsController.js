@@ -7,7 +7,7 @@ const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 const Bid = require('../models/bidModel');
 const Order = require('../models/orderModel');
-
+const contactController = require('../controllers/contactController');
 
 //==================================== OVERVIEW PAGE =============================
 
@@ -17,7 +17,8 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   res.status(200).render('overview', {
     title: 'All Paintings',
     paintings,
-    currentPage: 'home'
+    currentPage: 'home',
+    contactStatus: req.query.contact
     // user: req.user
   });
 });
@@ -126,7 +127,7 @@ exports.getAccount = catchAsync(async (req, res, next) => {
     user: req.user._id
   }).populate('painting', 'name image slug auctionEnd');
 
-  
+
   console.log('Logged-in user ID:', req.user._id);
   console.log(
     'Orders found:',

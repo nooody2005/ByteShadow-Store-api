@@ -211,7 +211,7 @@ block content
 
             .content
 
-                form(action="")
+                form(action="/contact" method="POST")
                     input.main-input(
                         type="text"
                         name="name"
@@ -251,10 +251,20 @@ block content
                         //- | USA
     //- End Contact Us
 
+    if contactStatus === 'success'
+        div#contact-status(
+            data-status="success"
+        )
+    else if contactStatus === 'error'
+        div#contact-status(
+            data-status="error"
+        )
+
 block scripts
     script(src="/js/bundle.js")
     script(type="module" src="/js/shuffle-scene.js")
     script(type="module" src="/js/gallery-scene.js")
+    script(src="/js/contact.js" defer)
 
 
 
