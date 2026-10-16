@@ -112,7 +112,34 @@ module.exports = class Email {
 
     // 3)  create a trasport and send email
 
-    await this.newTransport().sendMail(mailOptions);
+    // await this.newTransport().sendMail(mailOptions);
+    // 3) Create a transport and send email
+  const transporter = this.newTransport();
+
+    try {
+      console.log('EMAIL: verifying SMTP connection');
+
+      await transporter.verify();
+
+      console.log('EMAIL: SMTP connection verified');
+      console.log('EMAIL: sending message');
+
+      const info = await transporter.sendMail(mailOptions);
+
+      console.log('EMAIL: message accepted by SMTP server');
+      console.log('EMAIL: response:', info.response);
+    } catch (err) {
+      console.error('EMAIL SMTP ERROR:', {
+        name: err.name,
+        code: err.code,
+        command: err.command,
+        responseCode: err.responseCode,
+        response: err.response,
+        message: err.message
+      });
+
+      throw err;
+    }
   }
 
   async sendWelcome() {
