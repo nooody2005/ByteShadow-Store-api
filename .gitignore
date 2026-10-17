@@ -4,3 +4,16 @@ node_modules/
 test-paymob-webhook.js
 .cache/
 .parcel-cache/
+
+# Ignore these JavaScript files
+public/js/gallery-scene.js
+public/js/gallery-scene.js.map
+public/js/shuffle-scene.js
+public/js/shuffle-scene.js.map
+public/js/index.js
+public/js/index.js.map
+
+# Ignore backup files
+*-backup.js
+
+

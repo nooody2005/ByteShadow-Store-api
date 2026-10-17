@@ -15,13 +15,13 @@
                 if user
                     a.nav__el--logout Log out
                     a.nav__el(href='/account')
-                        img.nav__user-img(
-                            src="/img/users/default.jpg"
-                            data-user-photo=user.photo
-                            alt=""
-                            onerror="this.onerror=null; this.src='/img/users/default.jpg'"
-                        )
-                        //- img.nav__user-img(src=`/img/users/${user.photo}` alt=`${user.name}`) 
+                        //- img.nav__user-img(
+                        //-     src="/img/users/default.jpg"
+                        //-     data-user-photo=user.photo
+                        //-     alt=""
+                        //-     onerror="this.onerror=null; this.src='/img/users/default.jpg'"
+                        //- )
+                        img.nav__user-img(src=`/img/users/${user.photo}` alt=`${user.name}`) 
                         //- span= user.name.split(' ')[0]
 
                 else
