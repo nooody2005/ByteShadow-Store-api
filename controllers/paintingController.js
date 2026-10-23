@@ -74,8 +74,8 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
 
     await sharp(req.files.image[0].buffer)
       .resize({
-        width: 2000,
-        height: 1333,
+        width: 800,
+        height: 1300,
         fit: 'inside'
       })
       .toFormat('jpeg')
@@ -92,7 +92,8 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
         const filename = `deco-${i + 1}.jpeg`;
 
         await sharp(file.buffer)
-          .resize(2000, 1333)
+          .rotate()
+          .resize(800, 1200)
           .toFormat('jpeg')
           .jpeg({ quality: 90 })
           .toFile(`${paintingFolder}/${filename}`);
@@ -111,7 +112,8 @@ exports.resizePaintingImages = catchAsync(async (req, res, next) => {
         const filename = `stage-${i + 1}.jpeg`;
 
         await sharp(file.buffer)
-          .resize(2000, 1333)
+          .rotate()
+          .resize(800, 1000)
           .toFormat('jpeg')
           .jpeg({ quality: 90 })
           .toFile(`${paintingFolder}/${filename}`);
@@ -153,7 +155,7 @@ exports.finishAuctions = async () => {
       });
 
       if (!existingOrder) {
-        
+
         console.log('Winner ID:', painting.highestBidder);
         console.log('Creating order for winner:', painting.name);
 
