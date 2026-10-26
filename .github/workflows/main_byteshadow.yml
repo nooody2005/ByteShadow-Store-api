@@ -52,6 +52,15 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_986090D56BB74C94B3EE0B37CFB671C5 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_427F46CAA03A492B8118B1749F5E2F94 }}
 
+      - name: Ensure Azure Web App is running
+        run: |
+          APP_ID="$(az webapp list --query "[?name=='ByteShadow'] | [0].id" -o tsv)"
+          if [ -z "$APP_ID" ]; then
+            echo "::error::Azure Web App 'ByteShadow' was not found in the current subscription."
+            exit 1
+          fi
+          az webapp start --ids "$APP_ID"
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
