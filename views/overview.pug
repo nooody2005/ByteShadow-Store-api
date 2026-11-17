@@ -56,7 +56,11 @@ block content
             .gallery-content
                 each painting in paintings
                     //- .box
-                    .box(data-type=painting.type)
+                    //- .box(data-type=painting.type)
+                    .box(
+                        data-type=painting.type
+                        data-user-country=user ? user.country : 'Egypt'
+                    )
                         .image
                             img(src=`/img/paintings/${painting.image}`, alt=painting.name)
 
@@ -78,8 +82,10 @@ block content
                                             span.sold SOLD
 
                                             span.current-price
-                                                span.number= painting.currentPrice
-                                                span.currency E£
+                                                //- span.number= painting.currentPrice
+                                                //- span.currency E£
+                                                span.number.overview-price= painting.currentPrice
+                                                span.currency.overview-currency  EGP
                                         //- span.sold SOLD
 
 
@@ -88,8 +94,10 @@ block content
                                             span.sold RESERVED
 
                                             span.current-price
-                                                span.number= painting.currentPrice
-                                                span.currency E£
+                                                //- span.number= painting.currentPrice
+                                                //- span.currency E£
+                                                span.number.overview-price= painting.currentPrice
+                                                span.currency.overview-currency  EGP
 
 
                                     //- else if painting.status === 'reserved'
@@ -101,8 +109,10 @@ block content
                                     else
                                         .price-info
                                             span.current-price
-                                                span.number= painting.currentPrice
-                                                span.currency E£
+                                                //- span.number= painting.currentPrice
+                                                //- span.currency E£
+                                                span.number.overview-price= painting.currentPrice
+                                                span.currency.overview-currency  EGP
 
                                 .info
                                     a(href=`/painting/${painting.slug}`)

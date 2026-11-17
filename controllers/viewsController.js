@@ -14,11 +14,13 @@ const contactController = require('../controllers/contactController');
 exports.getOverview = catchAsync(async (req, res, next) => {
   const paintings = await Painting.find().lean();
 
+  // console.log('Logged in user:', req.user);
+
   res.status(200).render('overview', {
     title: 'All Paintings',
     paintings,
     currentPage: 'home',
-    contactStatus: req.query.contact
+    contactStatus: req.query.contact,
     // user: req.user
   });
 });

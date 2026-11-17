@@ -19,6 +19,7 @@ block content
     data-user-country=user ? user.country : ''
     data-user-address=user ? user.address : ''
     data-painting-id=painting._id
+    data-current-price=painting.currentPrice
     )
         .container
             .painting-content
@@ -39,7 +40,7 @@ block content
 
                             span.current-price
                                 span.number= painting.currentPrice
-                                span.currency E£
+                                span.currency EGP
 
                             //- .bid-box
                             //-     label(for="bid") Your Bid
@@ -79,7 +80,7 @@ block content
                                             type="number"
                                             value=`${painting.currentPrice}`
                                             min=`${painting.currentPrice}`
-                                            step="10"
+                                            step="200"
                                         )
 
                                         //- .bid-stepper
@@ -97,13 +98,13 @@ block content
                                         .bid-stepper
                                             button.bid-step(
                                                 type="button"
-                                                data-step="10"
+                                                data-step="1"
                                                 aria-label="Increase bid"
                                             )
                                                 span.triangle-up
                                             button.bid-step(
                                                 type="button"
-                                                data-step="-10"
+                                                data-step="-1"
                                                 aria-label="Decrease bid"
                                             )
                                                 span.triangle-down
@@ -145,11 +146,28 @@ block content
                                                 required
                                             )
 
+                                        //- .form-group
+                                        //-     label(for="country") Country
+                                        //-     input#country(
+                                        //-         type="text"
+                                        //-         name="country"
+                                        //-         placeholder="Enter your country"
+                                        //-     )
+
                                         .form-group
                                             label(for="country") Country
-                                            input#country(
+                                            select#country(name="country" required)
+                                                option(value="" selected disabled) Select your country
+                                                option(value="Egypt") Egypt
+                                                option(value="Kuwait") Kuwait
+                                                option(value="Saudi Arabia") Saudi Arabia
+                                                option(value="Other") Other
+
+                                        .form-group#other-country-group(style="display: none;")
+                                            label(for="other-country") Enter Your Country
+                                            input#other-country(
                                                 type="text"
-                                                name="country"
+                                                name="otherCountry"
                                                 placeholder="Enter your country"
                                             )
 
