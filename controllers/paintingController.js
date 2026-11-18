@@ -195,6 +195,25 @@ exports.finishAuctions = async () => {
       await painting.save({ validateBeforeSave: false });
     }
 
+        // Send admin notification only once
+    if (
+      !painting.adminAuctionEndedEmailSent &&
+      process.env.ADMIN_EMAIL
+    ) {
+      try {
+        await new Email(
+          { email: process.env.ADMIN_EMAIL, name: 'Admin' },
+          `${process.env.BASE_URL}/painting/${painting.slug}`
+        ).sendAdminAuctionEndedNotification(painting);
+
+        painting.adminAuctionEndedEmailSent = true;
+        await painting.save({ validateBeforeSave: false });
+
+      } catch (err) {
+        console.error('Failed to send admin auction notification:', err);
+      }
+    }
+
     // if (painting.highestBidder) {
     //   painting.winner = painting.highestBidder;
     //   painting.finalPrice = painting.currentPrice;

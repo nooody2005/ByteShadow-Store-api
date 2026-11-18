@@ -194,6 +194,57 @@ module.exports = class Email {
 
     console.log('RESEND: winner email accepted:', data.id);
   }
+
+  // Notify admin when an auction ends
+  async sendAdminAuctionEndedNotification(painting) {
+    const paintingUrl = `${process.env.BASE_URL}/painting/${painting.slug}`;
+
+    const subject = `Auction Ended: ${painting.name}`;
+
+    const html = `
+    <div style="font-family: Arial, sans-serif; line-height: 1.8; color: #1e1519;">
+      <h2>Auction Ended!</h2>
+
+      <p>The auction for <strong>${painting.name}</strong> has ended.</p>
+
+      <p>
+        <strong>Final Price:</strong>
+        ${painting.finalPrice || painting.currentPrice} EGP
+      </p>
+
+      <p>
+        <strong>Status:</strong> ${painting.status}
+      </p>
+
+      <p>
+        <a href="${paintingUrl}"
+           style="display:inline-block; padding:12px 20px; background:#837f81; color:white; text-decoration:none; border-radius:5px;">
+          View Painting
+        </a>
+      </p>
+
+      <p>Byte Shadow Admin Notification</p>
+    </div>
+  `;
+
+    const text = htmlToText(html);
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const { data, error } = await resend.emails.send({
+      from: this.from,
+      to: this.to,
+      subject,
+      html,
+      text
+    });
+
+    if (error) {
+      console.error('RESEND ADMIN AUCTION EMAIL ERROR:', error);
+      throw new Error('Failed to send admin auction notification');
+    }
+
+    console.log('RESEND: admin auction email accepted:', data.id);
+  }
 };
 
 

@@ -735,6 +735,9 @@ exports.startNewAuction = catchAsync(async (req, res, next) => {
   painting.winner = null;
   painting.finalPrice = null;
   painting.paymentDeadline = null;
+
+  painting.adminAuctionEndedEmailSent = false;
+
   painting.status = 'active';
 
   await painting.save({ validateBeforeSave: false });

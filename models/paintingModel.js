@@ -94,7 +94,7 @@ const paintingSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    
+
     // bids: [
     //   {
     //     user: {
@@ -137,6 +137,10 @@ const paintingSchema = new mongoose.Schema(
       type: String,
       enum: ['draft', 'active', 'ended', 'reserved', 'sold', 'cancelled'],
       default: 'draft'
+    },
+    adminAuctionEndedEmailSent: {
+      type: Boolean,
+      default: false
     }
   },
   {
